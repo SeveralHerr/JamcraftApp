@@ -20,9 +20,12 @@ jobs:
         with:
           node-version: '16'  # Adjust to the version you're using
 
-      # Step 3: Install dependencies and build the static site (adjust this to your build command)
-      - name: Install dependencies
-        run: npm install
+
+      # Step 3: Change directory and install dependencies
+      - name: Change directory and install dependencies
+        run: |
+          cd jamecraft-app
+          npm install
 
       - name: Build project
         run: npm run build  # or any other build command
