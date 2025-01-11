@@ -20,17 +20,17 @@ jobs:
         with:
           node-version: '16'  # Adjust to the version you're using
 
-      # Step 3: Install dependencies and build the static site (adjust this to your build command)
+      # Step 3: Install dependencies in the correct directory
       - name: Install dependencies
-        run: |
-          ls
-          cd jamcraft-app
-          npm install
+        run: npm install
+        working-directory: ./jamecraft-app
 
+      # Step 4: Build project
       - name: Build project
         run: npm run build  # or any other build command
+        working-directory: ./jamecraft-app
 
-      # Step 4: Configure AWS credentials (for deployment)
+      # Step 5: Configure AWS credentials (for deployment)
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -38,12 +38,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: 'us-east-1'  # Specify your region
 
-      # Step 5: Sync build output to S3
+      # Step 6: Sync build output to S3
       - name: Sync files to S3
-        run: |
-          aws s3 sync ./build/ s3://jamcraftbucket/ --delete
+        run: aws s3 sync ./jamecraft-app/build/ s3://jamcraftbucket/ --delete
 
-      # Step 6: Invalidate CloudFront cache (optional but recommended for fast updates)
+      # Step 7: Invalidate CloudFront cache (optional but recommended for fast updates)
       - name: Invalidate CloudFront cache
         run: |
           DISTRIBUTION_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[0]=='jamcraft-games.com'].Id" --output text)
