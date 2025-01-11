@@ -29,8 +29,8 @@ jobs:
 
       - name: Build project
         run: |
-        cd jamcraft-app
-        npm run build  # or any other build command
+          cd jamcraft-app
+          npm run build  # or any other build command
 
       # Step 4: Configure AWS credentials (for deployment)
       - name: Set up AWS credentials
