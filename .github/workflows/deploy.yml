@@ -23,12 +23,12 @@ jobs:
       # Step 3: Install dependencies in the correct directory
       - name: Install dependencies
         run: npm install
-        working-directory: ./jamecraft-app
+        working-directory: jamecraft-app
 
       # Step 4: Build project
       - name: Build project
         run: npm run build  # or any other build command
-        working-directory: ./jamecraft-app
+        working-directory: jamecraft-app
 
       # Step 5: Configure AWS credentials (for deployment)
       - name: Set up AWS credentials
