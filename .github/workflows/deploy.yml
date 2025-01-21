@@ -44,4 +44,5 @@ jobs:
       - name: Sync files to S3
         run: |
           ls
+          cd jamcraft-app
           aws s3 sync ./.next/ s3://jamcraftbucket/ --delete
