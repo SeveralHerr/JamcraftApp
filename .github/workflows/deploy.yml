@@ -44,9 +44,3 @@ jobs:
       - name: Sync files to S3
         run: |
           aws s3 sync ./build/ s3://jamcraftbucket/ --delete
-
-      # Step 6: Invalidate CloudFront cache (optional but recommended for fast updates)
-      - name: Invalidate CloudFront cache
-        run: |
-          DISTRIBUTION_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[0]=='jamcraft-games.com'].Id" --output text)
-          aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
