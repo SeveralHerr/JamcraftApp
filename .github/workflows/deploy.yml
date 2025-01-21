@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Adjust to the version you're using
+          node-version: '22' 
 
       # Step 3: Install dependencies and build the static site (adjust this to your build command)
       - name: Install dependencies
@@ -30,7 +30,7 @@ jobs:
       - name: Build project
         run: |
           cd jamcraft-app
-          npm run build  # or any other build command
+          npm run build 
 
       # Step 4: Configure AWS credentials (for deployment)
       - name: Set up AWS credentials
