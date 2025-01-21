@@ -43,4 +43,4 @@ jobs:
       # Step 5: Sync build output to S3
       - name: Sync files to S3
         run: |
-          aws s3 sync ./build/ s3://jamcraftbucket/ --delete
+          aws s3 sync ./.next/ s3://jamcraftbucket/ --delete
