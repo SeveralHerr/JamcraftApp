@@ -24,12 +24,10 @@ jobs:
       - name: Install dependencies
         run: |
           ls
-          cd jamcraft-app
           npm install
 
       - name: Build project
         run: |
-          cd jamcraft-app
           npm run build 
 
       # Step 4: Configure AWS credentials (for deployment)
@@ -44,5 +42,4 @@ jobs:
       - name: Sync files to S3
         run: |
           ls
-          cd jamcraft-app
           aws s3 sync ./build/ s3://jamcraftbucket/ --delete
