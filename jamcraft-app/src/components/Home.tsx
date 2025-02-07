@@ -1,6 +1,8 @@
 
 import { Divider, Table } from '@mantine/core';
 import { DiscordCard } from './DiscordCard';
+import { ItchCard } from './ItchCard';
+import { MinecraftCard } from './MinecraftCard';
 
 export function Home() {
 
@@ -11,14 +13,14 @@ export function Home() {
         <Table>
           <Table.Tbody>
             <Table.Tr>
-              <Table.Td>
-                <DiscordCard></DiscordCard>
+              <Table.Td  >
+                <DiscordCard ></DiscordCard>
               </Table.Td>
               <Table.Td>
-                <DiscordCard></DiscordCard>
+                <ItchCard></ItchCard>
               </Table.Td>
               <Table.Td>
-                <DiscordCard></DiscordCard>
+                <MinecraftCard></MinecraftCard>
               </Table.Td>
             </Table.Tr>
         </Table.Tbody>
