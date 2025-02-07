@@ -8,14 +8,13 @@ import { Home } from './components/Home';
 import '@mantine/core/styles.css';
 
 
+
+
 function App() {
-  return <MantineProvider>
+  return <MantineProvider >
         <AppShell
            header={{ height: "auto", collapsed: true, offset: true }}
-           //header={{ height: 72 }}
           padding="sm"
-          // widthBorder={false}
-          // footer={{ height: "auto", collapsed: true, offset: true }}
         >
           <AppShell.Header>
             <AppHeader />
