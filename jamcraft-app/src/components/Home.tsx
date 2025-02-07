@@ -6,7 +6,7 @@ export function Home() {
 
   return (
     <>
-      <img src="./public/assets/jamcraft.png" alt="Jamcraft Logo" />
+      <img src="/assets/jamcraft.png" alt="Jamcraft Logo" />
       <Divider my="md" />
         <Table>
           <Table.Tbody>

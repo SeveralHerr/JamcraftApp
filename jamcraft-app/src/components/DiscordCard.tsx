@@ -5,7 +5,7 @@ export function DiscordCard() {
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Card.Section>
         <Image
-          src="../public/assets/discord.jpg"
+          src="/assets/discord.jpg"
      
           alt="Discord"
         />
