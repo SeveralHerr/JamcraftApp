@@ -1,5 +1,4 @@
-import { Burger, Group, Image } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { Group } from '@mantine/core';
 import classes from './css/AppHeader.module.css';
 
 const links = [
@@ -7,7 +6,7 @@ const links = [
 ];
 
 export function AppHeader() {
-  const [opened, { toggle }] = useDisclosure(false);
+  //const [opened, { toggle }] = useDisclosure(false);
 
   const items = links.map((link) => (
     <a
