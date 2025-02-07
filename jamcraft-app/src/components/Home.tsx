@@ -25,6 +25,7 @@ export function Home() {
             </Table.Tr>
         </Table.Tbody>
       </Table>
+
     </>
   );
 }
