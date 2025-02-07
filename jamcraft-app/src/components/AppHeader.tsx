@@ -1,45 +1,31 @@
-import { Group, Space, ActionIcon } from '@mantine/core';
+import { Group, Space, ActionIcon,  Center, NavLink } from '@mantine/core';
 import { IconBrandBluesky , IconBrandLinkedinFilled, IconBrandYoutubeFilled,IconBrandSteamFilled,IconBrandGithubFilled    } from '@tabler/icons-react';
 
 import classes from './css/AppHeader.module.css';
 
-const links = [
-  { link: '/about', label: 'about' },
-  { link: '/games', label: 'games' },
-];
 
 export function AppHeader() {
-  //const [opened, { toggle }] = useDisclosure(false);
 
-  const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
-      className={classes.link}
-      onClick={(event) => event.preventDefault()}
-    >
-      {link.label}
-    </a>
-  ));
 
   return (
     
     <header className={classes.header}>
       <div className={classes.inner}>
+      <Center>
+          <Group ml='lg' gap={30} visibleFrom="sm" >
 
+          </Group>
+        </Center>
   
-          <Group ml='lg' gap={54}visibleFrom="sm" justify='flex-end' >
-
-          </Group>
-          
-
+        <Center>
+          <Group ml='400' gap={30} visibleFrom="sm" wrap="nowrap"> 
+              <NavLink href="/about" label="about" />
+              <NavLink href="/games" label="games" />
+            </Group>
+          </Center>
         <Group gap="xs" justify="flex-end" wrap="nowrap">
-        <Group ml='lg' gap={30} className={classes.links} visibleFrom="sm" justify='flex-end' >
-            {items}
-          </Group>
-          <Space w="lg" />
-          <Space w="lg" />
-          <Space w="lg" />
+
+
           <ActionIcon size="lg" variant="light" radius="xl"color="white">
             <IconBrandLinkedinFilled size={36} stroke={1.5} />
           </ActionIcon>
@@ -60,10 +46,7 @@ export function AppHeader() {
             <IconBrandGithubFilled    size={36} stroke={1.5} />
           </ActionIcon>
           <Space w="lg" />
-          <Space w="lg" />
-          <Space w="lg" />
-          <Space w="lg" />
-          <Space w="lg" />
+
           <Space w="lg" />
         </Group>
       </div>

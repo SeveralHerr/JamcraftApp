@@ -11,7 +11,7 @@ import '@mantine/core/styles.css';
 
 
 function App() {
-  return <MantineProvider >
+  return <MantineProvider defaultColorScheme='dark' >
         <AppShell
            header={{ height: "auto", collapsed: true, offset: true }}
           padding="sm"
