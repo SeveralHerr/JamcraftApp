@@ -14,7 +14,6 @@ export function DiscordCard() {
 
       <Group justify="space-between" mt="md" mb="xs">
         <Text fw={500}>Jamcraft Discord</Text>
-        <Badge color="pink">On Sale</Badge>
       </Group>
 
       <Text size="sm" c="dimmed">
