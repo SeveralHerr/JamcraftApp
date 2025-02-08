@@ -54,7 +54,7 @@ export function BaseCard({
         size="sm" 
         c="gray.4" 
         ta="left"
-        lineClamp={4}
+        lineClamp={12}
       >
         {description}
       </Text>

@@ -14,9 +14,19 @@ import { TwitchCard } from "./Cards/TwitchCard";
 export function Home() {
   return (
     <>
-      <Container size="s" maw={600}>
-        <Box mx="auto" px="md" py="xl">
-          <Space h={50} />
+      <Container 
+        size="s" 
+        maw={600}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          minHeight: '30vh'
+        }}
+      >
+        <Box 
+          mx="auto" 
+          w="100%"
+        >
           <Image
             radius="md"
             h={100}
@@ -26,7 +36,6 @@ export function Home() {
             src="/assets/jamcraft_with_slogan.png"
             alt="Jamcraft Logo"
           />
-          <Space h={50} />
         </Box>
       </Container>
 
