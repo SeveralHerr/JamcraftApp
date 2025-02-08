@@ -9,29 +9,46 @@ import '@mantine/core/styles.css';
 
 
 
-
 function App() {
-  return <MantineProvider defaultColorScheme='dark'         >
-   
+  return <MantineProvider 
+    defaultColorScheme='dark'
+    theme={{
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+      headings: {
+        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+      }
+    }}
+  >
         <AppShell
+        
            header={{ height: 60 }}
            withBorder={false}
-          padding="sm"
+           padding="sm"
+           styles={{
+             main: {
+               display: 'flex',
+               flexDirection: 'column',
+               alignItems: 'center',
+               width: '85%', 
+               justifyContent: 'center',
+             },
+             header: {
+               display: 'flex',
+               justifyContent: 'center',
+               width: '85%', 
+               alignItems: 'center',
+             }
+           }}
         >
-
-          <AppShell.Header >
-            
+          <AppShell.Header>
             <AppHeader />
           </AppShell.Header>
-          <AppShell.Main >
+          <AppShell.Main>
             <Home/>
           </AppShell.Main>
           <AppShell.Footer>
-
           </AppShell.Footer>
-
         </AppShell>
-  
   </MantineProvider>;
 }
 // function App() {

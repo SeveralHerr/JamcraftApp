@@ -1,4 +1,4 @@
-import { Group, ActionIcon, NavLink, Space, Container, Flex } from '@mantine/core';
+import { Group, ActionIcon, NavLink, Space, Container, Flex, Box } from '@mantine/core';
 import { IconBrandBluesky , IconBrandLinkedinFilled, IconBrandYoutubeFilled,IconBrandSteamFilled,IconBrandGithubFilled    } from '@tabler/icons-react';
 
 
@@ -12,41 +12,36 @@ export function AppHeader() {
     //   <div className={classes.inner}>
     
     <Container fluid py="sm">
-      <Flex align="center" justify="space-between"  >
+      <Flex align="center" justify="space-between">
+        {/* Left spacer to balance the social icons */}
         
-        {/* Invisible spacer to balance layout */}
-        <div style={{ width: "355px" }}></div> 
-
+        
         {/* Centered Links */}
         <Group gap={"md"} wrap="nowrap">
-
-                   <NavLink href="/about" label="about" />
-                   <NavLink href="/games" label="games" />
-
+          <NavLink href="/about" label="about" />
+          <NavLink href="/games" label="games" />
         </Group>
 
-        {/* Right-Aligned Links */}
-        <Group gap="md" wrap="nowrap">
-               <ActionIcon size="lg" variant="light" radius="xl"color="white">
-             <IconBrandLinkedinFilled size={36} stroke={1.5} />
-           </ActionIcon>
-                  <Space w="lg" />
-           <ActionIcon size="lg" variant="light" radius="xl" color="white">
-             <IconBrandYoutubeFilled  size={36} stroke={1.5} />
-           </ActionIcon>
-           <Space w="lg" />
-           <ActionIcon size="lg" variant="light" radius="xl"color="white">
-             <IconBrandBluesky  size={36} stroke={1.5} />
-           </ActionIcon>
-           <Space w="lg" />
-           <ActionIcon size="lg" variant="light" radius="xl"color="white">
-            <IconBrandSteamFilled   size={36} stroke={1.5} />
-           </ActionIcon>
-           <Space w="lg" />
-           <ActionIcon size="lg" variant="light" radius="xl"color="white">
-             <IconBrandGithubFilled    size={36} stroke={1.5} />
-           </ActionIcon>
+        {/* Right-Aligned Links
+
+        <Group gap="sm" wrap="nowrap" w={240} justify="flex-end">
+          <ActionIcon size="lg" variant="light" radius="xl" color="white">
+            <IconBrandLinkedinFilled size={36} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg" variant="light" radius="xl" color="white">
+            <IconBrandYoutubeFilled size={36} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg" variant="light" radius="xl" color="white">
+            <IconBrandBluesky size={36} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg" variant="light" radius="xl" color="white">
+            <IconBrandSteamFilled size={36} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg" variant="light" radius="xl" color="white">
+            <IconBrandGithubFilled size={36} stroke={1.5} />
+          </ActionIcon>
         </Group>
+  */}
       </Flex>
     </Container>
 
