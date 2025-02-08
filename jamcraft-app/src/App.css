@@ -4,7 +4,9 @@
   padding: 2rem;
   text-align: center;
 }
-
+:root[data-mantine-color-scheme="dark"] {
+  --mantine-color-body: #081b29 !important;
+}
 
 
 .logo {
