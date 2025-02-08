@@ -1,4 +1,4 @@
-import { Card, Image, Text, Button, Group } from '@mantine/core';
+import { Card, Image, Text, Button, Group, Box } from '@mantine/core';
 
 interface BaseCardProps {
   imageSrc: string;
@@ -27,7 +27,10 @@ export function BaseCard({
       maw={300}
       style={{ 
         backgroundColor: '#1a2733',
-        borderColor: '#2a3740'
+        borderColor: '#2a3740',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%'
       }}
     >
       <Card.Section>
@@ -56,21 +59,22 @@ export function BaseCard({
         {description}
       </Text>
 
-      <Button 
-        fullWidth 
-        mt="md" 
-        radius="md"
-        onClick={onButtonClick}
-        style={{
-          backgroundColor: '#00abf0',
-          color: '#081b29',
-          fontWeight: 800,
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase'
-        }}
-      >
-        {buttonText}
-      </Button>
+      <Box style={{ marginTop: 'auto', paddingTop: '1rem' }}>
+        <Button 
+          fullWidth 
+          radius="md"
+          onClick={onButtonClick}
+          style={{
+            backgroundColor: '#00abf0',
+            color: '#081b29',
+            fontWeight: 800,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase'
+          }}
+        >
+          {buttonText}
+        </Button>
+      </Box>
     </Card>
   );
 } 

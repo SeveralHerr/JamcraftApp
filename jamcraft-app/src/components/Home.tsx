@@ -9,7 +9,7 @@ import {
 } from "@mantine/core";
 import { DiscordCard } from "./Cards/DiscordCard";
 import { ItchCard } from "./Cards/ItchCard";
-import { MinecraftCard } from "./Cards/MinecraftCard";
+import { TwitchCard } from "./Cards/TwitchCard";
 
 export function Home() {
   return (
@@ -44,7 +44,7 @@ export function Home() {
           >
             <DiscordCard />
             <ItchCard />
-            <MinecraftCard />
+            <TwitchCard />
           </SimpleGrid>
         </Center>
       </Container>
