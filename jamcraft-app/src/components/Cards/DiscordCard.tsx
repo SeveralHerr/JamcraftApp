@@ -5,7 +5,7 @@ export function DiscordCard() {
     <BaseCard 
       imageSrc="/assets/discord.gif"
       imageAlt="Discord"
-      title="Jamcraft Discord"
+      title="Discord"
       description="Connect with gamers, devs, IT pros, and hobbyists. Learn, share, and have fun! Plus, check out our Minecraft server and get the latest Jamcraft news."
       onButtonClick={() => window.open(EXTERNAL_LINKS.discord, '_blank')}
     />
