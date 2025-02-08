@@ -25,7 +25,7 @@ function App() {
           padding="sm"
           styles={{
             root: {
-              display: 'flex',
+            
               flexDirection: 'column',
               alignItems: 'center',
 
