@@ -1,4 +1,4 @@
-import { Group, NavLink, Space, Container, Flex, Image } from '@mantine/core';
+import { Group, NavLink, Container, Flex, Image } from '@mantine/core';
 import { useLocation, Link } from 'react-router-dom';
 import { ROUTES } from '../config/routes';
 
@@ -8,60 +8,44 @@ export function AppHeader() {
 
   return (
     <Container fluid py="sm">
-      <Flex align="center" justify="space-between">
+      <Flex align="center" gap="md">
+        {/* Left section - Logo */}
+        <div style={{ width: '200px' }}>
+          <Image
+            src="/assets/small_logo.png"
+            alt="Jamcraft Logo"
+            h={40}
+            w="auto"
+            fit="contain"
+          />
+        </div>
         
-        <Image
-          src="/assets/small_logo.png"
-          alt="Jamcraft Logo"
-          h={40}
-          w="auto"
-          fit="contain"
-        />
-        <Space w="md" />
-        {/* Centered Links */}
-        <Group gap={"md"} wrap="nowrap">
-          <NavLink 
-            component={Link}
-            to={ROUTES.home}
-            label="Home" 
-            active={isHome}
-          />
-          <NavLink 
-            component={Link}
-            to={ROUTES.about}
-            label="About" 
-            active={location.pathname === ROUTES.about}
-          />
-          <NavLink 
-            component={Link}
-            to="/games" 
-            label="Games" 
-            active={location.pathname === '/games'}
-          />
-        </Group>
+        {/* Center section - Navigation */}
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', width:'500px' }}>
+          <Group gap={"md"} wrap="nowrap">
+            <NavLink 
+              component={Link}
+              to={ROUTES.home}
+              label="Home" 
+              active={isHome}
+            />
+            <NavLink 
+              component={Link}
+              to={ROUTES.about}
+              label="About" 
+              active={location.pathname === ROUTES.about}
+            />
+            <NavLink 
+              component={Link}
+              to="/games" 
+              label="Games" 
+              active={location.pathname === '/games'}
+            />
+          </Group>
+        </div>
 
-
-
-        {/* Right-Aligned Links
-
-        <Group gap="sm" wrap="nowrap" w={240} justify="flex-end">
-          <ActionIcon size="lg" variant="light" radius="xl" color="white">
-            <IconBrandLinkedinFilled size={36} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon size="lg" variant="light" radius="xl" color="white">
-            <IconBrandYoutubeFilled size={36} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon size="lg" variant="light" radius="xl" color="white">
-            <IconBrandBluesky size={36} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon size="lg" variant="light" radius="xl" color="white">
-            <IconBrandSteamFilled size={36} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon size="lg" variant="light" radius="xl" color="white">
-            <IconBrandGithubFilled size={36} stroke={1.5} />
-          </ActionIcon>
-        </Group>
-  */}
+        {/* Right section - Empty space to balance layout */}
+        <div style={{ width: '200px' }} />
       </Flex>
     </Container>
   );
