@@ -31,7 +31,11 @@ export function Home() {
       </Container>
 
       <Container size="lg">
-        <Divider my="md" />
+        <Divider 
+          my="md" 
+          color="#1a2733"
+          size="sm"
+        />
         <Center>
           <SimpleGrid
             cols={{ base: 1, xs: 1, md: 3 }}
