@@ -13,10 +13,11 @@ import '@mantine/core/styles.css';
 function App() {
   return <MantineProvider defaultColorScheme='dark' >
         <AppShell
-           header={{ height: "auto", collapsed: true, offset: true }}
+           header={{ height: 60 }}
           padding="sm"
         >
-          <AppShell.Header>
+          <AppShell.Header >
+            
             <AppHeader />
           </AppShell.Header>
           <AppShell.Main >

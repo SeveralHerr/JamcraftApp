@@ -2,13 +2,18 @@ import { Card, Image, Text, Button, Group } from '@mantine/core';
 
 export function DiscordCard() {
   return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
-      <Card.Section h={250} w={400}>
+    <Card shadow="sm" padding="lg" radius="md" withBorder  w="100%" >
+      <Card.Section >
  
       <Image       
           src="/assets/discord.gif"
 
-            h={250}
+          radius="md"
+          h="100%"
+          w="100%"
+          maw = {300}
+          mah={300}
+          fit="contain"
           alt="Discord"
         />
     
