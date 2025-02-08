@@ -5,8 +5,7 @@ import {
   Image,
   Space,
   Box,
-  Container,
-  BackgroundImage,
+  Container
 } from "@mantine/core";
 import { DiscordCard } from "./DiscordCard";
 import { ItchCard } from "./ItchCard";
