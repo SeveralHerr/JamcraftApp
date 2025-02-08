@@ -34,8 +34,8 @@ export function Home() {
         <Divider my="md" />
         <Center>
           <SimpleGrid
-            cols={{ base: 1, sm: 1, lg: 3 }}
-            spacing={{ base: 1, sm: "xl", lg: "xl" }}
+            cols={{ base: 1, xs: 1, md: 3 }}
+            spacing={{ base: 1, sm: "lg", lg: "xl" }}
             verticalSpacing={{ base: "md", sm: "xl" }}
           >
             <DiscordCard />

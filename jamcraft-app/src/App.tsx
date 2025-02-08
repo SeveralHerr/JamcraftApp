@@ -24,17 +24,24 @@ function App() {
           withBorder={false}
           padding="sm"
           styles={{
+            root: {
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+
+              justifyContent: 'center',
+            },
             main: {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              width: '85%', 
+             
               justifyContent: 'center',
             },
             header: {
               display: 'flex',
               justifyContent: 'center',
-              width: '85%', 
+    
               alignItems: 'center',
             }
           }}

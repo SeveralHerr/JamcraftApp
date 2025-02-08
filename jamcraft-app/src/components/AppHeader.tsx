@@ -1,4 +1,4 @@
-import { Group, ActionIcon, NavLink, Space, Container, Flex, Box } from '@mantine/core';
+import { Group, ActionIcon, NavLink, Space, Container, Flex, Box, Image } from '@mantine/core';
 import { IconBrandBluesky , IconBrandLinkedinFilled, IconBrandYoutubeFilled,IconBrandSteamFilled,IconBrandGithubFilled    } from '@tabler/icons-react';
 import { useLocation, Link } from 'react-router-dom';
 
@@ -9,9 +9,19 @@ export function AppHeader() {
   return (
     <Container fluid py="sm">
       <Flex align="center" justify="space-between">
+        
+        <Image
+          src="/assets/small_logo.png"
+          alt="Jamcraft Logo"
+          h={40}
+          w="auto"
+          fit="contain"
+        />
+        <Space w="md" />
         {/* Centered Links */}
         <Group gap={"md"} wrap="nowrap">
           <NavLink 
+
             component={Link}
             to="/" 
             label="Home" 
@@ -30,6 +40,8 @@ export function AppHeader() {
             active={location.pathname === '/games'}
           />
         </Group>
+
+
 
         {/* Right-Aligned Links
 
