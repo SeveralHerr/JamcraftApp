@@ -47,13 +47,14 @@ export function BaseCard({
       </Card.Section>
 
       <Group justify="space-between" mt="md" mb="xs">
-        <Text fw={500} c="white">{title}</Text>
+        <Text fw={500} c="#00abf0">{title}</Text>
       </Group>
 
       <Text 
         size="sm" 
         c="gray.4" 
         ta="left"
+        
         lineClamp={12}
       >
         {description}
