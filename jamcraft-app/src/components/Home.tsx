@@ -7,9 +7,9 @@ import {
   Box,
   Container
 } from "@mantine/core";
-import { DiscordCard } from "./DiscordCard";
-import { ItchCard } from "./ItchCard";
-import { MinecraftCard } from "./MinecraftCard";
+import { DiscordCard } from "./Cards/DiscordCard";
+import { ItchCard } from "./Cards/ItchCard";
+import { MinecraftCard } from "./Cards/MinecraftCard";
 
 export function Home() {
   return (
