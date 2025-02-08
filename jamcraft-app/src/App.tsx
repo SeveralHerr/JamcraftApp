@@ -12,10 +12,13 @@ import '@mantine/core/styles.css';
 
 function App() {
   return <MantineProvider defaultColorScheme='dark'         >
+   
         <AppShell
            header={{ height: 60 }}
+           withBorder={false}
           padding="sm"
         >
+
           <AppShell.Header >
             
             <AppHeader />
@@ -26,7 +29,9 @@ function App() {
           <AppShell.Footer>
 
           </AppShell.Footer>
+
         </AppShell>
+  
   </MantineProvider>;
 }
 // function App() {
