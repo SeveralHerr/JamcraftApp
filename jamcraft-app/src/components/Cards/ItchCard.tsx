@@ -1,4 +1,5 @@
 import { BaseCard } from './BaseCard';
+import { EXTERNAL_LINKS } from '../../config/routes';
 
 export function ItchCard() {
   return (
@@ -7,7 +8,7 @@ export function ItchCard() {
       imageAlt="Itch.io"
       title="Jamcraft's Gamejam"
       description="Join the Jamcraft Games, a game jam focused on creating dynamic and juicy games with smooth animations, satisfying sounds, and impactful moments. Collaborate with others or work solo for a chance to win a $100 prize and have your game featured on Twitch!v"
-      onButtonClick={() => window.open('your-itch-link', '_blank')}
+      onButtonClick={() => window.open(EXTERNAL_LINKS.itch, '_blank')}
     />
   );
 }
