@@ -18,8 +18,9 @@ export function AppHeader() {
         
         {/* Centered Links */}
         <Group gap={"md"} wrap="nowrap">
-          <NavLink href="/about" label="about" />
-          <NavLink href="/games" label="games" />
+          <NavLink href="/" label="Home" />
+          <NavLink href="/about" label="About" />
+          <NavLink href="/games" label="Games" />
         </Group>
 
         {/* Right-Aligned Links
