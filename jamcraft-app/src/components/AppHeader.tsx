@@ -1,10 +1,10 @@
-import { Group, ActionIcon, NavLink, Space, Container, Flex, Box, Image } from '@mantine/core';
-import { IconBrandBluesky , IconBrandLinkedinFilled, IconBrandYoutubeFilled,IconBrandSteamFilled,IconBrandGithubFilled    } from '@tabler/icons-react';
+import { Group, NavLink, Space, Container, Flex, Image } from '@mantine/core';
 import { useLocation, Link } from 'react-router-dom';
+import { ROUTES } from '../config/routes';
 
 export function AppHeader() {
   const location = useLocation();
-  const isHome = location.pathname === '/';
+  const isHome = location.pathname === ROUTES.home;
 
   return (
     <Container fluid py="sm">
@@ -21,17 +21,16 @@ export function AppHeader() {
         {/* Centered Links */}
         <Group gap={"md"} wrap="nowrap">
           <NavLink 
-
             component={Link}
-            to="/" 
+            to={ROUTES.home}
             label="Home" 
             active={isHome}
           />
           <NavLink 
             component={Link}
-            to="/about" 
+            to={ROUTES.about}
             label="About" 
-            active={location.pathname === '/about'}
+            active={location.pathname === ROUTES.about}
           />
           <NavLink 
             component={Link}
