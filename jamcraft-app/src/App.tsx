@@ -4,41 +4,40 @@ import { AppShell, MantineProvider } from '@mantine/core';
 import './App.css'
 import { AppHeader } from './components/AppHeader';
 import { Home } from './components/Home';
-
+import { BrowserRouter } from 'react-router-dom';
 import '@mantine/core/styles.css';
 
-
-
 function App() {
-  return <MantineProvider 
-    defaultColorScheme='dark'
-    theme={{
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-      headings: {
-        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-      }
-    }}
-  >
+  return (
+    <BrowserRouter>
+      <MantineProvider 
+        defaultColorScheme='dark'
+        theme={{
+          fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          headings: {
+            fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          }
+        }}
+      >
         <AppShell
-        
-           header={{ height: 60 }}
-           withBorder={false}
-           padding="sm"
-           styles={{
-             main: {
-               display: 'flex',
-               flexDirection: 'column',
-               alignItems: 'center',
-               width: '85%', 
-               justifyContent: 'center',
-             },
-             header: {
-               display: 'flex',
-               justifyContent: 'center',
-               width: '85%', 
-               alignItems: 'center',
-             }
-           }}
+          header={{ height: 60 }}
+          withBorder={false}
+          padding="sm"
+          styles={{
+            main: {
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              width: '85%', 
+              justifyContent: 'center',
+            },
+            header: {
+              display: 'flex',
+              justifyContent: 'center',
+              width: '85%', 
+              alignItems: 'center',
+            }
+          }}
         >
           <AppShell.Header>
             <AppHeader />
@@ -49,7 +48,9 @@ function App() {
           <AppShell.Footer>
           </AppShell.Footer>
         </AppShell>
-  </MantineProvider>;
+      </MantineProvider>
+    </BrowserRouter>
+  );
 }
 // function App() {
 //   const [count, setCount] = useState(0)
