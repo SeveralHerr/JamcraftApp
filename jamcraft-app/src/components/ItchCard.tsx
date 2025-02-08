@@ -2,16 +2,21 @@ import { Card, Image, Text, Button, Group, Container } from '@mantine/core';
 
 export function ItchCard() {
   return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
-      <Card.Section h={250} w={400}>
+    <Card shadow="sm" padding="lg" radius="md" withBorder w="100%">
+      <Card.Section >
         <Container>
           
         </Container>
         <Image
           src="/assets/itchLogo.png"
-          h={250}
-          w={444}
-          alt="Itch"
+          radius="md"
+          h="100%"
+          w="100%"
+          maw = {300}
+          mah={300}
+       
+         
+          alt="Discord"
         />
     
       </Card.Section>

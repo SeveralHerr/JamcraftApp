@@ -1,6 +1,8 @@
 
 import { Divider,SimpleGrid,Center, Image,Space,Box,Container } from '@mantine/core';
 import { DiscordCard } from './DiscordCard';
+import { ItchCard } from './ItchCard';
+import { MinecraftCard } from './MinecraftCard';
 
 
 export function Home() {
@@ -35,8 +37,8 @@ export function Home() {
         verticalSpacing={{ base: 'md', sm: 'xl' }}
       >
         <DiscordCard ></DiscordCard>
-        <DiscordCard ></DiscordCard>
-        <DiscordCard ></DiscordCard>
+        <ItchCard ></ItchCard>
+        <MinecraftCard ></MinecraftCard>
       </SimpleGrid>
     </Center>
  
