@@ -15,7 +15,7 @@ export function Home() {
     <>
       <Container 
         size="s" 
-        maw={600}
+        maw={800}
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -27,12 +27,12 @@ export function Home() {
           w="100%"
         >
           <Image
-            radius="md"
-            h={100}
+            radius="xl"
+            h={400}
             w="100%"
-            maw={600}
+            maw={800}
             fit="contain"
-            src="/assets/jamcraft_with_slogan.png"
+            src="/assets/test.png"
             alt="Jamcraft Logo"
           />
         </Box>
