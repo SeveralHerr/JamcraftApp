@@ -3,7 +3,6 @@ import {
   SimpleGrid,
   Center,
   Image,
-  Space,
   Box,
   Container
 } from "@mantine/core";
