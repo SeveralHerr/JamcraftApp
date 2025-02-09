@@ -32,7 +32,7 @@ function App() {
               justifyContent: 'center',
             },
             main: {
-              display: 'flex',
+            
               flexDirection: 'column',
               alignItems: 'center',
              
