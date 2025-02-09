@@ -10,9 +10,9 @@ export function AppHeader() {
     <Container fluid py="sm">
       <Flex align="center" gap="md">
         {/* Left section - Logo */}
-        <div style={{ width: '200px' }}>
+        <div style={{ width: '180px' }}>
           <Image
-            src="/assets/small_logo.png"
+            src="/assets/logo_server_icon_small_transparent_no_bkg.png"
             alt="Jamcraft Logo"
             h={40}
             w="auto"
