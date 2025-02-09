@@ -32,7 +32,7 @@ export function Home() {
             w="100%"
             maw={800}
             fit="contain"
-            src="/assets/test.png"
+            src="/assets/logo_narrow.png"
             alt="Jamcraft Logo"
           />
         </Box>

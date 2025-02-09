@@ -8,7 +8,6 @@
   --mantine-color-body: #081b29 !important;
 }
 
-
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -43,4 +42,13 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.mantine-NavLink-root[data-active] {
+  background-color: transparent !important;
+  color: #f6924b !important;
+}
+
+.mantine-NavLink-root:hover {
+  background-color: transparent !important;
 }
