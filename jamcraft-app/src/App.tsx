@@ -1,22 +1,25 @@
 //import '@mantine/core/styles.css';
 
-import { AppShell, MantineProvider } from '@mantine/core';
-import './App.css'
-import { AppHeader } from './components/AppHeader';
-import { Home } from './components/Home';
-import { BrowserRouter } from 'react-router-dom';
-import '@mantine/core/styles.css';
+import { AppShell, MantineProvider } from "@mantine/core";
+import "./App.css";
+import { AppHeader } from "./components/AppHeader";
+import { Home } from "./components/Home";
+import { About } from "./components/About";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "@mantine/core/styles.css";
 
 function App() {
   return (
     <BrowserRouter>
-      <MantineProvider 
-        defaultColorScheme='dark'
+      <MantineProvider
+        defaultColorScheme="dark"
         theme={{
-          fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          fontFamily:
+            'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
           headings: {
-            fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-          }
+            fontFamily:
+              'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          },
         }}
       >
         <AppShell
@@ -25,35 +28,32 @@ function App() {
           padding="sm"
           styles={{
             root: {
-            
-              flexDirection: 'column',
-              alignItems: 'center',
-
-              justifyContent: 'center',
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
             },
             main: {
-            
-              flexDirection: 'column',
-              alignItems: 'center',
-             
-              justifyContent: 'center',
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
             },
             header: {
-              display: 'flex',
-              justifyContent: 'center',
-    
-              alignItems: 'center',
-            }
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            },
           }}
         >
           <AppShell.Header>
             <AppHeader />
           </AppShell.Header>
           <AppShell.Main>
-            <Home/>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+            </Routes>
           </AppShell.Main>
-          <AppShell.Footer>
-          </AppShell.Footer>
+          <AppShell.Footer></AppShell.Footer>
         </AppShell>
       </MantineProvider>
     </BrowserRouter>
@@ -88,4 +88,4 @@ function App() {
 //   )
 // }
 
-export default App
+export default App;
