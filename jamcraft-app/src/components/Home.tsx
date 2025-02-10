@@ -16,10 +16,13 @@ export function Home() {
       <Container 
         size="s" 
         maw={800}
+        h="auto"
+        mah={400}
+        
         style={{
           display: 'flex',
           alignItems: 'center',
-          minHeight: '30vh'
+          minHeight: ""
         }}
       >
         <Box 
@@ -28,10 +31,12 @@ export function Home() {
         >
           <Image
             radius="xl"
-            h={400}
+            h="auto"
+            mah={400}
+            fit="scale-down"
             w="100%"
             maw={800}
-            fit="contain"
+     
             src="/assets/logo_narrow.png"
             alt="Jamcraft Logo"
           />

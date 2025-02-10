@@ -1,0 +1,13 @@
+.card {
+  background-color: #1a2733;
+  border-color: #2a3740;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}

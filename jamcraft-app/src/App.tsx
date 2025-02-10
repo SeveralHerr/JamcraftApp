@@ -1,12 +1,12 @@
 //import '@mantine/core/styles.css';
-
+import "@mantine/core/styles.css";
 import { AppShell, MantineProvider } from "@mantine/core";
 import "./App.css";
 import { AppHeader } from "./components/AppHeader";
 import { Home } from "./components/Home";
 import { About } from "./components/About";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "@mantine/core/styles.css";
+
 
 function App() {
   return (
