@@ -6,10 +6,8 @@ import {
   Group,
   Burger,
   Image,
-  UnstyledButton,
 } from "@mantine/core";
 import "./App.css";
-import classes from "./App.module.css";
 import { Home } from "./components/Home";
 import { About } from "./components/About";
 import {
