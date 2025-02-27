@@ -1,13 +1,12 @@
 export const ROUTES = {
   home: "/",
   about: "/about",
-  games: "/games",
+  // games: "/games",
 } as const;
 
 export const EXTERNAL_LINKS = {
   discord: "https://discord.gg/WVB8EwSNDG",
   itch_profile: "https://severalherr.itch.io/",
-  minecraft: "minecraft://your-server-ip",
   twitch: "https://www.twitch.tv/mrseveral",
   itch: "https://itch.io/jam/jamcraft-games-",
   linkedin: "https://www.linkedin.com/in/james-herr-63b85b1b3/",
