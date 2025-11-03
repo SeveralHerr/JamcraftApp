@@ -35,12 +35,12 @@ export function AppHeader() {
               label="About" 
               active={location.pathname === ROUTES.about}
             />
-            <NavLink 
+            {/* <NavLink 
               component={Link}
               to="/games" 
               label="Games" 
               active={location.pathname === '/games'}
-            />
+            /> */}
           </Group>
         </div>
 
