@@ -23,6 +23,8 @@ export function BaseCard({
       style={{
         width: '100%',
         maxWidth: 300,
+        height: '100%',
+        minHeight: 480,
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -31,9 +33,8 @@ export function BaseCard({
         <Image
           src={imageSrc}
           radius="md"
-          h="auto"
-          mah={300}
-          fit="contain"
+          h={200}
+          fit="cover"
           alt={imageAlt}
           style={{
             width: '100%',
@@ -57,9 +58,10 @@ export function BaseCard({
         size="sm"
         c={colors.text.tertiary}
         ta="left"
-        lineClamp={12}
+        lineClamp={6}
         style={{
           lineHeight: typography.lineHeight.relaxed,
+          flex: 1,
         }}
       >
         {description}
