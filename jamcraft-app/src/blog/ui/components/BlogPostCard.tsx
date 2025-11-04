@@ -1,4 +1,5 @@
 import { Card, Title, Text, Badge, useMantineTheme, useMantineColorScheme } from '@mantine/core';
+import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { BlogPostMetadata } from '../../entities/BlogPost';
@@ -50,28 +51,28 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
           target.style.boxShadow = 'none';
         }}
       >
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-          gap: '1.5rem',
-          marginBottom: '1.25rem'
-        }}>
-          <div style={{ flex: 1 }}>
-            <Title
-              order={2}
-              c="#ededed"
-              style={{
-                marginBottom: '0.75rem',
-                fontSize: '1.75rem',
-                fontWeight: 600,
-                letterSpacing: '-0.02em',
-                lineHeight: 1.3
-              }}
-            >
-              {post.title}
-            </Title>
+        <div style={{ marginBottom: '1.25rem' }}>
+          <Title
+            order={2}
+            c="#ededed"
+            style={{
+              marginBottom: '0.75rem',
+              fontSize: '1.75rem',
+              fontWeight: 600,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.3
+            }}
+          >
+            {post.title}
+          </Title>
 
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '1rem',
+            flexWrap: 'wrap'
+          }}>
             {post.date && (
               <Text
                 size="sm"
@@ -89,44 +90,62 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
                 })}
               </Text>
             )}
-          </div>
 
-          {post.tags && post.tags.length > 0 && (
-            <div style={{
-              display: 'flex',
-              gap: '0.5rem',
-              flexWrap: 'wrap',
-              justifyContent: 'flex-end'
-            }}>
-              {post.tags.map((tag) => (
-                <Badge
-                  key={tag}
-                  variant="light"
-                  style={{
-                    background: 'rgba(246, 146, 75, 0.12)',
-                    color: '#f6924b',
-                    border: '1px solid rgba(246, 146, 75, 0.2)',
-                    fontWeight: 500,
-                    textTransform: 'lowercase',
-                    letterSpacing: '0.02em',
-                    padding: '0.5rem 0.875rem',
-                    fontSize: '0.8rem'
-                  }}
-                >
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          )}
+            {post.tags && post.tags.length > 0 && (
+              <div style={{
+                display: 'flex',
+                gap: '0.5rem',
+                flexWrap: 'wrap',
+                justifyContent: 'flex-end'
+              }}>
+                {post.tags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    variant="light"
+                    style={{
+                      background: 'rgba(246, 146, 75, 0.12)',
+                      color: '#f6924b',
+                      border: '1px solid rgba(246, 146, 75, 0.2)',
+                      fontWeight: 500,
+                      textTransform: 'lowercase',
+                      letterSpacing: '0.02em',
+                      padding: '0.5rem 0.875rem',
+                      fontSize: '0.8rem'
+                    }}
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         <div style={{
           marginTop: '1rem',
           color: 'rgba(237, 237, 237, 0.8)',
           lineHeight: 1.7,
-          fontSize: '1rem'
+          fontSize: '1rem',
+          marginBottom: '1.5rem'
         }}>
           <ReactMarkdown>{post.excerpt}</ReactMarkdown>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            color: '#f6924b',
+            fontWeight: 500,
+            fontSize: '0.95rem',
+            letterSpacing: '0.01em',
+            transition: 'gap 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
+          }}
+          className="read-more-indicator"
+        >
+          Read More
+          <IconArrowRight size={18} style={{ transition: 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)' }} />
         </div>
 
         <div

@@ -94,6 +94,14 @@ export function BlogList() {
         article:hover .card-accent {
           transform: scaleX(1) !important;
         }
+
+        article:hover .read-more-indicator {
+          gap: 0.75rem !important;
+        }
+
+        article:hover .read-more-indicator svg {
+          transform: translateX(4px) !important;
+        }
       `}</style>
     </Container>
   );
