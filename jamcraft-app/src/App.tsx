@@ -3,6 +3,7 @@ import { AppShell, MantineProvider, Group, Burger, Image } from "@mantine/core";
 import "./App.css";
 import { Home } from "./components/Home";
 import { About } from "./components/About";
+import { Projects } from "./components/Projects";
 import { NotFound } from "./components/NotFound";
 import {
   BrowserRouter,
@@ -70,6 +71,7 @@ function App() {
                 </RouterLink>
                 <Group ml="xl" gap={0} visibleFrom="sm">
                   <NavButton to={ROUTES.home}>Home</NavButton>
+                  <NavButton to={ROUTES.projects}>Projects</NavButton>
                   <NavButton to={ROUTES.about}>About</NavButton>
                 </Group>
               </Group>
@@ -80,6 +82,9 @@ function App() {
             <NavButton to={ROUTES.home} onClose={toggle}>
               Home
             </NavButton>
+            <NavButton to={ROUTES.projects} onClose={toggle}>
+              Projects
+            </NavButton>
             <NavButton to={ROUTES.about} onClose={toggle}>
               About
             </NavButton>
@@ -88,6 +93,7 @@ function App() {
           <AppShell.Main>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/projects" element={<Projects />} />
               <Route path="/about" element={<About />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -1,6 +1,7 @@
 export const ROUTES = {
   home: "/",
   about: "/about",
+  projects: "/projects",
 } as const;
 
 export const EXTERNAL_LINKS = {

@@ -58,8 +58,9 @@ npm run dev
 ## Pages
 
 1. **Home (/)** - Landing page with Jamcraft logo and platform cards
-2. **About (/about)** - Profile information and social links
-3. **404 Not Found** - Catch-all route for invalid URLs with link back to home
+2. **Projects (/projects)** - Portfolio projects showcase with descriptions and screenshots
+3. **About (/about)** - Profile information and social links
+4. **404 Not Found** - Catch-all route for invalid URLs with link back to home
 
 ## External Links
 
@@ -131,11 +132,25 @@ JamcraftApp/
 │   │   │       └── hooks/
 │   │   │           └── useProfile.ts        # React integration
 │   │   │
+│   │   ├── portfolio-projects/      # 🎮 DOMAIN: Portfolio Projects Showcase
+│   │   │   ├── entities/
+│   │   │   │   └── PortfolioProject.ts      # Domain entity
+│   │   │   ├── use-cases/
+│   │   │   │   └── GetPortfolioProjects.ts  # Business logic
+│   │   │   ├── data/
+│   │   │   │   └── portfolio-projects-data.ts # Project configurations
+│   │   │   └── ui/
+│   │   │       ├── components/
+│   │   │       │   └── PortfolioProjectCard.tsx # Project card component
+│   │   │       └── hooks/
+│   │   │           └── usePortfolioProjects.ts  # React integration
+│   │   │
 │   │   ├── components/              # Shared/Legacy UI Components
 │   │   │   ├── Cards/
 │   │   │   │   └── BaseCard.tsx             # Generic card component
 │   │   │   ├── ErrorBoundary.tsx            # Error handling
 │   │   │   ├── Home.tsx                     # Home page
+│   │   │   ├── Projects.tsx                 # Projects page
 │   │   │   ├── About.tsx                    # About page
 │   │   │   └── NotFound.tsx                 # 404 page
 │   │   │
