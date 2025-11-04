@@ -11,13 +11,15 @@ import { ProfileImage } from "../portfolio/ui/components/ProfileImage";
 import { ProfileHeader } from "../portfolio/ui/components/ProfileHeader";
 import { ProfileBio } from "../portfolio/ui/components/ProfileBio";
 import { SocialLinkIcon } from "../social-presence/ui/components/SocialLinkIcon";
+import { LoadingPage } from "./ui/LoadingPage";
+import { colors } from "../theme";
 
 export function About() {
   const { profile, loading: profileLoading } = useProfile();
   const { socialLinks, loading: socialLinksLoading } = useSocialLinks();
 
   if (profileLoading || socialLinksLoading || !profile) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
 
   return (
@@ -40,10 +42,17 @@ export function About() {
             </div>
 
             <div>
-              <Divider color="#1a2733" />
+              <Divider color={colors.border.divider} />
               <Group gap="md" mt="md">
-                {socialLinks.map(link => (
-                  <SocialLinkIcon key={link.id} socialLink={link} />
+                {socialLinks.map((link, index) => (
+                  <div
+                    key={link.id}
+                    style={{
+                      animation: `fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.05}s both`,
+                    }}
+                  >
+                    <SocialLinkIcon socialLink={link} />
+                  </div>
                 ))}
               </Group>
             </div>

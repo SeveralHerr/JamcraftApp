@@ -1,44 +1,62 @@
 import { Container, Stack, Title, Text, Divider } from '@mantine/core';
 import { usePortfolioProjects } from '../portfolio-projects/ui/hooks/usePortfolioProjects';
 import { PortfolioProjectCard } from '../portfolio-projects/ui/components/PortfolioProjectCard';
+import { LoadingPage } from './ui/LoadingPage';
+import { colors, typography } from '../theme';
 
 export function Projects() {
   const { projects, loading } = usePortfolioProjects();
 
   if (loading) {
-    return (
-      <Container size="lg" py="xl">
-        <Text>Loading...</Text>
-      </Container>
-    );
+    return <LoadingPage />;
   }
 
   return (
     <Container size="lg" py="xl">
       <Stack gap="xl">
-        <div>
+        <div
+          style={{
+            animation: 'fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both',
+          }}
+        >
           <Title
             order={1}
-            c="#ededed"
+            c={colors.text.primary}
             ta="left"
             style={{
-              fontSize: '2.5rem',
-              fontWeight: 'bold',
+              fontSize: typography.fontSize['5xl'],
+              fontWeight: typography.fontWeight.bold,
               textTransform: 'uppercase',
+              letterSpacing: typography.letterSpacing.tighter,
             }}
           >
             Projects
           </Title>
-          <Text c="gray.5" ta="left" mt="xs">
+          <Text
+            c={colors.text.dimmed}
+            ta="left"
+            mt="xs"
+            style={{
+              fontSize: typography.fontSize.lg,
+              lineHeight: typography.lineHeight.relaxed,
+            }}
+          >
             A collection of games and applications I've built
           </Text>
         </div>
 
-        <Divider color="#1a2733" />
+        <Divider color={colors.border.divider} />
 
         <Stack gap="lg">
-          {projects.map((project) => (
-            <PortfolioProjectCard key={project.id} project={project} />
+          {projects.map((project, index) => (
+            <div
+              key={project.id}
+              style={{
+                animation: `fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${0.1 + index * 0.1}s both`,
+              }}
+            >
+              <PortfolioProjectCard project={project} />
+            </div>
           ))}
         </Stack>
       </Stack>
