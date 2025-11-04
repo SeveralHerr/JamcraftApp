@@ -47,20 +47,22 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
         e.currentTarget.style.boxShadow = 'none';
       }}
     >
-      <Group align="flex-start" gap="xl" wrap="nowrap">
+      <Group align="center" gap="xl" wrap="nowrap">
         {project.screenshotUrl && (
-          <Image
-            src={project.screenshotUrl}
-            alt={project.name}
-            w={300}
-            h={168}
-            fit="cover"
-            radius="md"
-            style={{ flexShrink: 0 }}
-          />
+          <div style={{ width: 300, height: 200, flexShrink: 0 }}>
+            <Image
+              src={project.screenshotUrl}
+              alt={project.name}
+              w={300}
+              h={200}
+              fit="cover"
+              radius="md"
+              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+            />
+          </div>
         )}
 
-        <Stack gap="sm" style={{ flex: 1 }}>
+        <Stack gap="sm" style={{ flex: 1 }} justify="center">
           <div>
             <Title order={2} size="h3" c="#ededed" mb="xs">
               {project.name}
@@ -74,7 +76,7 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
             {project.description}
           </Text>
 
-          <Text c="#f6924b" size="sm" fw={500} mt="auto">
+          <Text c="#f6924b" size="sm" fw={500}>
             View Project →
           </Text>
         </Stack>

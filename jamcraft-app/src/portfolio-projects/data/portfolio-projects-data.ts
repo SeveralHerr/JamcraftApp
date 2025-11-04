@@ -16,7 +16,7 @@ export const PORTFOLIO_PROJECTS_DATA: PortfolioProject[] = [
     name: 'Atomic Robot',
     description:
       'BETA - Built for Atomic Robot Tattoo — punch meter maids, dodge tickets, and defend free parking.',
-    screenshotUrl: 'https://img.itch.zone/aW1nLzIzNTk4NDAwLmpwZw==/original/kZsTzK.jpg',
+    screenshotUrl: 'https://img.itch.zone/aW1nLzIzNTk4MjQ3LnBuZw==/315x250%23c/UeX2lG.png',
     projectUrl: 'https://severalherr.itch.io/atomic-robot',
     platform: 'itch',
   },
@@ -25,7 +25,7 @@ export const PORTFOLIO_PROJECTS_DATA: PortfolioProject[] = [
     name: 'Jamcraft',
     description:
       'Personal portfolio and community hub for James Herr - Full Stack Engineer & Game Developer',
-    screenshotUrl: '/assets/jamcraft-logo.png',
+    screenshotUrl: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png',
     projectUrl: 'https://github.com/SeveralHerr/JamcraftApp',
     platform: 'github',
   },
