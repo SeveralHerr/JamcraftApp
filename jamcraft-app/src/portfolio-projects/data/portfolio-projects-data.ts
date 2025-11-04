@@ -10,6 +10,7 @@ export const PORTFOLIO_PROJECTS_DATA: PortfolioProject[] = [
       'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2870660/4a1d4604061b7ee260d4e34a88528907b1d0720f/header.jpg?t=1755815646',
     projectUrl: 'https://store.steampowered.com/app/2870660/Find_My_Wiener/',
     platform: 'steam',
+    isNSFW: true,
   },
   {
     id: 'atomic-robot',

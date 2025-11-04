@@ -7,4 +7,5 @@ export interface PortfolioProject {
   screenshotUrl: string | null;
   projectUrl: string;
   platform: ProjectPlatform;
+  isNSFW?: boolean;
 }
