@@ -8,12 +8,14 @@ import {
 } from "@mantine/core";
 import { useCommunityChannels } from "../community-hub/ui/hooks/useCommunityChannels";
 import { CommunityChannelCard } from "../community-hub/ui/components/CommunityChannelCard";
+import { LoadingPage } from "./ui/LoadingPage";
+import { colors } from "../theme";
 
 export function Home() {
   const { channels, loading } = useCommunityChannels();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
 
   return (
@@ -50,7 +52,7 @@ export function Home() {
       <Container size="lg">
         <Divider
           my="md"
-          color="#1a2733"
+          color={colors.border.divider}
           size="sm"
         />
         <Center>
@@ -59,8 +61,15 @@ export function Home() {
             spacing={{ base: 1, sm: "lg", lg: "xl" }}
             verticalSpacing={{ base: "md", sm: "xl" }}
           >
-            {channels.map(channel => (
-              <CommunityChannelCard key={channel.id} channel={channel} />
+            {channels.map((channel, index) => (
+              <div
+                key={channel.id}
+                style={{
+                  animation: `fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s both`,
+                }}
+              >
+                <CommunityChannelCard channel={channel} />
+              </div>
             ))}
           </SimpleGrid>
         </Center>

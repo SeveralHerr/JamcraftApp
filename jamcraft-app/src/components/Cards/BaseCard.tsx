@@ -1,5 +1,6 @@
-import { Card, Image, Text, Group } from "@mantine/core";
-import styles from "./BaseCard.module.css";
+import { Image, Text, Group } from "@mantine/core";
+import { Card as UnifiedCard } from "../ui/Card";
+import { colors, typography } from "../../theme";
 
 interface BaseCardProps {
   imageSrc: string;
@@ -17,39 +18,52 @@ export function BaseCard({
   onClick,
 }: BaseCardProps) {
   return (
-    <Card
-      shadow="sm"
-      padding="lg"
-      radius="md"
-      withBorder
-      w="100%"
-      maw={300}
-      className={styles.card}
+    <UnifiedCard
       onClick={onClick}
+      style={{
+        width: '100%',
+        maxWidth: 300,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
     >
-      <Card.Section >
+      <div style={{ marginBottom: '1rem' }}>
         <Image
-          className={styles.image}
           src={imageSrc}
           radius="md"
-          h="100%"
-          w="100%"
-          maw={300}
+          h="auto"
           mah={300}
           fit="contain"
           alt={imageAlt}
+          style={{
+            width: '100%',
+          }}
         />
-      </Card.Section>
+      </div>
 
-      <Group justify="space-between" mt="md" mb="xs">
-        <Text fw={500} c="#00abf0">
+      <Group justify="space-between" mb="xs">
+        <Text
+          fw={typography.fontWeight.medium}
+          c={colors.brand.primary}
+          style={{
+            fontSize: typography.fontSize.lg,
+          }}
+        >
           {title}
         </Text>
       </Group>
 
-      <Text size="sm" c="gray.4" ta="left" lineClamp={12}>
+      <Text
+        size="sm"
+        c={colors.text.tertiary}
+        ta="left"
+        lineClamp={12}
+        style={{
+          lineHeight: typography.lineHeight.relaxed,
+        }}
+      >
         {description}
       </Text>
-    </Card>
+    </UnifiedCard>
   );
 }

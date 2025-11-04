@@ -7,9 +7,11 @@ interface CommunityChannelCardProps {
   channel: CommunityChannel;
 }
 
+// Singleton service instance
+const navigationService = new BrowserNavigationService();
+
 export function CommunityChannelCard({ channel }: CommunityChannelCardProps) {
   const handleClick = () => {
-    const navigationService = new BrowserNavigationService();
     const useCase = new NavigateToExternalLink(navigationService);
     useCase.execute(channel.externalUrl);
   };
