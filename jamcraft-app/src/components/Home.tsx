@@ -41,7 +41,7 @@ export function Home() {
             w="100%"
             maw={800}
 
-            src="/assets/logo_narrow.png"
+            src="/assets/logo_with_background.png"
             alt="Jamcraft Logo"
           />
         </Box>
