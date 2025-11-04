@@ -6,11 +6,16 @@ import {
   Box,
   Container
 } from "@mantine/core";
-import { DiscordCard } from "./Cards/DiscordCard";
-import { ItchCard } from "./Cards/ItchCard";
-import { TwitchCard } from "./Cards/TwitchCard";
+import { useCommunityChannels } from "../community-hub/ui/hooks/useCommunityChannels";
+import { CommunityChannelCard } from "../community-hub/ui/components/CommunityChannelCard";
 
 export function Home() {
+  const { channels, loading } = useCommunityChannels();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Container
@@ -24,8 +29,8 @@ export function Home() {
           alignItems: 'center'
         }}
       >
-        <Box 
-          mx="auto" 
+        <Box
+          mx="auto"
           w="100%"
         >
           <Image
@@ -35,7 +40,7 @@ export function Home() {
             fit="scale-down"
             w="100%"
             maw={800}
-     
+
             src="/assets/logo_narrow.png"
             alt="Jamcraft Logo"
           />
@@ -43,8 +48,8 @@ export function Home() {
       </Container>
 
       <Container size="lg">
-        <Divider 
-          my="md" 
+        <Divider
+          my="md"
           color="#1a2733"
           size="sm"
         />
@@ -54,9 +59,9 @@ export function Home() {
             spacing={{ base: 1, sm: "lg", lg: "xl" }}
             verticalSpacing={{ base: "md", sm: "xl" }}
           >
-            <DiscordCard />
-            <ItchCard />
-            <TwitchCard />
+            {channels.map(channel => (
+              <CommunityChannelCard key={channel.id} channel={channel} />
+            ))}
           </SimpleGrid>
         </Center>
       </Container>

@@ -14,75 +14,6 @@ Jamcraft is a modern personal portfolio and community hub website for James Herr
 - **Icons:** Tabler Icons React 3.35.0
 - **Styling:** CSS Modules + Mantine CSS + PostCSS
 
-## Recent Maintenance (November 2025)
-
-All security vulnerabilities have been resolved and the codebase has been cleaned up:
-
-### Security Updates
-- Updated react-router-dom from 7.1.5 to 7.9.5 (HIGH severity fix)
-- Updated Vite from 6.1.0 to 6.4.1 (MODERATE severity fixes)
-- All npm audit vulnerabilities resolved (0 vulnerabilities)
-
-### Code Quality Improvements
-- Created missing ESLint configuration file ([eslint.config.js](jamcraft-app/eslint.config.js))
-- Removed unused components (AppHeader.tsx, MinecraftCard.tsx)
-- Cleaned up all commented-out code
-- Fixed empty inline styles
-- Added React Error Boundary component for better error handling
-- Added 404 Not Found page with catch-all route
-
-### Accessibility & SEO
-- Added comprehensive SEO meta tags (description, Open Graph, Twitter Cards)
-- Added ARIA labels to all navigation elements and social media links
-- Improved screen reader support
-
-### Build System
-- All dependencies updated to latest patch/minor versions
-- ESLint now fully functional
-- TypeScript compilation passes with strict mode
-- Production build successful (322.69 kB JS, 203.53 kB CSS)
-
-## Project Structure
-
-```
-JamcraftApp/
-├── jamcraft-app/              # Main React application
-│   ├── src/
-│   │   ├── components/        # React components
-│   │   │   ├── About.tsx      # About page with profile info
-│   │   │   ├── Home.tsx       # Landing page with cards
-│   │   │   ├── NavButton.tsx  # Navigation button component
-│   │   │   ├── ErrorBoundary.tsx # Error boundary for error handling
-│   │   │   ├── NotFound.tsx   # 404 page component
-│   │   │   └── Cards/         # Reusable card components
-│   │   ├── config/
-│   │   │   └── routes.ts      # Route definitions & external links
-│   │   ├── App.tsx            # Main application component
-│   │   └── main.tsx           # React DOM entry point
-│   ├── public/assets/         # Images and branding assets
-│   ├── vite.config.ts         # Vite configuration
-│   └── package.json           # Dependencies
-└── package.json               # Root dependencies
-```
-
-## Key Files
-
-### Components
-
-- [App.tsx](jamcraft-app/src/App.tsx) - Main application component with routing and error boundary
-- [Home.tsx](jamcraft-app/src/components/Home.tsx) - Landing page with animated logo and platform cards
-- [About.tsx](jamcraft-app/src/components/About.tsx) - Profile page with social links
-- [ErrorBoundary.tsx](jamcraft-app/src/components/ErrorBoundary.tsx) - React error boundary for graceful error handling
-- [NotFound.tsx](jamcraft-app/src/components/NotFound.tsx) - 404 page for invalid routes
-- [Cards/BaseCard.tsx](jamcraft-app/src/components/Cards/BaseCard.tsx) - Reusable card template component
-
-### Configuration
-
-- [routes.ts](jamcraft-app/src/config/routes.ts) - Centralized route and external link definitions
-- [vite.config.ts](jamcraft-app/src/vite.config.ts) - Vite build configuration
-- [eslint.config.js](jamcraft-app/eslint.config.js) - ESLint configuration for React and TypeScript
-- [tsconfig.app.json](jamcraft-app/tsconfig.app.json) - TypeScript configuration
-- [postcss.config.js](postcss.config.js) - PostCSS with Mantine preset
 
 ## Development
 
@@ -143,6 +74,110 @@ The application integrates with multiple platforms:
 - Steam profile
 - Bluesky social
 
+## Project Structure
+
+```
+JamcraftApp/
+├── .claude/
+│   └── CLAUDE.md                    # Developer documentation
+│
+├── jamcraft-app/                    # Main application directory
+│   ├── public/
+│   │   ├── assets/                  # Static assets (images, icons, logos)
+│   │   └── index.html               # Entry HTML with SEO meta tags
+│   │
+│   ├── src/
+│   │   ├── community-hub/           # 🏢 DOMAIN: Community & Gaming Channels
+│   │   │   ├── entities/
+│   │   │   │   └── CommunityChannel.ts      # Domain entity
+│   │   │   ├── use-cases/
+│   │   │   │   └── GetCommunityChannels.ts  # Business logic
+│   │   │   ├── data/
+│   │   │   │   └── channels-data.ts         # Channel configurations
+│   │   │   └── ui/
+│   │   │       ├── components/
+│   │   │       │   └── CommunityChannelCard.tsx  # Channel card component
+│   │   │       └── hooks/
+│   │   │           └── useCommunityChannels.ts   # React integration
+│   │   │
+│   │   ├── social-presence/         # 🌐 DOMAIN: Social Media & External Links
+│   │   │   ├── entities/
+│   │   │   │   └── SocialLink.ts            # Domain entity
+│   │   │   ├── use-cases/
+│   │   │   │   ├── GetSocialLinks.ts        # Business logic
+│   │   │   │   └── NavigateToExternalLink.ts # Navigation use case
+│   │   │   ├── services/
+│   │   │   │   └── BrowserNavigationService.ts  # Infrastructure service
+│   │   │   ├── data/
+│   │   │   │   └── social-links-data.ts     # Social link configurations
+│   │   │   └── ui/
+│   │   │       ├── components/
+│   │   │       │   └── SocialLinkIcon.tsx   # Social icon component
+│   │   │       └── hooks/
+│   │   │           └── useSocialLinks.ts    # React integration
+│   │   │
+│   │   ├── portfolio/               # 👤 DOMAIN: Personal Profile & Bio
+│   │   │   ├── entities/
+│   │   │   │   └── Profile.ts               # Domain entity
+│   │   │   ├── use-cases/
+│   │   │   │   └── GetProfile.ts            # Business logic
+│   │   │   ├── data/
+│   │   │   │   └── profile-data.ts          # Profile data
+│   │   │   └── ui/
+│   │   │       ├── components/
+│   │   │       │   ├── ProfileHeader.tsx    # Header component
+│   │   │       │   ├── ProfileBio.tsx       # Bio component
+│   │   │       │   └── ProfileImage.tsx     # Image component
+│   │   │       └── hooks/
+│   │   │           └── useProfile.ts        # React integration
+│   │   │
+│   │   ├── components/              # Shared/Legacy UI Components
+│   │   │   ├── Cards/
+│   │   │   │   └── BaseCard.tsx             # Generic card component
+│   │   │   ├── ErrorBoundary.tsx            # Error handling
+│   │   │   ├── Home.tsx                     # Home page
+│   │   │   ├── About.tsx                    # About page
+│   │   │   └── NotFound.tsx                 # 404 page
+│   │   │
+│   │   ├── App.tsx                  # Root application component
+│   │   ├── App.css                  # Global app styles
+│   │   ├── index.css                # Global base styles
+│   │   ├── main.tsx                 # Application entry point
+│   │   └── vite-env.d.ts           # Vite type definitions
+│   │
+│   ├── eslint.config.js             # ESLint configuration
+│   ├── tsconfig.json                # Root TypeScript config
+│   ├── tsconfig.app.json            # App TypeScript config
+│   ├── tsconfig.node.json           # Node TypeScript config
+│   ├── vite.config.ts               # Vite build configuration
+│   ├── postcss.config.cjs           # PostCSS configuration
+│   ├── package.json                 # Dependencies and scripts
+│   └── package-lock.json            # Locked dependency versions
+│
+└── README.md                        # Human-readable project overview
+```
+
+### Architecture Principles
+
+**Clean Architecture Implementation:**
+- **Entities Layer:** Pure domain objects with no framework dependencies
+- **Use Cases Layer:** Business logic that orchestrates entities
+- **Infrastructure Layer:** External services (BrowserNavigationService)
+- **UI Layer:** React components, hooks, and framework code
+
+**Screaming Architecture:**
+- Top-level folders represent business domains, not technical layers
+- Folder structure immediately reveals what the application does
+- Domain modules are self-contained with flat structure (no excessive nesting)
+- Each domain has: entities/ use-cases/ data/ ui/ (and sometimes services/)
+
+**Key Design Decisions:**
+- **Flat Structure:** Removed unnecessary `core/` folders to reduce drilling
+- **Data-Driven:** Generic components consume domain entities
+- **Dependency Inversion:** Use cases depend on abstractions (NavigationService interface)
+- **Single Responsibility:** Each component/class has one clear purpose
+- **Testability:** Business logic separated from React for easy testing
+
 ## Build Output
 
 Production builds are output to the `/build` directory:
@@ -195,3 +230,39 @@ The project uses a multi-configuration setup:
 - **Type Safety:** Full TypeScript coverage with strict mode
 - **Modern React:** Uses React 19 features and hooks
 - **Routing:** Client-side routing with React Router DOM v7
+
+## Development Guidelines
+
+### Screaming Architecture Reminders
+
+**The folder structure should SCREAM what the application does, not how it's built.**
+
+When adding new features:
+1. **Ask: "What business domain does this belong to?"** Not "What technical layer is this?"
+2. **Keep it flat:** Avoid deep folder nesting. Two levels is ideal, three is max.
+3. **Domain-first:** Create top-level folders for business domains (e.g., `user-authentication/`, `payment-processing/`)
+4. **Self-contained modules:** Each domain should have its own entities, use cases, data, and UI
+5. **Readable at a glance:** A developer should understand the application's purpose by reading folder names
+
+### Clean Code Principles
+
+**Every file, class, and function should have ONE clear responsibility.**
+
+- **Entities:** Pure data structures with no framework dependencies
+- **Use Cases:** Single business operation (GetProfile, NavigateToExternalLink)
+- **Services:** Infrastructure concerns abstracted behind interfaces
+- **Components:** Presentational UI with minimal logic
+- **Hooks:** React integration layer that calls use cases
+
+**When in doubt:**
+- Can I test this without React? (If no, extract business logic)
+- Does this file name clearly state its purpose? (If no, rename it)
+- Would a new developer understand what this does? (If no, refactor it)
+- Am I repeating myself? (If yes, extract it)
+
+**Red flags to watch for:**
+- Files over 200 lines (break them up)
+- Functions over 30 lines (extract helper functions)
+- More than 3 levels of folder nesting (flatten it)
+- Generic names like "utils", "helpers", "common" (be specific about domain)
+- Framework code mixed with business logic (separate them)

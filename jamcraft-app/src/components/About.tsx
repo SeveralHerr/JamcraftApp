@@ -1,40 +1,31 @@
 import {
   Container,
-  Title,
-  Text,
   Grid,
   Stack,
-  Box,
   Divider,
-  Image,
   Group,
 } from "@mantine/core";
-import { EXTERNAL_LINKS } from "../config/routes";
+import { useProfile } from "../portfolio/ui/hooks/useProfile";
+import { useSocialLinks } from "../social-presence/ui/hooks/useSocialLinks";
+import { ProfileImage } from "../portfolio/ui/components/ProfileImage";
+import { ProfileHeader } from "../portfolio/ui/components/ProfileHeader";
+import { ProfileBio } from "../portfolio/ui/components/ProfileBio";
+import { SocialLinkIcon } from "../social-presence/ui/components/SocialLinkIcon";
 
 export function About() {
+  const { profile, loading: profileLoading } = useProfile();
+  const { socialLinks, loading: socialLinksLoading } = useSocialLinks();
+
+  if (profileLoading || socialLinksLoading || !profile) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Container size="lg" py="xl">
       <Grid gutter="xl">
         {/* Left Column - Image */}
         <Grid.Col span={{ base: 12, sm: 6 }}>
-          <Box
-            style={{
-              maxWidth: 400,
-              margin: "0 auto",
-              aspectRatio: "1",
-              borderRadius: "50%",
-              border: "4px solid #f6940b",
-              overflow: "hidden",
-            }}
-          >
-            <Image
-              src="/assets/linkdin_profile.jpg"
-              h="100%"
-              w="100%"
-              fit="cover"
-              alt="Profile"
-            />
-          </Box>
+          <ProfileImage profile={profile} />
         </Grid.Col>
 
         {/* Right Column - Content */}
@@ -44,140 +35,16 @@ export function About() {
         >
           <Stack gap="lg" style={{ width: "100%" }}>
             <div>
-              <Text style={{ lineHeight: 0.5 }} ta="left" c="gray.5">
-                Hello, I am
-              </Text>
-              <Title
-                order={1}
-                c="#ededed"
-                ta="left"
-                style={{
-                  fontSize: "3.0rem",
-                  fontWeight: "bold",
-                  color: "#ededed",
-                  textTransform: "uppercase",
-                }}
-              >
-                James Herr
-              </Title>
-
-              <Text c="gray.5" ta="left">
-                Full Stack Engineer specializing in scalable solutions and
-                collaborative development. I have played a pivotal role in
-                driving mob programming adoption at Flexion, co-leading a
-                dedicated squad to enhance teamwork, knowledge sharing, and
-                efficiency. Beyond enterprise work, I explore game development
-                in Godot, focusing on AI and randomized generation.Committed to
-                continuous learning and innovation, I strive to improve both
-                software quality and team dynamics.
-              </Text>
-              <Text
-                c="#f6940b"
-                fs="italic"
-                mt="md"
-                style={{ borderLeft: "3px solid #f6940b", paddingLeft: "10px" }}
-              >
-                "Dude, suckin' at something is the first step to being sorta
-                good at something." ― Jake, the Dog
-              </Text>
+              <ProfileHeader profile={profile} />
+              <ProfileBio profile={profile} />
             </div>
 
             <div>
               <Divider color="#1a2733" />
               <Group gap="md" mt="md">
-                <a
-                  href={EXTERNAL_LINKS.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Visit James Herr on LinkedIn"
-                >
-                  <Image
-                    src="/assets/brand-linkedin.png"
-                    h={40}
-                    w={40}
-                    alt="LinkedIn"
-                    style={{ filter: "brightness(0) invert(1)" }}
-                  />
-                </a>
-                <a
-                  href={EXTERNAL_LINKS.steam}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Visit MrSeveral on Steam"
-                >
-                  <Image
-                    src="/assets/brand-steam.png"
-                    h={40}
-                    w={40}
-                    alt="Steam"
-                    style={{ filter: "brightness(0) invert(1)" }}
-                  />
-                </a>
-                <a
-                  href={EXTERNAL_LINKS.bluesky}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Follow James Herr on Bluesky"
-                >
-                  <Image
-                    src="/assets/brand-bluesky.png"
-                    h={40}
-                    w={40}
-                    alt="Bluesky"
-                    style={{
-                      filter: "brightness(0) invert(1)",
-                      cursor: "pointer",
-                    }}
-                  />
-                </a>
-                <a
-                  href={EXTERNAL_LINKS.youtube}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Subscribe to Jamcraft on YouTube"
-                >
-                  <Image
-                    src="/assets/brand-youtube.png"
-                    h={40}
-                    w={40}
-                    alt="YouTube"
-                    style={{
-                      filter: "brightness(0) invert(1)",
-                      cursor: "pointer",
-                    }}
-                  />
-                </a>
-                <a
-                  href={EXTERNAL_LINKS.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="View SeveralHerr on GitHub"
-                >
-                  <Image
-                    src="/assets/brand-github.png"
-                    h={40}
-                    w={40}
-                    alt="GitHub"
-                    style={{ filter: "brightness(0) invert(1)" }}
-                  />
-                </a>
-                <a
-                  href={EXTERNAL_LINKS.itch_profile}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Play games by SeveralHerr on Itch.io"
-                >
-                  <Image
-                    src="/assets/brand-itch.png"
-                    h={40}
-                    w={40}
-                    alt="Itch.io"
-                    style={{
-                      filter: "brightness(0) invert(1)",
-                      cursor: "pointer",
-                    }}
-                  />
-                </a>
+                {socialLinks.map(link => (
+                  <SocialLinkIcon key={link.id} socialLink={link} />
+                ))}
               </Group>
             </div>
           </Stack>

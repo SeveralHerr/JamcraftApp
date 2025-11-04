@@ -5,7 +5,9 @@
       "Bash(del AppHeader.tsx)",
       "Bash(npm run lint:*)",
       "Bash(npm install:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(tree:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []
