@@ -394,12 +394,12 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '1rem',
+                marginBottom: '0.5rem',
               }}
             >
               <div
                 style={{
-                  width: '60px',
+                  width: '50px',
                   height: '2px',
                   background: `linear-gradient(90deg, transparent, ${categoryColor}, transparent)`,
                 }}
@@ -407,11 +407,11 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
             </div>
 
             <Text
-              size="sm"
+              size="xs"
               style={{
                 color: colors.text.dimmed,
-                fontSize: typography.fontSize.sm,
-                marginBottom: '0.5rem',
+                fontSize: typography.fontSize.xs,
+                marginBottom: '0.25rem',
                 fontStyle: 'italic',
               }}
             >
@@ -421,7 +421,7 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
               size="xs"
               style={{
                 color: categoryColor,
-                fontSize: typography.fontSize.xs,
+                fontSize: '0.65rem',
                 fontWeight: typography.fontWeight.bold,
                 textTransform: 'uppercase',
                 letterSpacing: typography.letterSpacing.wide,
