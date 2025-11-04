@@ -196,7 +196,8 @@ interface TestimonialCardProps {
 }
 
 function TestimonialCard({ testimonial }: TestimonialCardProps) {
-  const categoryColor = CATEGORY_COLORS[testimonial.category];
+  const baseCategoryColor = CATEGORY_COLORS[testimonial.category];
+  const categoryColor = testimonial.sentiment === 'critical' ? '#ef4444' : baseCategoryColor;
 
   return (
     <div
@@ -207,146 +208,284 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
     >
       <div
         style={{
-          background: colors.background.glass,
+          background: `linear-gradient(135deg, ${colors.background.glass} 0%, rgba(8, 27, 41, 0.6) 100%)`,
           backdropFilter: 'blur(20px)',
           border: `2px solid ${categoryColor}`,
-          borderRadius: '16px',
-          padding: '2rem',
+          borderRadius: '20px',
+          padding: '2.5rem',
           position: 'relative',
           overflow: 'hidden',
           height: '100%',
           minHeight: '400px',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: `0 0 30px ${categoryColor}40`,
+          boxShadow: `0 8px 40px ${categoryColor}30, inset 0 1px 0 rgba(255, 255, 255, 0.1)`,
         }}
       >
-        {/* AI Badge */}
+        {/* Symmetrical Corner Brackets (Closure Principle) */}
+        {/* Top-Left Bracket */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '1rem',
+            left: '1rem',
+            width: '40px',
+            height: '40px',
+            borderTop: `3px solid ${categoryColor}`,
+            borderLeft: `3px solid ${categoryColor}`,
+            borderTopLeftRadius: '12px',
+            opacity: 0.6,
+          }}
+        />
+        {/* Top-Right Bracket */}
         <div
           style={{
             position: 'absolute',
             top: '1rem',
             right: '1rem',
-            background: `${categoryColor}20`,
-            border: `1px solid ${categoryColor}`,
-            borderRadius: '20px',
-            padding: '0.25rem 0.75rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.25rem',
+            width: '40px',
+            height: '40px',
+            borderTop: `3px solid ${categoryColor}`,
+            borderRight: `3px solid ${categoryColor}`,
+            borderTopRightRadius: '12px',
+            opacity: 0.6,
           }}
-        >
-          <IconSparkles size={12} color={categoryColor} />
-          <Text
-            size="xs"
-            style={{
-              color: categoryColor,
-              fontWeight: typography.fontWeight.bold,
-              fontSize: '0.65rem',
-              textTransform: 'uppercase',
-              letterSpacing: typography.letterSpacing.wide,
-            }}
-          >
-            Claude AI
-          </Text>
-        </div>
-
-        {/* Quote Icon */}
+        />
+        {/* Bottom-Left Bracket */}
         <div
           style={{
             position: 'absolute',
-            top: '-10px',
+            bottom: '1rem',
             left: '1rem',
-            fontSize: '100px',
-            color: categoryColor,
-            opacity: 0.15,
-            fontFamily: 'Georgia, serif',
-            lineHeight: 1,
-            pointerEvents: 'none',
+            width: '40px',
+            height: '40px',
+            borderBottom: `3px solid ${categoryColor}`,
+            borderLeft: `3px solid ${categoryColor}`,
+            borderBottomLeftRadius: '12px',
+            opacity: 0.6,
           }}
-        >
-          "
-        </div>
-
-        {/* Category Badge */}
-        <div
-          style={{
-            display: 'inline-block',
-            padding: '0.5rem 1rem',
-            background: categoryColor,
-            borderRadius: '20px',
-            marginBottom: '1.5rem',
-            alignSelf: 'flex-start',
-            marginTop: '1rem',
-          }}
-        >
-          <Text
-            size="xs"
-            style={{
-              color: 'white',
-              fontWeight: typography.fontWeight.bold,
-              textTransform: 'uppercase',
-              letterSpacing: typography.letterSpacing.wider,
-            }}
-          >
-            {CATEGORY_LABELS[testimonial.category]}
-          </Text>
-        </div>
-
-        {/* Quote */}
-        <Text
-          style={{
-            fontSize: typography.fontSize.base,
-            lineHeight: typography.lineHeight.relaxed,
-            color: colors.text.primary,
-            marginBottom: 'auto',
-            fontStyle: 'italic',
-            flex: 1,
-          }}
-        >
-          "{testimonial.quote}"
-        </Text>
-
-        {/* Attribution */}
-        <div
-          style={{
-            borderTop: `1px solid ${categoryColor}40`,
-            paddingTop: '1rem',
-            marginTop: '1.5rem',
-          }}
-        >
-          <Text
-            size="sm"
-            style={{
-              color: colors.text.dimmed,
-              fontSize: typography.fontSize.sm,
-              marginBottom: '0.5rem',
-            }}
-          >
-            {testimonial.context}
-          </Text>
-          <Text
-            size="xs"
-            style={{
-              color: categoryColor,
-              fontSize: typography.fontSize.xs,
-              fontWeight: typography.fontWeight.semibold,
-            }}
-          >
-            — Fictional Jony Ive (via Claude Code)
-          </Text>
-        </div>
-
-        {/* Accent Corner */}
+        />
+        {/* Bottom-Right Bracket */}
         <div
           style={{
             position: 'absolute',
-            bottom: 0,
+            bottom: '1rem',
+            right: '1rem',
+            width: '40px',
+            height: '40px',
+            borderBottom: `3px solid ${categoryColor}`,
+            borderRight: `3px solid ${categoryColor}`,
+            borderBottomRightRadius: '12px',
+            opacity: 0.6,
+          }}
+        />
+
+        {/* Figure/Ground: Elevated Content Container */}
+        <div
+          style={{
+            background: `radial-gradient(ellipse at center, ${categoryColor}08 0%, transparent 70%)`,
+            borderRadius: '12px',
+            padding: '1.5rem',
+            position: 'relative',
+            zIndex: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+          }}
+        >
+          {/* AI Badge with Symmetry */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '1rem',
+            }}
+          >
+            <div
+              style={{
+                background: `linear-gradient(135deg, ${categoryColor}30, ${categoryColor}10)`,
+                border: `1px solid ${categoryColor}`,
+                borderRadius: '24px',
+                padding: '0.4rem 1rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                boxShadow: `0 4px 12px ${categoryColor}40`,
+              }}
+            >
+              <IconSparkles size={14} color={categoryColor} />
+              <Text
+                size="xs"
+                style={{
+                  color: categoryColor,
+                  fontWeight: typography.fontWeight.bold,
+                  fontSize: '0.7rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: typography.letterSpacing.wider,
+                }}
+              >
+                Claude AI
+              </Text>
+              <IconSparkles size={14} color={categoryColor} />
+            </div>
+          </div>
+
+          {/* Symmetrical Quote Marks (Closure) */}
+          <div
+            style={{
+              position: 'relative',
+              marginBottom: '1rem',
+            }}
+          >
+            {/* Opening Quote */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '-20px',
+                left: '-10px',
+                fontSize: '80px',
+                color: categoryColor,
+                opacity: 0.2,
+                fontFamily: 'Georgia, serif',
+                lineHeight: 1,
+                pointerEvents: 'none',
+              }}
+            >
+              "
+            </div>
+            {/* Closing Quote (Symmetry) */}
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '-60px',
+                right: '-10px',
+                fontSize: '80px',
+                color: categoryColor,
+                opacity: 0.2,
+                fontFamily: 'Georgia, serif',
+                lineHeight: 1,
+                pointerEvents: 'none',
+                transform: 'rotate(180deg)',
+              }}
+            >
+              "
+            </div>
+          </div>
+
+          {/* Category Badge - Centered for Symmetry */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '1.5rem',
+            }}
+          >
+            <div
+              style={{
+                padding: '0.5rem 1.5rem',
+                background: `linear-gradient(135deg, ${categoryColor}, ${categoryColor}cc)`,
+                borderRadius: '24px',
+                boxShadow: `0 4px 16px ${categoryColor}50, inset 0 1px 0 rgba(255, 255, 255, 0.3)`,
+              }}
+            >
+              <Text
+                size="xs"
+                style={{
+                  color: 'white',
+                  fontWeight: typography.fontWeight.bold,
+                  textTransform: 'uppercase',
+                  letterSpacing: typography.letterSpacing.widest,
+                  textShadow: `0 1px 2px rgba(0, 0, 0, 0.3)`,
+                }}
+              >
+                {CATEGORY_LABELS[testimonial.category]}
+              </Text>
+            </div>
+          </div>
+
+          {/* Quote - Centered Text for Figure/Ground */}
+          <Text
+            style={{
+              fontSize: typography.fontSize.lg,
+              lineHeight: typography.lineHeight.relaxed,
+              color: colors.text.primary,
+              marginBottom: 'auto',
+              fontStyle: 'italic',
+              flex: 1,
+              textAlign: 'center',
+              padding: '0 1rem',
+              textShadow: `0 2px 4px rgba(0, 0, 0, 0.3)`,
+              position: 'relative',
+              zIndex: 3,
+            }}
+          >
+            {testimonial.quote}
+          </Text>
+
+          {/* Attribution - Centered with Symmetrical Divider */}
+          <div
+            style={{
+              marginTop: '1.5rem',
+              textAlign: 'center',
+            }}
+          >
+            {/* Symmetrical Divider Line */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '1rem',
+              }}
+            >
+              <div
+                style={{
+                  width: '60px',
+                  height: '2px',
+                  background: `linear-gradient(90deg, transparent, ${categoryColor}, transparent)`,
+                }}
+              />
+            </div>
+
+            <Text
+              size="sm"
+              style={{
+                color: colors.text.dimmed,
+                fontSize: typography.fontSize.sm,
+                marginBottom: '0.5rem',
+                fontStyle: 'italic',
+              }}
+            >
+              {testimonial.context}
+            </Text>
+            <Text
+              size="xs"
+              style={{
+                color: categoryColor,
+                fontSize: typography.fontSize.xs,
+                fontWeight: typography.fontWeight.bold,
+                textTransform: 'uppercase',
+                letterSpacing: typography.letterSpacing.wide,
+              }}
+            >
+              — Fictional Jony Ive (via Claude Code)
+            </Text>
+          </div>
+        </div>
+
+        {/* Background Pattern for Figure/Ground Depth */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
             right: 0,
-            width: '60px',
-            height: '60px',
-            background: `linear-gradient(135deg, transparent 50%, ${categoryColor}30 50%)`,
-            borderBottomRightRadius: '14px',
+            bottom: 0,
+            backgroundImage: `radial-gradient(circle at 20% 20%, ${categoryColor}15 0%, transparent 50%),
+                              radial-gradient(circle at 80% 80%, ${categoryColor}10 0%, transparent 50%)`,
+            borderRadius: '20px',
+            pointerEvents: 'none',
+            zIndex: 1,
           }}
         />
       </div>

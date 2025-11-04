@@ -8,6 +8,7 @@ export interface Testimonial {
   quote: string;
   context: string;
   category: 'craft' | 'vision' | 'execution' | 'innovation';
+  sentiment?: 'positive' | 'critical';
 }
 
 export const TESTIMONIALS_DATA: Testimonial[] = [
@@ -103,32 +104,16 @@ export const TESTIMONIALS_DATA: Testimonial[] = [
   },
   {
     id: '16',
-    quote: "While the work shows promise, I'm troubled by the occasional reliance on established patterns rather than pushing boundaries. True innovation requires risk.",
-    context: "On design conventions",
-    category: 'innovation',
+    quote: "I call this design 'minimalism.' James calls it 'I ran out of ideas on a Tuesday.'",
+    context: "Weekend Update: Design Trends",
+    category: 'craft',
+    sentiment: 'critical',
   },
   {
     id: '17',
-    quote: "There's competence here, certainly. But competence alone doesn't create products that change how people think about technology.",
-    context: "On overall impact",
-    category: 'vision',
-  },
-  {
-    id: '18',
-    quote: "I see some corners cut in the implementation. The details matter—every pixel, every millisecond. These small compromises accumulate.",
-    context: "On technical execution",
-    category: 'execution',
-  },
-  {
-    id: '19',
-    quote: "The design language feels safe. Safe is the enemy of great. Where's the courage to do something that might fail spectacularly?",
-    context: "On design risk-taking",
+    quote: "This portfolio screams innovation—specifically, it's screaming 'help, I'm trapped in 2015!'",
+    context: "Weekend Update: Tech Review",
     category: 'innovation',
-  },
-  {
-    id: '20',
-    quote: "Some of these projects feel like exercises rather than solutions to real problems. Design without purpose is just decoration.",
-    context: "On project selection",
-    category: 'vision',
+    sentiment: 'critical',
   },
 ];
