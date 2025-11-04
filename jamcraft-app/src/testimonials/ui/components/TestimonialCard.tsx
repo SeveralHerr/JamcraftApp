@@ -254,7 +254,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
                 letterSpacing: typography.letterSpacing.wide,
               }}
             >
-              — Fictional Jony Ive (via Claude Code)
+              — {testimonial.character}
             </Text>
           </div>
         </div>

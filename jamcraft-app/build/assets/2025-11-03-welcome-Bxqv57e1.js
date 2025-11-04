@@ -5,7 +5,7 @@ slug: "welcome"\r
 tags: ["announcement", "setup"]\r
 ---\r
 \r
-Welcome to the Jamcraft blog! This is a starter post to show the format for posts stored as Markdown in \`src/content/blog/\`.\r
+Welcome to the Jamcraft blog! This is the first post.\r
 \r
 You can write content here using standard Markdown. Use frontmatter keys \`title\`, \`date\`, \`slug\`, and \`tags\`.\r
 \r

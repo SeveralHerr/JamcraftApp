@@ -4,4 +4,5 @@ export interface Testimonial {
   context: string;
   category: 'craft' | 'vision' | 'execution' | 'innovation';
   sentiment?: 'positive' | 'critical';
+  character: string;
 }
