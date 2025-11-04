@@ -25,10 +25,10 @@ export const COMMUNITY_CHANNELS_DATA: CommunityChannel[] = [
     id: 'itch-gamejam',
     name: 'Gamejam',
     type: 'gaming',
-    description: 'FINISHED - Join the Jamcraft Games, a game jam focused on creating dynamic and juicy games with smooth animations, satisfying sounds, and impactful moments. Collaborate with others or work solo for a chance to win a $200 prize, game assets, and have your game featured on Twitch!',
+    description: 'Check out if we have any upcoming gamejams!',
     imageSrc: '/assets/itchLogo.png',
     imageAlt: 'Itch.io',
-    externalUrl: 'https://itch.io/jam/jamcraft-games-',
+    externalUrl: 'https://itch.io/search?type=jams&q=jamcraft',
     isActive: true,
   },
 ];
