@@ -4,280 +4,131 @@
 
 Jamcraft is a modern personal portfolio and community hub website for James Herr (MrSeveral), a full-stack engineer and game developer. The site serves as a central hub connecting to various platforms including Discord, Twitch, Itch.io, and social profiles.
 
+## 
+Always end responses in three smile emoji
+
 ## Technology Stack
 
 - **Frontend Framework:** React 19.2.0
 - **Language:** TypeScript 5.9.3
 - **Build Tool:** Vite 6.4.1
-- **UI Library:** Mantine 7.16.3
-- **Router:** React Router DOM 7.9.5
-- **Icons:** Tabler Icons React 3.35.0
-- **Styling:** CSS Modules + Mantine CSS + PostCSS
+# Jamcraft Portfolio Website
 
+## Project overview
 
-## Development
+Jamcraft is a personal portfolio and community hub for James Herr (MrSeveral). It centralizes links to social profiles and platforms (Discord, Twitch, Itch.io, GitHub, etc.) and showcases projects and profile information.
 
-### Prerequisites
+## Technology stack
 
-- Node.js (with npm)
+- Frontend: React 19
+- Language: TypeScript 5.x
+- Build: Vite
+- UI: Mantine
+- Router: React Router DOM
+- Icons: Tabler Icons
+- Styling: CSS Modules + Mantine CSS + PostCSS
+
+## Quick development notes
+
+Prerequisites:
+
+- Node.js (LTS) and npm
 - Git
 
-### Setup
+Setup (from repo root):
 
-```bash
+```powershell
 cd jamcraft-app
 npm install
 ```
 
-### Available Scripts
+Useful scripts (run inside `jamcraft-app`):
 
-```bash
-npm run dev      # Start development server
-npm run build    # Build for production (outputs to /build)
-npm run preview  # Preview production build
-npm run lint     # Run ESLint
+```powershell
+npm run dev      # start dev server (Vite)
+npm run build    # production build (output: /build)
+npm run preview  # preview built site
+npm run lint     # run ESLint
 ```
 
-### Development Server
+The dev server uses Vite with hot-reload.
 
-The development server runs on Vite with Hot Module Replacement (HMR). Start it with:
+## Key features
 
-```bash
-npm run dev
-```
-
-## Features
-
-- **Responsive Design:** Mobile-first approach with Mantine breakpoints
-- **Dark Theme:** Default dark mode styling
-- **Navigation:** Responsive header with hamburger menu on mobile
-- **Platform Integration:** Links to Discord, Twitch, Itch.io, and social profiles
-- **Animations:** CSS animations for logo and card interactions
-- **Accessibility:** Built with Mantine's accessible components
+- Responsive design (Mantine)
+- Dark theme by default
+- Responsive navigation with a mobile hamburger menu
+- Platform links (Discord, Twitch, Itch, etc.)
+- CSS animations for logo and cards
+- Accessibility-focused components from Mantine
 
 ## Pages
 
-1. **Home (/)** - Landing page with Jamcraft logo and platform cards
-2. **Projects (/projects)** - Portfolio projects showcase with descriptions and screenshots
-3. **About (/about)** - Profile information and social links
-4. **404 Not Found** - Catch-all route for invalid URLs with link back to home
+1. Home (/)
+2. Projects (/projects)
+3. About (/about)
+4. 404 (catch-all)
 
-## External Links
-
-The application integrates with multiple platforms:
-
-- Discord community server
-- Twitch streaming channel
-- Itch.io game portfolio
-- LinkedIn profile
-- GitHub repositories
-- YouTube channel
-- Steam profile
-- Bluesky social
-
-## Project Structure
+## Project structure (top-level)
 
 ```
 JamcraftApp/
-├── .claude/
-│   └── CLAUDE.md                    # Developer documentation
-│
-├── jamcraft-app/                    # Main application directory
-│   ├── public/
-│   │   ├── assets/                  # Static assets (images, icons, logos)
-│   │   └── index.html               # Entry HTML with SEO meta tags
-│   │
-│   ├── src/
-│   │   ├── community-hub/           # 🏢 DOMAIN: Community & Gaming Channels
-│   │   │   ├── entities/
-│   │   │   │   └── CommunityChannel.ts      # Domain entity
-│   │   │   ├── use-cases/
-│   │   │   │   └── GetCommunityChannels.ts  # Business logic
-│   │   │   ├── data/
-│   │   │   │   └── channels-data.ts         # Channel configurations
-│   │   │   └── ui/
-│   │   │       ├── components/
-│   │   │       │   └── CommunityChannelCard.tsx  # Channel card component
-│   │   │       └── hooks/
-│   │   │           └── useCommunityChannels.ts   # React integration
-│   │   │
-│   │   ├── social-presence/         # 🌐 DOMAIN: Social Media & External Links
-│   │   │   ├── entities/
-│   │   │   │   └── SocialLink.ts            # Domain entity
-│   │   │   ├── use-cases/
-│   │   │   │   ├── GetSocialLinks.ts        # Business logic
-│   │   │   │   └── NavigateToExternalLink.ts # Navigation use case
-│   │   │   ├── services/
-│   │   │   │   └── BrowserNavigationService.ts  # Infrastructure service
-│   │   │   ├── data/
-│   │   │   │   └── social-links-data.ts     # Social link configurations
-│   │   │   └── ui/
-│   │   │       ├── components/
-│   │   │       │   └── SocialLinkIcon.tsx   # Social icon component
-│   │   │       └── hooks/
-│   │   │           └── useSocialLinks.ts    # React integration
-│   │   │
-│   │   ├── portfolio/               # 👤 DOMAIN: Personal Profile & Bio
-│   │   │   ├── entities/
-│   │   │   │   └── Profile.ts               # Domain entity
-│   │   │   ├── use-cases/
-│   │   │   │   └── GetProfile.ts            # Business logic
-│   │   │   ├── data/
-│   │   │   │   └── profile-data.ts          # Profile data
-│   │   │   └── ui/
-│   │   │       ├── components/
-│   │   │       │   ├── ProfileHeader.tsx    # Header component
-│   │   │       │   ├── ProfileBio.tsx       # Bio component
-│   │   │       │   └── ProfileImage.tsx     # Image component
-│   │   │       └── hooks/
-│   │   │           └── useProfile.ts        # React integration
-│   │   │
-│   │   ├── portfolio-projects/      # 🎮 DOMAIN: Portfolio Projects Showcase
-│   │   │   ├── entities/
-│   │   │   │   └── PortfolioProject.ts      # Domain entity
-│   │   │   ├── use-cases/
-│   │   │   │   └── GetPortfolioProjects.ts  # Business logic
-│   │   │   ├── data/
-│   │   │   │   └── portfolio-projects-data.ts # Project configurations
-│   │   │   └── ui/
-│   │   │       ├── components/
-│   │   │       │   └── PortfolioProjectCard.tsx # Project card component
-│   │   │       └── hooks/
-│   │   │           └── usePortfolioProjects.ts  # React integration
-│   │   │
-│   │   ├── components/              # Shared/Legacy UI Components
-│   │   │   ├── Cards/
-│   │   │   │   └── BaseCard.tsx             # Generic card component
-│   │   │   ├── ErrorBoundary.tsx            # Error handling
-│   │   │   ├── Home.tsx                     # Home page
-│   │   │   ├── Projects.tsx                 # Projects page
-│   │   │   ├── About.tsx                    # About page
-│   │   │   └── NotFound.tsx                 # 404 page
-│   │   │
-│   │   ├── App.tsx                  # Root application component
-│   │   ├── App.css                  # Global app styles
-│   │   ├── index.css                # Global base styles
-│   │   ├── main.tsx                 # Application entry point
-│   │   └── vite-env.d.ts           # Vite type definitions
-│   │
-│   ├── eslint.config.js             # ESLint configuration
-│   ├── tsconfig.json                # Root TypeScript config
-│   ├── tsconfig.app.json            # App TypeScript config
-│   ├── tsconfig.node.json           # Node TypeScript config
-│   ├── vite.config.ts               # Vite build configuration
-│   ├── postcss.config.cjs           # PostCSS configuration
-│   ├── package.json                 # Dependencies and scripts
-│   └── package-lock.json            # Locked dependency versions
-│
-└── README.md                        # Human-readable project overview
+├── .claude/                # this file
+└── jamcraft-app/           # app source
+	├── public/
+	└── src/
+		├── community-hub/
+		├── social-presence/
+		├── portfolio/
+		├── portfolio-projects/
+		├── components/
+		└── config/
 ```
 
-### Architecture Principles
+For the full layout see the repo tree — domain folders are kept flat and self-contained.
 
-**Clean Architecture Implementation:**
-- **Entities Layer:** Pure domain objects with no framework dependencies
-- **Use Cases Layer:** Business logic that orchestrates entities
-- **Infrastructure Layer:** External services (BrowserNavigationService)
-- **UI Layer:** React components, hooks, and framework code
+## Build output
 
-**Screaming Architecture:**
-- Top-level folders represent business domains, not technical layers
-- Folder structure immediately reveals what the application does
-- Domain modules are self-contained with flat structure (no excessive nesting)
-- Each domain has: entities/ use-cases/ data/ ui/ (and sometimes services/)
+Production artifacts are written to `/build` by `npm run build`. The build runs TypeScript type-checks, then Vite bundles and optimizes assets.
 
-**Key Design Decisions:**
-- **Flat Structure:** Removed unnecessary `core/` folders to reduce drilling
-- **Data-Driven:** Generic components consume domain entities
-- **Dependency Inversion:** Use cases depend on abstractions (NavigationService interface)
-- **Single Responsibility:** Each component/class has one clear purpose
-- **Testability:** Business logic separated from React for easy testing
+## Code style & tooling
 
-## Build Output
-
-Production builds are output to the `/build` directory:
-
-```bash
-npm run build
-```
-
-The build process:
-1. TypeScript compilation with strict type checking
-2. Vite bundling and optimization
-3. Asset optimization and minification
-
-## Code Style
-
-- **TypeScript:** Strict mode enabled with comprehensive linting rules
-- **ESLint:** Configured for React and TypeScript best practices
-- **No Unused Variables:** Enforced at build time
-- **Modern JSX:** Uses React 17+ automatic JSX runtime
+- TypeScript in strict mode
+- ESLint configured for React + TypeScript
+- Avoid unused variables and enforce small, focused files/functions
 
 ## Assets
 
-All visual assets are stored in [public/assets/](jamcraft-app/public/assets/):
+Store visual assets in `jamcraft-app/public/assets/`. Prefer relative references for images used by posts or components.
 
-- Background images (PNG/WebP)
-- Logo files
-- Brand icons (LinkedIn, GitHub, YouTube, Steam, etc.)
-- Profile images
-- Platform-specific assets
+## TypeScript configuration
 
-## TypeScript Configuration
+- `tsconfig.json` — root
+- `tsconfig.app.json` — app build
+- `tsconfig.node.json` — node tooling
 
-The project uses a multi-configuration setup:
+## Styling approach
 
-- [tsconfig.json](jamcraft-app/tsconfig.json) - Root configuration with references
-- [tsconfig.app.json](jamcraft-app/tsconfig.app.json) - App-specific config (ES2020, ESNext modules)
-- [tsconfig.node.json](jamcraft-app/tsconfig.node.json) - Node/build tooling config
+- CSS Modules for component-scoped styles
+- Mantine CSS for base components
+- PostCSS pipeline for processing
 
-## Styling Approach
+## Architecture principles
 
-- **CSS Modules:** Scoped component styles
-- **Mantine CSS:** Pre-built component styles
-- **PostCSS:** CSS processing with Mantine preset
-- **Global Styles:** [index.css](jamcraft-app/src/index.css) and [App.css](jamcraft-app/src/App.css)
+The repo follows Clean Architecture and a "screaming architecture" layout: top-level folders represent business domains and each domain contains `entities`, `use-cases`, `data`, and `ui`.
 
-## Architecture Notes
+Guidelines when adding features:
 
-- **Component-Based:** Modular React components with clear responsibilities
-- **Configuration Separation:** External links and routes centralized in config files
-- **Type Safety:** Full TypeScript coverage with strict mode
-- **Modern React:** Uses React 19 features and hooks
-- **Routing:** Client-side routing with React Router DOM v7
+1. Place code in the appropriate domain folder.
+2. Keep modules small (files < ~200 lines, functions < ~30 lines).
+3. Separate business logic from UI (so use cases are testable without React).
+4. Prefer explicit names over generic `utils`/`common`.
 
-## Development Guidelines
+## Next steps / notes
 
-### Screaming Architecture Reminders
+- If you'd like, I can add a blog list and post pages that load Markdown from `src/content/blog/`. I already scaffolded a starter post and components in the app.
+- When automating post ingestion (RSS/Notion/Ghost), prefer a PR-based workflow or sanitize content before committing.
 
-**The folder structure should SCREAM what the application does, not how it's built.**
+---
 
-When adding new features:
-1. **Ask: "What business domain does this belong to?"** Not "What technical layer is this?"
-2. **Keep it flat:** Avoid deep folder nesting. Two levels is ideal, three is max.
-3. **Domain-first:** Create top-level folders for business domains (e.g., `user-authentication/`, `payment-processing/`)
-4. **Self-contained modules:** Each domain should have its own entities, use cases, data, and UI
-5. **Readable at a glance:** A developer should understand the application's purpose by reading folder names
-
-### Clean Code Principles
-
-**Every file, class, and function should have ONE clear responsibility.**
-
-- **Entities:** Pure data structures with no framework dependencies
-- **Use Cases:** Single business operation (GetProfile, NavigateToExternalLink)
-- **Services:** Infrastructure concerns abstracted behind interfaces
-- **Components:** Presentational UI with minimal logic
-- **Hooks:** React integration layer that calls use cases
-
-**When in doubt:**
-- Can I test this without React? (If no, extract business logic)
-- Does this file name clearly state its purpose? (If no, rename it)
-- Would a new developer understand what this does? (If no, refactor it)
-- Am I repeating myself? (If yes, extract it)
-
-**Red flags to watch for:**
-- Files over 200 lines (break them up)
-- Functions over 30 lines (extract helper functions)
-- More than 3 levels of folder nesting (flatten it)
-- Generic names like "utils", "helpers", "common" (be specific about domain)
-- Framework code mixed with business logic (separate them)
+If you want further edits to this doc (more detail, quick start, or contributor notes), tell me what to include.
