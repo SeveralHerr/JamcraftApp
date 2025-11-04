@@ -211,12 +211,12 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
           background: `linear-gradient(135deg, ${colors.background.glass} 0%, rgba(8, 27, 41, 0.6) 100%)`,
           backdropFilter: 'blur(20px)',
           border: `2px solid ${categoryColor}`,
-          borderRadius: '20px',
-          padding: '2.5rem',
+          borderRadius: '16px',
+          padding: '1.5rem',
           position: 'relative',
           overflow: 'hidden',
           height: '100%',
-          minHeight: '400px',
+          minHeight: '320px',
           display: 'flex',
           flexDirection: 'column',
           boxShadow: `0 8px 40px ${categoryColor}30, inset 0 1px 0 rgba(255, 255, 255, 0.1)`,
@@ -298,77 +298,35 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
             style={{
               display: 'flex',
               justifyContent: 'center',
-              marginBottom: '1rem',
+              marginBottom: '0.5rem',
             }}
           >
             <div
               style={{
                 background: `linear-gradient(135deg, ${categoryColor}30, ${categoryColor}10)`,
                 border: `1px solid ${categoryColor}`,
-                borderRadius: '24px',
-                padding: '0.4rem 1rem',
+                borderRadius: '20px',
+                padding: '0.3rem 0.8rem',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem',
+                gap: '0.4rem',
                 boxShadow: `0 4px 12px ${categoryColor}40`,
               }}
             >
-              <IconSparkles size={14} color={categoryColor} />
+              <IconSparkles size={12} color={categoryColor} />
               <Text
                 size="xs"
                 style={{
                   color: categoryColor,
                   fontWeight: typography.fontWeight.bold,
-                  fontSize: '0.7rem',
+                  fontSize: '0.65rem',
                   textTransform: 'uppercase',
                   letterSpacing: typography.letterSpacing.wider,
                 }}
               >
                 Claude AI
               </Text>
-              <IconSparkles size={14} color={categoryColor} />
-            </div>
-          </div>
-
-          {/* Symmetrical Quote Marks (Closure) */}
-          <div
-            style={{
-              position: 'relative',
-              marginBottom: '1rem',
-            }}
-          >
-            {/* Opening Quote */}
-            <div
-              style={{
-                position: 'absolute',
-                top: '-20px',
-                left: '-10px',
-                fontSize: '80px',
-                color: categoryColor,
-                opacity: 0.2,
-                fontFamily: 'Georgia, serif',
-                lineHeight: 1,
-                pointerEvents: 'none',
-              }}
-            >
-              "
-            </div>
-            {/* Closing Quote (Symmetry) */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '-60px',
-                right: '-10px',
-                fontSize: '80px',
-                color: categoryColor,
-                opacity: 0.2,
-                fontFamily: 'Georgia, serif',
-                lineHeight: 1,
-                pointerEvents: 'none',
-                transform: 'rotate(180deg)',
-              }}
-            >
-              "
+              <IconSparkles size={12} color={categoryColor} />
             </div>
           </div>
 
@@ -377,14 +335,14 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
             style={{
               display: 'flex',
               justifyContent: 'center',
-              marginBottom: '1.5rem',
+              marginBottom: '1rem',
             }}
           >
             <div
               style={{
-                padding: '0.5rem 1.5rem',
+                padding: '0.4rem 1.2rem',
                 background: `linear-gradient(135deg, ${categoryColor}, ${categoryColor}cc)`,
-                borderRadius: '24px',
+                borderRadius: '20px',
                 boxShadow: `0 4px 16px ${categoryColor}50, inset 0 1px 0 rgba(255, 255, 255, 0.3)`,
               }}
             >
@@ -396,6 +354,7 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
                   textTransform: 'uppercase',
                   letterSpacing: typography.letterSpacing.widest,
                   textShadow: `0 1px 2px rgba(0, 0, 0, 0.3)`,
+                  fontSize: '0.7rem',
                 }}
               >
                 {CATEGORY_LABELS[testimonial.category]}
@@ -406,17 +365,17 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
           {/* Quote - Centered Text for Figure/Ground */}
           <Text
             style={{
-              fontSize: typography.fontSize.lg,
+              fontSize: typography.fontSize.base,
               lineHeight: typography.lineHeight.relaxed,
               color: colors.text.primary,
-              marginBottom: 'auto',
               fontStyle: 'italic',
-              flex: 1,
               textAlign: 'center',
-              padding: '0 1rem',
+              padding: '0.5rem 1rem',
               textShadow: `0 2px 4px rgba(0, 0, 0, 0.3)`,
               position: 'relative',
               zIndex: 3,
+              flex: 1,
+              marginBottom: 'auto',
             }}
           >
             {testimonial.quote}
@@ -425,7 +384,7 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
           {/* Attribution - Centered with Symmetrical Divider */}
           <div
             style={{
-              marginTop: '1.5rem',
+              marginTop: '1rem',
               textAlign: 'center',
             }}
           >
