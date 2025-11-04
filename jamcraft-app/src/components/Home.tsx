@@ -57,8 +57,8 @@ export function Home() {
         />
         <Center>
           <SimpleGrid
-            cols={{ base: 1, xs: 1, md: 3 }}
-            spacing={{ base: 1, sm: "lg", lg: "xl" }}
+            cols={{ base: 1, sm: 3 }}
+            spacing={{ base: "md", sm: "lg", lg: "xl" }}
             verticalSpacing={{ base: "md", sm: "xl" }}
           >
             {channels.map((channel, index) => (

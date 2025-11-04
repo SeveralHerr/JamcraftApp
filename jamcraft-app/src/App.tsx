@@ -6,7 +6,7 @@ import { About } from "./components/About";
 import { Projects } from "./components/Projects";
 import { BlogList } from "./blog/BlogList";
 import { BlogPost } from "./blog/BlogPost";
-import { Testimonials } from "./components/Testimonials";
+import { TestimonialsPage } from "./testimonials/TestimonialsPage";
 import { NotFound } from "./components/NotFound";
 import {
   BrowserRouter,
@@ -122,7 +122,7 @@ function App() {
               <Route path="/projects" element={<Projects />} />
               <Route path="/blog" element={<BlogList />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/testimonials" element={<Testimonials />} />
+              <Route path="/testimonials" element={<TestimonialsPage />} />
               <Route path="/about" element={<About />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

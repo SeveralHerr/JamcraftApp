@@ -3,13 +3,7 @@
  * Jony Ive's reflections on James Herr's work
  */
 
-export interface Testimonial {
-  id: string;
-  quote: string;
-  context: string;
-  category: 'craft' | 'vision' | 'execution' | 'innovation';
-  sentiment?: 'positive' | 'critical';
-}
+import { Testimonial } from '../entities/Testimonial';
 
 export const TESTIMONIALS_DATA: Testimonial[] = [
   {

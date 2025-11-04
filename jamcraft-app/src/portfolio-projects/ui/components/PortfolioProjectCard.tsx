@@ -149,15 +149,16 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: '1.5rem',
-              padding: '2rem',
+              gap: '1rem',
+              padding: '1.5rem',
               textAlign: 'center',
+              maxWidth: '400px',
             }}
           >
             <div
               style={{
-                width: '80px',
-                height: '80px',
+                width: '60px',
+                height: '60px',
                 borderRadius: '50%',
                 background: `linear-gradient(135deg, ${colors.nsfw.warning}, ${colors.brand.primary})`,
                 display: 'flex',
@@ -167,29 +168,27 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
                 animation: 'pulse 2s ease-in-out infinite',
               }}
             >
-              <IconAlertTriangle size={40} color="white" />
+              <IconAlertTriangle size={32} color="white" />
             </div>
 
             <div>
               <Text
-                size="xl"
+                size="lg"
                 fw={typography.fontWeight.bold}
                 c="white"
                 mb="xs"
                 style={{
                   textTransform: 'uppercase',
                   letterSpacing: typography.letterSpacing.widest,
-                  fontSize: typography.fontSize['2xl'],
+                  fontSize: typography.fontSize.xl,
                 }}
               >
-                NSFW Content
+                NSFW CONTENT
               </Text>
               <Text
                 size="sm"
                 c={colors.text.secondary}
-                px="md"
                 style={{
-                  maxWidth: '300px',
                   lineHeight: typography.lineHeight.relaxed,
                 }}
               >
@@ -201,13 +200,13 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
               onClick={handleRevealNSFW}
               className="focus-ring"
               style={{
-                padding: '12px 32px',
+                padding: '10px 24px',
                 backgroundColor: colors.brand.primary,
                 border: 'none',
                 borderRadius: '8px',
                 cursor: 'pointer',
                 fontWeight: typography.fontWeight.semibold,
-                fontSize: typography.fontSize.base,
+                fontSize: typography.fontSize.sm,
                 color: colors.background.secondary,
                 transition: transitions.fast,
                 boxShadow: shadows.buttonHover,
@@ -226,7 +225,7 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
                 e.currentTarget.style.boxShadow = shadows.buttonHover;
               }}
             >
-              <IconEye size={18} />
+              <IconEye size={16} />
               Click to Reveal
             </button>
           </div>

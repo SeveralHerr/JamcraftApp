@@ -1,6 +1,7 @@
-import { Container, Title, Text, Stack } from '@mantine/core';
+import { Container, Text, Stack } from '@mantine/core';
 import { useBlogPosts } from './ui/hooks/useBlogPosts';
 import { BlogPostCard } from './ui/components/BlogPostCard';
+import { PageHeader } from '../components/ui/PageHeader';
 
 export function BlogList() {
   const { posts, loading } = useBlogPosts();
@@ -40,33 +41,11 @@ export function BlogList() {
           <div style={{
             marginBottom: '3rem'
           }}>
-            <Title
-              order={1}
-              c="#ededed"
-              ta="center"
-              style={{
-                fontSize: '3.5rem',
-                fontWeight: 700,
-                letterSpacing: '-0.03em',
-                lineHeight: 1.1,
-                marginBottom: '1rem'
-              }}
-            >
-              Blog
-            </Title>
-            <Text
-              c="dimmed"
-              ta="center"
-              size="lg"
-              style={{
-                fontSize: '1.125rem',
-                opacity: 0.7,
-                letterSpacing: '0.01em',
-                lineHeight: 1.6
-              }}
-            >
-              Thoughts, tutorials, and updates
-            </Text>
+            <PageHeader
+              title="Blog"
+              subtitle="Thoughts, tutorials, and updates"
+              align="center"
+            />
           </div>
 
           <Stack gap={24}>
