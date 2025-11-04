@@ -1,7 +1,6 @@
 export const ROUTES = {
   home: "/",
   about: "/about",
-  // games: "/games",
 } as const;
 
 export const EXTERNAL_LINKS = {

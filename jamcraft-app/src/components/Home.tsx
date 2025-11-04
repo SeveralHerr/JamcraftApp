@@ -13,16 +13,15 @@ import { TwitchCard } from "./Cards/TwitchCard";
 export function Home() {
   return (
     <>
-      <Container 
-        size="s" 
+      <Container
+        size="s"
         maw={800}
         h="auto"
         mah={400}
-        
+
         style={{
           display: 'flex',
-          alignItems: 'center',
-          minHeight: ""
+          alignItems: 'center'
         }}
       >
         <Box 

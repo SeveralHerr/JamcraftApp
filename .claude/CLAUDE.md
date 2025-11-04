@@ -6,13 +6,41 @@ Jamcraft is a modern personal portfolio and community hub website for James Herr
 
 ## Technology Stack
 
-- **Frontend Framework:** React 19.0.0
-- **Language:** TypeScript 5.7.2
-- **Build Tool:** Vite 6.1.0
+- **Frontend Framework:** React 19.2.0
+- **Language:** TypeScript 5.9.3
+- **Build Tool:** Vite 6.4.1
 - **UI Library:** Mantine 7.16.3
-- **Router:** React Router DOM 7.1.5
-- **Icons:** Tabler Icons React 3.30.0
+- **Router:** React Router DOM 7.9.5
+- **Icons:** Tabler Icons React 3.35.0
 - **Styling:** CSS Modules + Mantine CSS + PostCSS
+
+## Recent Maintenance (November 2025)
+
+All security vulnerabilities have been resolved and the codebase has been cleaned up:
+
+### Security Updates
+- Updated react-router-dom from 7.1.5 to 7.9.5 (HIGH severity fix)
+- Updated Vite from 6.1.0 to 6.4.1 (MODERATE severity fixes)
+- All npm audit vulnerabilities resolved (0 vulnerabilities)
+
+### Code Quality Improvements
+- Created missing ESLint configuration file ([eslint.config.js](jamcraft-app/eslint.config.js))
+- Removed unused components (AppHeader.tsx, MinecraftCard.tsx)
+- Cleaned up all commented-out code
+- Fixed empty inline styles
+- Added React Error Boundary component for better error handling
+- Added 404 Not Found page with catch-all route
+
+### Accessibility & SEO
+- Added comprehensive SEO meta tags (description, Open Graph, Twitter Cards)
+- Added ARIA labels to all navigation elements and social media links
+- Improved screen reader support
+
+### Build System
+- All dependencies updated to latest patch/minor versions
+- ESLint now fully functional
+- TypeScript compilation passes with strict mode
+- Production build successful (322.69 kB JS, 203.53 kB CSS)
 
 ## Project Structure
 
@@ -23,8 +51,9 @@ JamcraftApp/
 │   │   ├── components/        # React components
 │   │   │   ├── About.tsx      # About page with profile info
 │   │   │   ├── Home.tsx       # Landing page with cards
-│   │   │   ├── AppHeader.tsx  # Navigation header
 │   │   │   ├── NavButton.tsx  # Navigation button component
+│   │   │   ├── ErrorBoundary.tsx # Error boundary for error handling
+│   │   │   ├── NotFound.tsx   # 404 page component
 │   │   │   └── Cards/         # Reusable card components
 │   │   ├── config/
 │   │   │   └── routes.ts      # Route definitions & external links
@@ -40,16 +69,18 @@ JamcraftApp/
 
 ### Components
 
-- [App.tsx](jamcraft-app/src/App.tsx) - Main application component with routing
+- [App.tsx](jamcraft-app/src/App.tsx) - Main application component with routing and error boundary
 - [Home.tsx](jamcraft-app/src/components/Home.tsx) - Landing page with animated logo and platform cards
 - [About.tsx](jamcraft-app/src/components/About.tsx) - Profile page with social links
-- [AppHeader.tsx](jamcraft-app/src/components/AppHeader.tsx) - Responsive navigation header with mobile menu
+- [ErrorBoundary.tsx](jamcraft-app/src/components/ErrorBoundary.tsx) - React error boundary for graceful error handling
+- [NotFound.tsx](jamcraft-app/src/components/NotFound.tsx) - 404 page for invalid routes
 - [Cards/BaseCard.tsx](jamcraft-app/src/components/Cards/BaseCard.tsx) - Reusable card template component
 
 ### Configuration
 
 - [routes.ts](jamcraft-app/src/config/routes.ts) - Centralized route and external link definitions
 - [vite.config.ts](jamcraft-app/src/vite.config.ts) - Vite build configuration
+- [eslint.config.js](jamcraft-app/eslint.config.js) - ESLint configuration for React and TypeScript
 - [tsconfig.app.json](jamcraft-app/tsconfig.app.json) - TypeScript configuration
 - [postcss.config.js](postcss.config.js) - PostCSS with Mantine preset
 
@@ -97,7 +128,7 @@ npm run dev
 
 1. **Home (/)** - Landing page with Jamcraft logo and platform cards
 2. **About (/about)** - Profile information and social links
-3. **Games (/games)** - Games showcase (placeholder)
+3. **404 Not Found** - Catch-all route for invalid URLs with link back to home
 
 ## External Links
 

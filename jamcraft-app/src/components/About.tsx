@@ -89,11 +89,13 @@ export function About() {
                   href={EXTERNAL_LINKS.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Visit James Herr on LinkedIn"
                 >
                   <Image
                     src="/assets/brand-linkedin.png"
                     h={40}
                     w={40}
+                    alt="LinkedIn"
                     style={{ filter: "brightness(0) invert(1)" }}
                   />
                 </a>
@@ -101,11 +103,13 @@ export function About() {
                   href={EXTERNAL_LINKS.steam}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Visit MrSeveral on Steam"
                 >
                   <Image
                     src="/assets/brand-steam.png"
                     h={40}
                     w={40}
+                    alt="Steam"
                     style={{ filter: "brightness(0) invert(1)" }}
                   />
                 </a>
@@ -113,11 +117,13 @@ export function About() {
                   href={EXTERNAL_LINKS.bluesky}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Follow James Herr on Bluesky"
                 >
                   <Image
                     src="/assets/brand-bluesky.png"
                     h={40}
                     w={40}
+                    alt="Bluesky"
                     style={{
                       filter: "brightness(0) invert(1)",
                       cursor: "pointer",
@@ -128,11 +134,13 @@ export function About() {
                   href={EXTERNAL_LINKS.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Subscribe to Jamcraft on YouTube"
                 >
                   <Image
                     src="/assets/brand-youtube.png"
                     h={40}
                     w={40}
+                    alt="YouTube"
                     style={{
                       filter: "brightness(0) invert(1)",
                       cursor: "pointer",
@@ -143,11 +151,13 @@ export function About() {
                   href={EXTERNAL_LINKS.github}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="View SeveralHerr on GitHub"
                 >
                   <Image
                     src="/assets/brand-github.png"
                     h={40}
                     w={40}
+                    alt="GitHub"
                     style={{ filter: "brightness(0) invert(1)" }}
                   />
                 </a>
@@ -155,11 +165,13 @@ export function About() {
                   href={EXTERNAL_LINKS.itch_profile}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Play games by SeveralHerr on Itch.io"
                 >
                   <Image
                     src="/assets/brand-itch.png"
                     h={40}
                     w={40}
+                    alt="Itch.io"
                     style={{
                       filter: "brightness(0) invert(1)",
                       cursor: "pointer",
