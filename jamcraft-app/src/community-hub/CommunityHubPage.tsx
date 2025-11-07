@@ -6,12 +6,12 @@ import {
   Box,
   Container
 } from "@mantine/core";
-import { useCommunityChannels } from "../community-hub/ui/hooks/useCommunityChannels";
-import { CommunityChannelCard } from "../community-hub/ui/components/CommunityChannelCard";
-import { LoadingPage } from "./ui/LoadingPage";
+import { useCommunityChannels } from "./ui/hooks/useCommunityChannels";
+import { CommunityChannelCard } from "./ui/components/CommunityChannelCard";
+import { LoadingPage } from "../components/ui/LoadingPage";
 import { colors } from "../theme";
 
-export function Home() {
+export function CommunityHubPage() {
   const { channels, loading } = useCommunityChannels();
 
   if (loading) {

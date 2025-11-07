@@ -15,8 +15,9 @@ export class NavigateToExternalLink {
 
   private isValidUrl(url: string): boolean {
     try {
-      new URL(url);
-      return true;
+      const parsedUrl = new URL(url);
+      // Security: Only allow http and https protocols
+      return parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:';
     } catch {
       return false;
     }

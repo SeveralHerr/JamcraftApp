@@ -1,9 +1,9 @@
 import "@mantine/core/styles.css";
 import { AppShell, MantineProvider, Group, Burger, Image } from "@mantine/core";
 import "./App.css";
-import { Home } from "./components/Home";
-import { About } from "./components/About";
-import { Projects } from "./components/Projects";
+import { CommunityHubPage } from "./community-hub/CommunityHubPage";
+import { AboutPage } from "./portfolio/AboutPage";
+import { ProjectsPage } from "./portfolio-projects/ProjectsPage";
 import { TestimonialsPage } from "./testimonials/TestimonialsPage";
 import { NotFound } from "./components/NotFound";
 import {
@@ -112,10 +112,10 @@ function App() {
 
           <AppShell.Main>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/projects" element={<Projects />} />
+              <Route path="/" element={<CommunityHubPage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/testimonials" element={<TestimonialsPage />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/about" element={<AboutPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AppShell.Main>

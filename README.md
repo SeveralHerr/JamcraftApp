@@ -2,6 +2,13 @@
 
 Personal portfolio and community hub for James Herr - Full Stack Engineer & Game Developer.
 
+[![Tests](https://img.shields.io/badge/tests-23%20passing-brightgreen)](./jamcraft-app/src)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-19-61dafb)](https://react.dev/)
+[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+
+🌐 **Live Site:** [jamcraft.io](https://jamcraft.io)
+
 ## What is this?
 
 A website that serves as a central hub connecting to my various platforms. 

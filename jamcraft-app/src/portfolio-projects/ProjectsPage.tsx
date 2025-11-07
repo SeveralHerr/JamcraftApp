@@ -1,11 +1,11 @@
 import { Container, Stack, Divider } from '@mantine/core';
-import { usePortfolioProjects } from '../portfolio-projects/ui/hooks/usePortfolioProjects';
-import { PortfolioProjectCard } from '../portfolio-projects/ui/components/PortfolioProjectCard';
-import { LoadingPage } from './ui/LoadingPage';
-import { PageHeader } from './ui/PageHeader';
+import { usePortfolioProjects } from './ui/hooks/usePortfolioProjects';
+import { PortfolioProjectCard } from './ui/components/PortfolioProjectCard';
+import { LoadingPage } from '../components/ui/LoadingPage';
+import { PageHeader } from '../components/ui/PageHeader';
 import { colors } from '../theme';
 
-export function Projects() {
+export function ProjectsPage() {
   const { projects, loading } = usePortfolioProjects();
 
   if (loading) {

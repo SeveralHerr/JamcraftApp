@@ -5,16 +5,16 @@ import {
   Divider,
   Group,
 } from "@mantine/core";
-import { useProfile } from "../portfolio/ui/hooks/useProfile";
+import { useProfile } from "./ui/hooks/useProfile";
 import { useSocialLinks } from "../social-presence/ui/hooks/useSocialLinks";
-import { ProfileImage } from "../portfolio/ui/components/ProfileImage";
-import { ProfileHeader } from "../portfolio/ui/components/ProfileHeader";
-import { ProfileBio } from "../portfolio/ui/components/ProfileBio";
+import { ProfileImage } from "./ui/components/ProfileImage";
+import { ProfileHeader } from "./ui/components/ProfileHeader";
+import { ProfileBio } from "./ui/components/ProfileBio";
 import { SocialLinkIcon } from "../social-presence/ui/components/SocialLinkIcon";
-import { LoadingPage } from "./ui/LoadingPage";
+import { LoadingPage } from "../components/ui/LoadingPage";
 import { colors } from "../theme";
 
-export function About() {
+export function AboutPage() {
   const { profile, loading: profileLoading } = useProfile();
   const { socialLinks, loading: socialLinksLoading } = useSocialLinks();
 
