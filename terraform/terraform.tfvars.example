@@ -1,0 +1,7 @@
+# Copy this file to terraform.tfvars and customize as needed
+# DO NOT commit terraform.tfvars to version control
+
+aws_region   = "us-east-1"
+domain_name  = "jamcraft.io"
+project_name = "jamcraft"
+environment  = "production"
