@@ -4,8 +4,6 @@ import "./App.css";
 import { Home } from "./components/Home";
 import { About } from "./components/About";
 import { Projects } from "./components/Projects";
-import { BlogList } from "./blog/BlogList";
-import { BlogPost } from "./blog/BlogPost";
 import { TestimonialsPage } from "./testimonials/TestimonialsPage";
 import { NotFound } from "./components/NotFound";
 import {
@@ -90,7 +88,6 @@ function App() {
                 <Group ml="xl" gap={0} visibleFrom="sm">
                   <NavButton to={ROUTES.home}>Home</NavButton>
                   <NavButton to={ROUTES.projects}>Projects</NavButton>
-                  <NavButton to={ROUTES.blog}>Blog</NavButton>
                   <NavButton to={ROUTES.testimonials}>Testimonials</NavButton>
                   <NavButton to={ROUTES.about}>About</NavButton>
                 </Group>
@@ -105,9 +102,6 @@ function App() {
             <NavButton to={ROUTES.projects} onClose={toggle}>
               Projects
             </NavButton>
-            <NavButton to={ROUTES.blog} onClose={toggle}>
-              Blog
-            </NavButton>
             <NavButton to={ROUTES.testimonials} onClose={toggle}>
               Testimonials
             </NavButton>
@@ -120,8 +114,6 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/projects" element={<Projects />} />
-              <Route path="/blog" element={<BlogList />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/testimonials" element={<TestimonialsPage />} />
               <Route path="/about" element={<About />} />
               <Route path="*" element={<NotFound />} />

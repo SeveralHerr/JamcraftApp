@@ -66,8 +66,9 @@ The dev server uses Vite with hot-reload.
 
 1. Home (/)
 2. Projects (/projects)
-3. About (/about)
-4. 404 (catch-all)
+3. Testimonials (/testimonials)
+4. About (/about)
+5. 404 (catch-all)
 
 ## Project structure (top-level)
 
@@ -99,7 +100,7 @@ Production artifacts are written to `/build` by `npm run build`. The build runs 
 
 ## Assets
 
-Store visual assets in `jamcraft-app/public/assets/`. Prefer relative references for images used by posts or components.
+Store visual assets in `jamcraft-app/public/assets/`.
 
 ## TypeScript configuration
 
@@ -126,8 +127,7 @@ Guidelines when adding features:
 
 ## Next steps / notes
 
-- If you'd like, I can add a blog list and post pages that load Markdown from `src/content/blog/`. I already scaffolded a starter post and components in the app.
-- When automating post ingestion (RSS/Notion/Ghost), prefer a PR-based workflow or sanitize content before committing.
+- The site is now deployed to AWS using Terraform and GitHub Actions for CI/CD.
 
 ---
 
