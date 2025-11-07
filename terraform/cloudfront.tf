@@ -13,7 +13,8 @@ resource "aws_cloudfront_distribution" "website" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
   price_class         = "PriceClass_100" # Use only North America and Europe
-  aliases             = [var.domain_name, "www.${var.domain_name}"]
+  # Temporarily commented out to work around CloudFront CNAME issue
+  # aliases             = [var.domain_name, "www.${var.domain_name}"]
 
   origin {
     domain_name              = aws_s3_bucket.website.bucket_regional_domain_name
@@ -60,9 +61,11 @@ resource "aws_cloudfront_distribution" "website" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate.website.arn
-    ssl_support_method       = "sni-only"
-    minimum_protocol_version = "TLSv1.2_2021"
+    cloudfront_default_certificate = true
+    # Temporarily using default cert to work around CNAME issue
+    # acm_certificate_arn      = aws_acm_certificate.website.arn
+    # ssl_support_method       = "sni-only"
+    # minimum_protocol_version = "TLSv1.2_2021"
   }
 
   tags = {
@@ -71,5 +74,6 @@ resource "aws_cloudfront_distribution" "website" {
     Project     = var.project_name
   }
 
-  depends_on = [aws_acm_certificate_validation.website]
+  # Temporarily commented out
+  # depends_on = [aws_acm_certificate_validation.website]
 }

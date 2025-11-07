@@ -25,7 +25,11 @@
       "Bash(\"C:/Users/gotmi/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe\" output -json)",
       "Bash(gh secret set:*)",
       "Bash(aws route53domains get-domain-detail:*)",
-      "Bash(aws route53domains update-domain-nameservers:*)"
+      "Bash(aws route53domains update-domain-nameservers:*)",
+      "Bash(aws cloudfront list-distributions:*)",
+      "Bash(aws amplify list-apps:*)",
+      "Bash(aws amplify list-domain-associations:*)",
+      "Bash(aws amplify delete-domain-association:*)"
     ],
     "deny": [],
     "ask": []
