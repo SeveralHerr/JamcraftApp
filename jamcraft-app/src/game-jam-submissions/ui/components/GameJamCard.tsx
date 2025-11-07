@@ -1,0 +1,96 @@
+import { Image, Text, Title, Badge, Group, Stack } from '@mantine/core';
+import { IconTrophy } from '@tabler/icons-react';
+import { GameJamSubmission } from '../../entities/GameJamSubmission';
+import { NavigateToExternalLink } from '../../../social-presence/use-cases/NavigateToExternalLink';
+import { BrowserNavigationService } from '../../../social-presence/services/BrowserNavigationService';
+import { Card as UnifiedCard } from '../../../components/ui/Card';
+import { colors, typography } from '../../../theme';
+
+interface GameJamCardProps {
+  submission: GameJamSubmission;
+}
+
+// Singleton service instance
+const navigationService = new BrowserNavigationService();
+
+export function GameJamCard({ submission }: GameJamCardProps) {
+  const handleClick = () => {
+    const useCase = new NavigateToExternalLink(navigationService);
+    useCase.execute(submission.gameUrl);
+  };
+
+  return (
+    <UnifiedCard onClick={handleClick} hover style={{ cursor: 'pointer' }}>
+      <Group align="center" gap="xl" wrap="nowrap">
+        {submission.coverImageUrl && (
+          <div style={{ width: 300, height: 200, flexShrink: 0 }}>
+            <Image
+              src={submission.coverImageUrl}
+              alt={submission.name}
+              w={300}
+              h={200}
+              fit="cover"
+              radius="md"
+              style={{
+                objectFit: 'cover',
+                width: '100%',
+                height: '100%',
+              }}
+            />
+          </div>
+        )}
+
+        <Stack gap="sm" style={{ flex: 1 }} justify="center">
+          <div>
+            <Title
+              order={3}
+              size="h4"
+              c={colors.text.primary}
+              mb="xs"
+              style={{
+                fontWeight: typography.fontWeight.semibold,
+                letterSpacing: typography.letterSpacing.tight,
+              }}
+            >
+              {submission.name}
+            </Title>
+            <Group gap="xs">
+              <Badge color="grape" variant="light" size="sm">
+                {submission.jamName}
+              </Badge>
+              {submission.theme && (
+                <Badge color="violet" variant="outline" size="sm">
+                  Theme: {submission.theme}
+                </Badge>
+              )}
+            </Group>
+          </div>
+
+          <Text
+            c="dimmed"
+            size="sm"
+            style={{
+              lineHeight: typography.lineHeight.relaxed,
+              color: colors.text.tertiary,
+            }}
+          >
+            {submission.description}
+          </Text>
+
+          <Text
+            c={colors.brand.primary}
+            size="sm"
+            fw={typography.fontWeight.medium}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+            }}
+          >
+            Play Game <IconTrophy size={16} />
+          </Text>
+        </Stack>
+      </Group>
+    </UnifiedCard>
+  );
+}
