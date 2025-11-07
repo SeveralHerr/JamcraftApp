@@ -29,6 +29,10 @@ jobs:
         working-directory: jamcraft-app
         run: npm ci
 
+      - name: Run tests
+        working-directory: jamcraft-app
+        run: npm test -- --run
+
       - name: Build application
         working-directory: jamcraft-app
         run: npm run build

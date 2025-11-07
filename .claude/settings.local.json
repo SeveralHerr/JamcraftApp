@@ -29,7 +29,10 @@
       "Bash(aws cloudfront list-distributions:*)",
       "Bash(aws amplify list-apps:*)",
       "Bash(aws amplify list-domain-associations:*)",
-      "Bash(aws amplify delete-domain-association:*)"
+      "Bash(aws amplify delete-domain-association:*)",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(npm test:*)"
     ],
     "deny": [],
     "ask": []

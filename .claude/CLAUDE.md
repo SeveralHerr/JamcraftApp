@@ -6,6 +6,7 @@ Jamcraft is a modern personal portfolio and community hub website for James Herr
 
 ## 
 Always end responses in three smile emoji
+Always write tests 
 
 ## Technology Stack
 
