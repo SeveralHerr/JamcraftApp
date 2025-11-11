@@ -6,6 +6,7 @@ import { NavigateToExternalLink } from '../../../social-presence/use-cases/Navig
 import { BrowserNavigationService } from '../../../social-presence/services/BrowserNavigationService';
 import { Card as UnifiedCard } from '../../../components/ui/Card';
 import { colors, shadows, transitions, typography } from '../../../theme';
+import styles from './PortfolioProjectCard.module.css';
 
 interface PortfolioProjectCardProps {
   project: PortfolioProject;
@@ -57,9 +58,25 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
           transition: transitions.default,
         }}
       >
-        <Group align="center" gap="xl" wrap="nowrap">
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 'var(--mantine-spacing-xl)',
+            alignItems: 'flex-start',
+          }}
+          className={styles['project-card-content']}
+        >
           {project.screenshotUrl && (
-            <div style={{ width: 300, height: 200, flexShrink: 0 }}>
+            <div
+              style={{
+                width: 300,
+                minWidth: 300,
+                height: 200,
+                flexShrink: 0,
+              }}
+              className={styles['project-card-image']}
+            >
               <Image
                 src={project.screenshotUrl}
                 alt={project.name}
@@ -76,7 +93,7 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
             </div>
           )}
 
-          <Stack gap="sm" style={{ flex: 1 }} justify="center">
+          <Stack gap="sm" style={{ flex: 1, minWidth: 0 }} justify="center">
             <div>
               <Title
                 order={2}
@@ -119,7 +136,7 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
               View Project <IconEye size={16} />
             </Text>
           </Stack>
-        </Group>
+        </div>
       </UnifiedCard>
 
       {project.isNSFW && !showNSFW && (

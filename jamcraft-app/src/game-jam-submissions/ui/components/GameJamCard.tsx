@@ -5,6 +5,7 @@ import { NavigateToExternalLink } from '../../../social-presence/use-cases/Navig
 import { BrowserNavigationService } from '../../../social-presence/services/BrowserNavigationService';
 import { Card as UnifiedCard } from '../../../components/ui/Card';
 import { colors, typography } from '../../../theme';
+import styles from './GameJamCard.module.css';
 
 interface GameJamCardProps {
   submission: GameJamSubmission;
@@ -21,9 +22,25 @@ export function GameJamCard({ submission }: GameJamCardProps) {
 
   return (
     <UnifiedCard onClick={handleClick} hover style={{ cursor: 'pointer' }}>
-      <Group align="center" gap="xl" wrap="nowrap">
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 'var(--mantine-spacing-xl)',
+          alignItems: 'flex-start',
+        }}
+        className={styles['game-jam-card-content']}
+      >
         {submission.coverImageUrl && (
-          <div style={{ width: 300, height: 200, flexShrink: 0 }}>
+          <div
+            style={{
+              width: 300,
+              minWidth: 300,
+              height: 200,
+              flexShrink: 0,
+            }}
+            className={styles['game-jam-card-image']}
+          >
             <Image
               src={submission.coverImageUrl}
               alt={submission.name}
@@ -40,7 +57,7 @@ export function GameJamCard({ submission }: GameJamCardProps) {
           </div>
         )}
 
-        <Stack gap="sm" style={{ flex: 1 }} justify="center">
+        <Stack gap="sm" style={{ flex: 1, minWidth: 0 }} justify="center">
           <div>
             <Title
               order={3}
@@ -90,7 +107,7 @@ export function GameJamCard({ submission }: GameJamCardProps) {
             Play Game <IconTrophy size={16} />
           </Text>
         </Stack>
-      </Group>
+      </div>
     </UnifiedCard>
   );
 }

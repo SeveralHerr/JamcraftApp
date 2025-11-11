@@ -1,0 +1,10 @@
+@media (max-width: 768px) {
+  .game-jam-card-content {
+    flex-direction: column !important;
+  }
+
+  .game-jam-card-image {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+}

@@ -1,0 +1,10 @@
+@media (max-width: 768px) {
+  .project-card-content {
+    flex-direction: column !important;
+  }
+
+  .project-card-image {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+}
