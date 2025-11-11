@@ -1,4 +1,4 @@
-import { Image, Text, Title, Badge, Group, Stack } from '@mantine/core';
+import { Image, Text, Title, Badge, Stack } from '@mantine/core';
 import { IconTrophy } from '@tabler/icons-react';
 import { GameJamSubmission } from '../../entities/GameJamSubmission';
 import { NavigateToExternalLink } from '../../../social-presence/use-cases/NavigateToExternalLink';

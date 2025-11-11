@@ -1,4 +1,4 @@
-import { Image, Text, Title, Badge, Group, Stack } from '@mantine/core';
+import { Image, Text, Title, Badge, Stack } from '@mantine/core';
 import { useState } from 'react';
 import { IconEye, IconAlertTriangle } from '@tabler/icons-react';
 import { PortfolioProject } from '../../entities/PortfolioProject';
