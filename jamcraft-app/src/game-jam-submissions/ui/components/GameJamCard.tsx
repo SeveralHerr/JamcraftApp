@@ -71,7 +71,7 @@ export function GameJamCard({ submission }: GameJamCardProps) {
             >
               {submission.name}
             </Title>
-            <Group gap="xs">
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               <Badge color="grape" variant="light" size="sm">
                 {submission.jamName}
               </Badge>
@@ -80,7 +80,7 @@ export function GameJamCard({ submission }: GameJamCardProps) {
                   Theme: {submission.theme}
                 </Badge>
               )}
-            </Group>
+            </div>
           </div>
 
           <Text
