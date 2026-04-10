@@ -1,0 +1,25 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      # Amplify resets the working directory between phases, so cd jamcraft-app is repeated in each phase.
+      commands:
+        - cd jamcraft-app
+        - nvm install 20 && nvm use 20
+        - npm ci
+    build:
+      # Amplify resets the working directory between phases, so cd jamcraft-app is repeated in each phase.
+      commands:
+        - cd jamcraft-app
+        - npm test -- --run
+        - npm run build
+    postBuild:
+      # Amplify resets the working directory between phases, so cd jamcraft-app is repeated in each phase.
+      commands:
+        - cd jamcraft-app
+        - ls -la build/
+  artifacts:
+    baseDirectory: jamcraft-app/build
+  cache:
+    paths:
+      - jamcraft-app/node_modules/**/*
