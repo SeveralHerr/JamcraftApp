@@ -1,129 +1,35 @@
-import "@mantine/core/styles.css";
-import { AppShell, MantineProvider, Group, Burger, Image } from "@mantine/core";
-import "./App.css";
-import { CommunityHubPage } from "./community-hub/CommunityHubPage";
-import { AboutPage } from "./portfolio/AboutPage";
-import { ProjectsPage } from "./portfolio-projects/ProjectsPage";
-import { TestimonialsPage } from "./testimonials/TestimonialsPage";
-import { NotFound } from "./components/NotFound";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link as RouterLink,
-} from "react-router-dom";
-import { useDisclosure } from "@mantine/hooks";
-import { ROUTES } from "./config/routes";
-import { NavButton } from "./components/NavButton";
-import { ErrorBoundary } from "./components/ErrorBoundary";
+import { useCallback } from 'react';
+import { useScrollSpy } from './hooks/useScrollSpy';
+import { SiteNav } from './navigation/ui/components/SiteNav';
+import { HeroSection } from './hero/ui/components/HeroSection';
+import { SpeakingSection } from './speaking/ui/components/SpeakingSection';
+import { GamesSection } from './games/ui/components/GamesSection';
+import { ContactSection } from './contact/ui/components/ContactSection';
+import { Footer } from './components/Footer';
+import './App.css';
 
-function App() {
-  const [opened, { toggle }] = useDisclosure();
+const SECTION_IDS = ['home', 'speaking', 'games', 'contact'];
+
+export default function App() {
+  const activeSection = useScrollSpy(SECTION_IDS);
+
+  const scrollTo = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - 64;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }, []);
 
   return (
-    <ErrorBoundary>
-      <BrowserRouter>
-        <MantineProvider
-          defaultColorScheme="dark"
-          theme={{
-            fontFamily:
-              'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-            headings: {
-              fontFamily:
-                'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-            },
-          }}
-        >
-        <AppShell
-          header={{ height: 60 }}
-          navbar={{
-            width: 300,
-            breakpoint: "sm",
-            collapsed: { desktop: true, mobile: !opened },
-          }}
-          padding="md"
-          withBorder={false}
-        >
-          <AppShell.Header
-            style={{
-              backdropFilter: 'blur(10px)',
-              backgroundColor: 'rgba(8, 27, 41, 0.8)',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-            }}
-          >
-            <Group h="100%" px="lg">
-              <Burger
-                opened={opened}
-                onClick={toggle}
-                hiddenFrom="sm"
-                h={45}
-                aria-label="Toggle navigation"
-                className="focus-ring"
-              />
-              <Group justify="space-between" style={{ flex: 1 }}>
-                <RouterLink
-                  to={ROUTES.home}
-                  aria-label="Go to homepage"
-                  className="focus-ring"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    transition: 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                  }}
-                >
-                  <Image
-                    src="/assets/logo_server_icon_small_transparent_no_bkg.png"
-                    alt="Jamcraft Logo"
-                    h={48}
-                    w="auto"
-                    fit="contain"
-                  />
-                </RouterLink>
-                <Group ml="xl" gap={0} visibleFrom="sm">
-                  <NavButton to={ROUTES.home}>Home</NavButton>
-                  <NavButton to={ROUTES.projects}>Projects</NavButton>
-                  <NavButton to={ROUTES.testimonials}>Testimonials</NavButton>
-                  <NavButton to={ROUTES.about}>About</NavButton>
-                </Group>
-              </Group>
-            </Group>
-          </AppShell.Header>
-
-          <AppShell.Navbar py="md" px={4}>
-            <NavButton to={ROUTES.home} onClose={toggle}>
-              Home
-            </NavButton>
-            <NavButton to={ROUTES.projects} onClose={toggle}>
-              Projects
-            </NavButton>
-            <NavButton to={ROUTES.testimonials} onClose={toggle}>
-              Testimonials
-            </NavButton>
-            <NavButton to={ROUTES.about} onClose={toggle}>
-              About
-            </NavButton>
-          </AppShell.Navbar>
-
-          <AppShell.Main>
-            <Routes>
-              <Route path="/" element={<CommunityHubPage />} />
-              <Route path="/projects" element={<ProjectsPage />} />
-              <Route path="/testimonials" element={<TestimonialsPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AppShell.Main>
-        </AppShell>
-        </MantineProvider>
-      </BrowserRouter>
-    </ErrorBoundary>
+    <>
+      <SiteNav activeSection={activeSection} onNavClick={scrollTo} />
+      <main>
+        <HeroSection onScrollTo={scrollTo} />
+        <SpeakingSection />
+        <GamesSection />
+        <ContactSection />
+      </main>
+      <Footer />
+    </>
   );
 }
-
-export default App;

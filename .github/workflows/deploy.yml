@@ -35,6 +35,14 @@ jobs:
         working-directory: jamcraft-app
         run: npm test -- --run
 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+        working-directory: jamcraft-app
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+        working-directory: jamcraft-app
+
       - name: Build application
         working-directory: jamcraft-app
         run: npm run build

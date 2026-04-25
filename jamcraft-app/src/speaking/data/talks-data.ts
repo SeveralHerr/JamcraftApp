@@ -1,0 +1,58 @@
+import type { Talk } from '../entities/Talk';
+
+export const talks: Talk[] = [
+  {
+    id: '1',
+    title: 'Mob Programming in Practice',
+    venue: 'DevOps Days Podcast',
+    kind: 'Podcast',
+    date: 'March 2026',
+    length: '48 min',
+    blurb: "How Flexion's squad model boosts team ownership and shortens feedback loops on public-sector modernization work.",
+  },
+  {
+    id: '2',
+    title: 'AI as a Creative Collaborator',
+    venue: 'The Changelog',
+    kind: 'Podcast',
+    date: 'January 2026',
+    length: '62 min',
+    blurb: 'Using LLMs as a sparring partner inside mob sessions without letting them drive the design.',
+  },
+  {
+    id: '3',
+    title: 'Modernizing Legacy Gov Systems',
+    venue: 'Code for America Summit',
+    kind: 'Talk',
+    date: 'October 2025',
+    length: '30 min',
+    blurb: 'Lessons from rebuilding CDC + state agency pipelines with Go, Azure and Terraform — without breaking anyone who depends on them.',
+  },
+  {
+    id: '4',
+    title: 'Procedural Generation in Godot 4',
+    venue: 'Indie Dev Hour',
+    kind: 'Podcast',
+    date: 'August 2025',
+    length: '55 min',
+    blurb: 'Wave function collapse, noise stacks, and why constraints make better levels than randomness does.',
+  },
+  {
+    id: '5',
+    title: 'Teaching Teams to Mob',
+    venue: 'Agile Midwest',
+    kind: 'Talk',
+    date: 'May 2025',
+    length: '45 min',
+    blurb: "A field report on onboarding engineers into ensemble programming — what stuck, what didn't, what surprised us.",
+  },
+  {
+    id: '6',
+    title: 'The Curious Engineer',
+    venue: 'Dev Interrupted',
+    kind: 'Podcast',
+    date: 'February 2025',
+    length: '40 min',
+    blurb: 'On building a career between enterprise systems and solo game dev, and why the two feed each other.',
+  },
+];

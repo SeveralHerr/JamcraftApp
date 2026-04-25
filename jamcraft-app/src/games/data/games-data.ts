@@ -1,0 +1,58 @@
+import type { Game } from '../entities/Game';
+
+export const games: Game[] = [
+  {
+    id: '1',
+    title: 'Hollow Signal',
+    tag: 'Roguelike',
+    year: '2026',
+    blurb: 'Signal-tracing roguelike where each run writes a new broadcast schedule.',
+    gradient: 'linear-gradient(135deg, #3a1208 0%, #f59e0b 100%)',
+    url: 'https://jamcraft.itch.io',
+  },
+  {
+    id: '2',
+    title: 'Loom & Lathe',
+    tag: 'Puzzle',
+    year: '2025',
+    blurb: 'A crafting puzzler about two tools that refuse to agree on which direction is forward.',
+    gradient: 'linear-gradient(135deg, #0b1a2b 0%, #3b82f6 100%)',
+    url: 'https://jamcraft.itch.io',
+  },
+  {
+    id: '3',
+    title: 'Midnight Freight',
+    tag: 'Sim',
+    year: '2025',
+    blurb: 'Drive a procedurally generated delivery route through one long, foggy night.',
+    gradient: 'linear-gradient(135deg, #1a0b2b 0%, #a855f7 100%)',
+    url: 'https://jamcraft.itch.io',
+  },
+  {
+    id: '4',
+    title: 'Porchlight',
+    tag: 'Narrative',
+    year: '2024',
+    blurb: "A short narrative piece about the things neighbors leave on each other's porches.",
+    gradient: 'linear-gradient(135deg, #2b1a0b 0%, #fbbf24 100%)',
+    url: 'https://jamcraft.itch.io',
+  },
+  {
+    id: '5',
+    title: 'Rust & Rumor',
+    tag: 'Tactics',
+    year: '2024',
+    blurb: 'Turn-based tactics in a town where gossip is a resource and rust is the weather.',
+    gradient: 'linear-gradient(135deg, #2b0b0b 0%, #ef4444 100%)',
+    url: 'https://jamcraft.itch.io',
+  },
+  {
+    id: '6',
+    title: 'Second Shift',
+    tag: 'Management',
+    year: '2023',
+    blurb: "You clock in after the main hero quits. Now what?",
+    gradient: 'linear-gradient(135deg, #0b2b1f 0%, #10b981 100%)',
+    url: 'https://jamcraft.itch.io',
+  },
+];

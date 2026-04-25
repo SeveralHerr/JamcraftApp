@@ -9,6 +9,8 @@ Jamcraft is a modern personal portfolio and community hub website for James Herr
 - Always end responses in three smile emoji
 - Always write tests for new code
 - Always ensure CLAUDE.md is up to date
+- Before starting any tasks, evaluate for skills tha would be helpful for compelteing the task and build the skill before starting the task
+- At the end of each of our interactions, list all the skills you used and any skills that would've been useful had they existed. 
 
 ## Technology Stack
 

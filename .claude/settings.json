@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "aws": {
+      "command": "npx",
+      "args": ["-y", "@awslabs/core-mcp-server@latest"],
+      "env": {
+        "AWS_REGION": "us-east-1"
+      }
+    }
+  }
+}

@@ -1,5 +1,4 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
-import { Container, Title, Text, Button, Stack } from '@mantine/core';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -31,22 +30,44 @@ export class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <Container size="sm" mt="xl">
-          <Stack align="center" gap="md">
-            <Title order={1}>Oops! Something went wrong</Title>
-            <Text c="dimmed" ta="center">
-              We're sorry, but something unexpected happened. Please try refreshing the page.
-            </Text>
-            {this.state.error && (
-              <Text size="sm" c="red" ta="center" ff="monospace">
-                {this.state.error.message}
-              </Text>
-            )}
-            <Button onClick={this.handleReset}>
-              Try again
-            </Button>
-          </Stack>
-        </Container>
+        <div style={{
+          maxWidth: 560,
+          margin: '80px auto',
+          padding: '0 24px',
+          textAlign: 'center',
+        }}>
+          <h1 style={{ fontFamily: "'Fraunces', serif", marginBottom: 16 }}>
+            Oops! Something went wrong
+          </h1>
+          <p style={{ color: 'var(--fg-dim, rgba(232,230,225,.65))', marginBottom: 16 }}>
+            We're sorry, but something unexpected happened. Please try refreshing the page.
+          </p>
+          {this.state.error && (
+            <p style={{
+              fontSize: 13,
+              color: 'var(--accent)',
+              fontFamily: "'JetBrains Mono', monospace",
+              marginBottom: 24,
+            }}>
+              {this.state.error.message}
+            </p>
+          )}
+          <button
+            onClick={this.handleReset}
+            style={{
+              padding: '12px 24px',
+              background: 'var(--accent, #f59e0b)',
+              color: 'var(--bg)',
+              border: 'none',
+              fontFamily: 'inherit',
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            Try again
+          </button>
+        </div>
       );
     }
 
