@@ -1,12 +1,11 @@
-import { Image, Text, Title, Badge, Stack } from '@mantine/core';
+import { Badge } from '@mantine/core';
 import { useState } from 'react';
-import { IconEye, IconAlertTriangle } from '@tabler/icons-react';
+import { IconEye } from '@tabler/icons-react';
 import { PortfolioProject } from '../../entities/PortfolioProject';
 import { NavigateToExternalLink } from '../../../social-presence/use-cases/NavigateToExternalLink';
 import { BrowserNavigationService } from '../../../social-presence/services/BrowserNavigationService';
-import { Card as UnifiedCard } from '../../../components/ui/Card';
-import { colors, shadows, transitions, typography } from '../../../theme';
-import styles from './PortfolioProjectCard.module.css';
+import { CompactCard } from '../../../components/ui/CompactCard';
+import { colors, transitions, typography } from '../../../theme';
 
 interface PortfolioProjectCardProps {
   project: PortfolioProject;
@@ -49,7 +48,16 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
 
   return (
     <div style={{ position: 'relative' }}>
-      <UnifiedCard
+      <CompactCard
+        title={project.name}
+        line={project.description}
+        imageUrl={project.screenshotUrl ?? undefined}
+        imageAlt={project.name}
+        meta={
+          <Badge color={PLATFORM_COLORS[project.platform]} variant="light" size="xs" w="fit-content">
+            {PLATFORM_LABELS[project.platform]}
+          </Badge>
+        }
         onClick={handleClick}
         hover={!project.isNSFW || showNSFW}
         style={{
@@ -57,103 +65,19 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
           filter: project.isNSFW && !showNSFW ? 'blur(8px)' : 'none',
           transition: transitions.default,
         }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: 'var(--mantine-spacing-xl)',
-            alignItems: 'flex-start',
-          }}
-          className={styles['project-card-content']}
-        >
-          {project.screenshotUrl && (
-            <div
-              style={{
-                width: 300,
-                minWidth: 300,
-                height: 200,
-                flexShrink: 0,
-              }}
-              className={styles['project-card-image']}
-            >
-              <Image
-                src={project.screenshotUrl}
-                alt={project.name}
-                w={300}
-                h={200}
-                fit="cover"
-                radius="md"
-                style={{
-                  objectFit: 'cover',
-                  width: '100%',
-                  height: '100%',
-                }}
-              />
-            </div>
-          )}
-
-          <Stack gap="sm" style={{ flex: 1, minWidth: 0 }} justify="center">
-            <div>
-              <Title
-                order={2}
-                size="h3"
-                c={colors.text.primary}
-                mb="xs"
-                style={{
-                  fontWeight: typography.fontWeight.semibold,
-                  letterSpacing: typography.letterSpacing.tight,
-                }}
-              >
-                {project.name}
-              </Title>
-              <Badge color={PLATFORM_COLORS[project.platform]} variant="light" size="sm">
-                {PLATFORM_LABELS[project.platform]}
-              </Badge>
-            </div>
-
-            <Text
-              c="dimmed"
-              size="sm"
-              style={{
-                lineHeight: typography.lineHeight.relaxed,
-                color: colors.text.tertiary,
-              }}
-            >
-              {project.description}
-            </Text>
-
-            <Text
-              c={colors.brand.primary}
-              size="sm"
-              fw={typography.fontWeight.medium}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-              }}
-            >
-              View Project <IconEye size={16} />
-            </Text>
-          </Stack>
-        </div>
-      </UnifiedCard>
+      />
 
       {project.isNSFW && !showNSFW && (
         <div
           style={{
             position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
+            inset: 0,
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: colors.nsfw.overlay,
             backdropFilter: 'blur(20px)',
-            borderRadius: '12px',
+            borderRadius: 'var(--mantine-radius-md)',
             zIndex: 10,
             opacity: isRevealing ? 0 : 1,
             transform: isRevealing ? 'scale(0.95)' : 'scale(1)',
@@ -161,91 +85,33 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
             animation: 'fadeIn 0.3s ease-out',
           }}
         >
-          <div
+          <button
+            onClick={handleRevealNSFW}
+            className="focus-ring"
             style={{
+              padding: '8px 16px',
+              backgroundColor: colors.brand.primary,
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: typography.fontWeight.semibold,
+              fontSize: typography.fontSize.sm,
+              color: colors.background.secondary,
+              transition: transitions.fast,
               display: 'flex',
-              flexDirection: 'column',
               alignItems: 'center',
-              gap: '1rem',
-              padding: '1.5rem',
-              textAlign: 'center',
-              maxWidth: '400px',
+              gap: '0.5rem',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = colors.brand.primaryHover;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = colors.brand.primary;
             }}
           >
-            <div
-              style={{
-                width: '60px',
-                height: '60px',
-                borderRadius: '50%',
-                background: `linear-gradient(135deg, ${colors.nsfw.warning}, ${colors.brand.primary})`,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: shadows.glowMd,
-                animation: 'pulse 2s ease-in-out infinite',
-              }}
-            >
-              <IconAlertTriangle size={32} color="white" />
-            </div>
-
-            <div>
-              <Text
-                size="lg"
-                fw={typography.fontWeight.bold}
-                c="white"
-                mb="xs"
-                style={{
-                  textTransform: 'uppercase',
-                  letterSpacing: typography.letterSpacing.widest,
-                  fontSize: typography.fontSize.xl,
-                }}
-              >
-                NSFW CONTENT
-              </Text>
-              <Text
-                size="sm"
-                c={colors.text.secondary}
-                style={{
-                  lineHeight: typography.lineHeight.relaxed,
-                }}
-              >
-                This content may contain suggestive or mature themes
-              </Text>
-            </div>
-
-            <button
-              onClick={handleRevealNSFW}
-              className="focus-ring"
-              style={{
-                padding: '10px 24px',
-                backgroundColor: colors.brand.primary,
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: typography.fontWeight.semibold,
-                fontSize: typography.fontSize.sm,
-                color: colors.background.secondary,
-                transition: transitions.fast,
-                boxShadow: shadows.buttonHover,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = colors.brand.primaryHover;
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = shadows.glowMd;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = colors.brand.primary;
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = shadows.buttonHover;
-              }}
-            >
-              <IconEye size={16} />
-              Click to Reveal
-            </button>
-          </div>
+            <IconEye size={16} />
+            NSFW — Reveal
+          </button>
         </div>
       )}
     </div>

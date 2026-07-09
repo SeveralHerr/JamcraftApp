@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Jamcraft is a modern single-page portfolio website for James Herr (MrSeveral), a full-stack engineer and game developer. The site is one scrolling page that showcases his profile, projects (including game jam submissions), and podcast guest appearances, with social links in the hero and footer.
+Jamcraft is a modern single-page portfolio website for James Herr (MrSeveral), a full-stack engineer and game developer. The site is one scrolling page that showcases his profile, projects (including game jam submissions), podcast guest appearances, and workshops, with social links in the hero and footer.
 
 ## Claude Instructions
 
@@ -22,7 +22,7 @@ Jamcraft is a modern single-page portfolio website for James Herr (MrSeveral), a
 - **Hosting/CI/CD:** AWS Amplify (`amplify.yml`: npm ci → test → build → deploy `build/`)
 - **Legacy Infrastructure:** Terraform configs for S3/CloudFront/Route53/ACM exist in `terraform/` but Amplify is the live pipeline
 
-There is no client-side router — navigation is in-page hash anchors (`#home`, `#projects`, `#podcasts`, `#contact`) with smooth scrolling and a scroll-spy header.
+There is no client-side router — navigation is in-page hash anchors (`#home`, `#projects`, `#podcasts`, `#workshops`, `#contact`) with smooth scrolling and a scroll-spy header.
 
 ## Quick Development Guide
 
@@ -54,10 +54,11 @@ npm run test:coverage    # Generate coverage report
 
 - **Single-Page Layout:** One scrolling page with anchor navigation and scroll-spy
 - **Responsive Design:** Mobile-first with Mantine components
-- **Dark Theme:** Default dark mode; Mantine theme wired to design tokens (`src/theme/mantine-theme.ts`)
+- **Dark Theme:** Pure black (`#000000`) background with a muted steel-blue (`#8aa9c7`) accent; Mantine theme wired to design tokens (`src/theme/mantine-theme.ts`, `autoContrast` enabled)
+- **Minimalist Cards:** Compact cards (72px thumbnail + title + one line via `components/ui/CompactCard.tsx`) laid out in responsive 2-column grids (1 column on mobile)
 - **Accessibility:** Reduced motion support, ARIA labels, focus management
 - **Security:** URL validation, XSS prevention (blocks javascript: protocol), noopener/noreferrer on external links
-- **Testing:** Comprehensive test coverage (54 tests, 10 test files)
+- **Testing:** Comprehensive test coverage (76 tests, 14 test files)
 - **CI/CD:** Automated testing and deployment via AWS Amplify
 
 ## Page Sections
@@ -67,7 +68,8 @@ The app is a single page composed of sections (registered in `src/config/section
 1. **Home / Hero** (`#home`) — Full-height hero with profile, bio, social links, CTA (owned by `portfolio/`)
 2. **Projects** (`#projects`) — Portfolio projects (with NSFW blur/reveal) + game jam submissions sub-group (owned by `portfolio-projects/`)
 3. **Podcasts** (`#podcasts`) — Podcast guest appearances as cards linking out (owned by `podcasts/`)
-4. **Contact** (`#contact`) — Footer with social links (in `components/layout/Footer.tsx`)
+4. **Workshops** (`#workshops`) — Workshops run/co-run by James as cards linking out (owned by `workshops/`)
+5. **Contact** (`#contact`) — Footer with social links (in `components/layout/Footer.tsx`)
 
 Legacy multi-page URLs (`/projects`, `/about`, `/testimonials`) are redirected on load to section anchors by `resolveLegacyPath` in `src/config/sections.ts`.
 
@@ -110,6 +112,14 @@ JamcraftApp/
     │   │   ├── ui/hooks/usePodcastEpisodes.ts
     │   │   └── PodcastsSection.tsx         # #podcasts section
     │   │
+    │   ├── workshops/          # DOMAIN: Workshops
+    │   │   ├── entities/Workshop.ts
+    │   │   ├── use-cases/GetWorkshops.ts (+ test)
+    │   │   ├── data/workshops-data.ts
+    │   │   ├── ui/components/WorkshopCard.tsx (+ test)
+    │   │   ├── ui/hooks/useWorkshops.ts
+    │   │   └── WorkshopsSection.tsx        # #workshops section
+    │   │
     │   ├── social-presence/    # DOMAIN: Social media integration
     │   │   ├── entities/SocialLink.ts
     │   │   ├── use-cases/NavigateToExternalLink.ts (+ test)
@@ -119,9 +129,8 @@ JamcraftApp/
     │   │
     │   ├── components/         # Shared UI infrastructure
     │   │   ├── layout/         # Header (scroll-spy nav), NavAnchor, Footer
-    │   │   ├── ui/             # Card, PageHeader, Section, LoadingSpinner, FocusRing
-    │   │   ├── ErrorBoundary.tsx (+ test)
-    │   │   └── Cards/BaseCard.tsx
+    │   │   ├── ui/             # Card, CompactCard (+ test), PageHeader, Section, LoadingSpinner, FocusRing
+    │   │   └── ErrorBoundary.tsx (+ test)
     │   │
     │   ├── hooks/              # Shared custom hooks
     │   │   ├── useReducedMotion.ts (+ test)
@@ -196,7 +205,7 @@ Hooks           ↓       Pure TS
 
 ### Current Test Suite
 
-**55 tests across 10 files:**
+**76 tests across 14 files:**
 
 1. **sections.test.ts** (9 tests) — Section registry + legacy path redirects
 2. **useActiveSection.test.ts** (7 tests) — Scroll-spy (reading line + page-bottom edge cases)
@@ -208,6 +217,10 @@ Hooks           ↓       Pure TS
 8. **GetGameJamSubmissions.test.ts** (5 tests) — Business logic filtering/sorting
 9. **ErrorBoundary.test.tsx** (5 tests) — Error catching and recovery
 10. **useReducedMotion.test.ts** (5 tests) — Accessibility (media queries)
+11. **CompactCard.test.tsx** (6 tests) — Shared compact card: layout slots + link security
+12. **PortfolioProjectCard.test.tsx** (4 tests) — Rendering + NSFW blur/reveal/click-through
+13. **GetWorkshops.test.ts** (7 tests) — Workshop use-case + seed data integrity
+14. **WorkshopCard.test.tsx** (4 tests) — Rendering + external link security
 
 ### Running Tests
 
@@ -280,6 +293,10 @@ The `terraform/` directory contains an earlier S3/CloudFront/Route53 setup that 
 ### Adding a Podcast Episode
 
 Append an object to `src/podcasts/data/podcast-episodes-data.ts` (id, showName, episodeTitle, description, artworkUrl, episodeUrl, publishedYear). Artwork can be a YouTube thumbnail (`https://img.youtube.com/vi/<id>/hqdefault.jpg`) or a local file in `public/assets/`.
+
+### Adding a Workshop
+
+Append an object to `src/workshops/data/workshops-data.ts` (id, title, description, eventUrl, date, year, optional collaborators/format).
 
 ### Adding a New Domain
 

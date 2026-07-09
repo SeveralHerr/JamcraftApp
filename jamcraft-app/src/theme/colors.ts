@@ -7,23 +7,24 @@
 export const colors = {
   // Brand Colors
   brand: {
-    primary: '#f6924b',
-    primaryHover: '#ff8c42',
-    primaryPressed: '#e67d3a',
-    primarySubtle: 'rgba(246, 146, 75, 0.12)',
-    primaryBorder: 'rgba(246, 146, 75, 0.2)',
-    primaryGlow: 'rgba(246, 146, 75, 0.4)',
+    primary: '#8aa9c7',
+    primaryHover: '#9db9d4',
+    primaryPressed: '#7291ad',
+    primarySubtle: 'rgba(138, 169, 199, 0.12)',
+    primaryBorder: 'rgba(138, 169, 199, 0.2)',
+    primaryGlow: 'rgba(138, 169, 199, 0.4)',
   },
 
   // Background Colors
   background: {
-    primary: '#081b29',
-    secondary: '#1a2733',
-    tertiary: '#2a3744',
-    card: 'rgba(26, 27, 30, 0.6)',
-    cardHover: 'rgba(26, 27, 30, 0.8)',
+    primary: '#000000',
+    secondary: '#0a0d10',
+    tertiary: '#12161b',
+    card: 'rgba(18, 22, 27, 0.6)',
+    cardHover: 'rgba(18, 22, 27, 0.8)',
     overlay: 'rgba(0, 0, 0, 0.7)',
-    glass: 'rgba(26, 27, 30, 0.6)',
+    glass: 'rgba(18, 22, 27, 0.65)',
+    header: 'rgba(0, 0, 0, 0.8)',
   },
 
   // Text Colors
@@ -40,9 +41,9 @@ export const colors = {
   border: {
     primary: 'rgba(255, 255, 255, 0.08)',
     secondary: 'rgba(255, 255, 255, 0.1)',
-    hover: 'rgba(246, 146, 75, 0.4)',
-    focus: '#f6924b',
-    divider: '#1a2733',
+    hover: 'rgba(138, 169, 199, 0.4)',
+    focus: '#8aa9c7',
+    divider: '#1a2027',
   },
 
   // State Colors
@@ -64,7 +65,7 @@ export const colors = {
   nsfw: {
     overlay: 'rgba(0, 0, 0, 0.85)',
     warning: '#ef4444',
-    reveal: '#f6924b',
+    reveal: '#8aa9c7',
   },
 } as const;
 
