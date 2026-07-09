@@ -1,0 +1,21 @@
+.heroLayout {
+  position: relative;
+}
+
+/* Not enough room: text flows below the centered picture */
+.heroText {
+  margin-top: var(--mantine-spacing-xl);
+}
+
+/* Enough room: text hovers over the left, vertically centered */
+@media (min-width: 62em) {
+  .heroText {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 26rem;
+    margin-top: 0;
+    z-index: 2;
+  }
+}

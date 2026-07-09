@@ -7,20 +7,11 @@ interface ProfileImageProps {
 
 export function ProfileImage({ profile }: ProfileImageProps) {
   return (
-    <Box
-      style={{
-        maxWidth: 400,
-        margin: '0 auto',
-        aspectRatio: '1',
-        borderRadius: '50%',
-        overflow: 'hidden',
-      }}
-    >
+    <Box style={{ maxWidth: 560, margin: '0 auto' }}>
       <Image
         src={profile.profileImagePath}
-        h="100%"
         w="100%"
-        fit="cover"
+        fit="contain"
         alt={`${profile.fullName} Profile`}
       />
     </Box>

@@ -1,4 +1,4 @@
-import { Grid, Stack, Divider, Group, Button, Center } from '@mantine/core';
+import { Stack, Divider, Group, Button, Center } from '@mantine/core';
 import { IconArrowDown } from '@tabler/icons-react';
 import { useProfile } from './ui/hooks/useProfile';
 import { useSocialLinks } from '../social-presence/ui/hooks/useSocialLinks';
@@ -9,6 +9,7 @@ import { SocialLinkIcon } from '../social-presence/ui/components/SocialLinkIcon'
 import { Section } from '../components/ui/Section';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { colors, headerHeight } from '../theme';
+import styles from './HeroSection.module.css';
 
 /**
  * Full-height hero / about section — the landing view of the single page.
@@ -30,18 +31,17 @@ export function HeroSection() {
         borderBottom: `2px solid ${colors.border.divider}`,
       }}
     >
-      <Section id="home">
+      <div style={{ width: '100%' }}>
+        <Section id="home">
         {profileLoading || socialLinksLoading || !profile ? (
           <Center py="xl">
             <LoadingSpinner />
           </Center>
         ) : (
-          <Grid gutter="xl">
-            <Grid.Col
-              span={{ base: 12, sm: 6 }}
-              order={{ base: 2, sm: 1 }}
-              style={{ display: 'flex', alignItems: 'center' }}
-            >
+          <div className={styles.heroLayout}>
+            <ProfileImage profile={profile} />
+
+            <div className={styles.heroText}>
               <Stack gap="lg" style={{ width: '100%' }}>
                 <div>
                   <ProfileHeader profile={profile} />
@@ -83,14 +83,11 @@ export function HeroSection() {
                   </Button>
                 </Group>
               </Stack>
-            </Grid.Col>
-
-            <Grid.Col span={{ base: 12, sm: 6 }} order={{ base: 1, sm: 2 }}>
-              <ProfileImage profile={profile} />
-            </Grid.Col>
-          </Grid>
+            </div>
+          </div>
         )}
-      </Section>
+        </Section>
+      </div>
     </div>
   );
 }
