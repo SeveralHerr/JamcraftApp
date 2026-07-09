@@ -28,4 +28,16 @@ export const WORKSHOPS_DATA: Workshop[] = [
     collaborators: ['Woody Zuill'],
     format: 'Free online workshop',
   },
+  {
+    id: 'mobbing-and-ai-thinking-together',
+    title: 'Mobbing and AI - Thinking Together with AI',
+    description:
+      'Co-run with Woody Zuill — an earlier run of the same conversation on where AI fits inside ensemble/mob programming, and where it helps versus disrupts shared understanding.',
+    eventUrl:
+      'https://www.eventbrite.com/e/mobbing-and-ai-thinking-together-with-ai-tickets-1968659211697',
+    date: 'November 2025',
+    year: 2025,
+    collaborators: ['Woody Zuill'],
+    format: 'Free online workshop',
+  },
 ];
