@@ -1,10 +1,3 @@
-export const ROUTES = {
-  home: "/",
-  about: "/about",
-  projects: "/projects",
-  testimonials: "/testimonials",
-} as const;
-
 export const EXTERNAL_LINKS = {
   discord: "https://discord.gg/WVB8EwSNDG",
   itch_profile: "https://severalherr.itch.io/",
