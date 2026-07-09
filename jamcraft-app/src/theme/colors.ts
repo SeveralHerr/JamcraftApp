@@ -17,14 +17,14 @@ export const colors = {
 
   // Background Colors
   background: {
-    primary: '#0a0d10',
-    secondary: '#12161b',
-    tertiary: '#1a2027',
+    primary: '#000000',
+    secondary: '#0a0d10',
+    tertiary: '#12161b',
     card: 'rgba(18, 22, 27, 0.6)',
     cardHover: 'rgba(18, 22, 27, 0.8)',
     overlay: 'rgba(0, 0, 0, 0.7)',
     glass: 'rgba(18, 22, 27, 0.65)',
-    header: 'rgba(10, 13, 16, 0.8)',
+    header: 'rgba(0, 0, 0, 0.8)',
   },
 
   // Text Colors

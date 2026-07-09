@@ -54,7 +54,7 @@ npm run test:coverage    # Generate coverage report
 
 - **Single-Page Layout:** One scrolling page with anchor navigation and scroll-spy
 - **Responsive Design:** Mobile-first with Mantine components
-- **Dark Theme:** Near-black (`#0a0d10`) background with a muted steel-blue (`#8aa9c7`) accent; Mantine theme wired to design tokens (`src/theme/mantine-theme.ts`, `autoContrast` enabled)
+- **Dark Theme:** Pure black (`#000000`) background with a muted steel-blue (`#8aa9c7`) accent; Mantine theme wired to design tokens (`src/theme/mantine-theme.ts`, `autoContrast` enabled)
 - **Minimalist Cards:** Compact cards (72px thumbnail + title + one line via `components/ui/CompactCard.tsx`) laid out in responsive 2-column grids (1 column on mobile)
 - **Accessibility:** Reduced motion support, ARIA labels, focus management
 - **Security:** URL validation, XSS prevention (blocks javascript: protocol), noopener/noreferrer on external links

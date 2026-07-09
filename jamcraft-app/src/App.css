@@ -7,7 +7,7 @@
 }
 
 :root[data-mantine-color-scheme="dark"] {
-  --mantine-color-body: #0a0d10 !important;
+  --mantine-color-body: #000000 !important;
 }
 
 /* Smooth scroll behavior */

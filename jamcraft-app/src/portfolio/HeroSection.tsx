@@ -24,10 +24,7 @@ export function HeroSection() {
         minHeight: `calc(100vh - ${headerHeight.desktop})`,
         display: 'flex',
         alignItems: 'center',
-        background: `
-          radial-gradient(ellipse 80% 60% at 70% 20%, ${colors.brand.primarySubtle}, transparent),
-          linear-gradient(180deg, ${colors.background.primary} 0%, ${colors.background.secondary} 100%)
-        `,
+        background: colors.background.primary,
         borderBottom: `2px solid ${colors.border.divider}`,
       }}
     >
