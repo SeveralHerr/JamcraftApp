@@ -5,6 +5,7 @@ import { useSocialLinks } from '../social-presence/ui/hooks/useSocialLinks';
 import { ProfileImage } from './ui/components/ProfileImage';
 import { ProfileHeader } from './ui/components/ProfileHeader';
 import { ProfileBio } from './ui/components/ProfileBio';
+import { JamcraftInvite } from './ui/components/JamcraftInvite';
 import { SocialLinkIcon } from '../social-presence/ui/components/SocialLinkIcon';
 import { Section } from '../components/ui/Section';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
@@ -47,6 +48,9 @@ export function HeroSection() {
 
                 <div>
                   <Divider color={colors.border.divider} />
+                  <div style={{ marginTop: 'var(--mantine-spacing-md)' }}>
+                    <JamcraftInvite />
+                  </div>
                   <Group gap="md" mt="md">
                     {socialLinks.map((link, index) => (
                       <div
