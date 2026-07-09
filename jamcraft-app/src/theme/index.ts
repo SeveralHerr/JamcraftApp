@@ -7,6 +7,7 @@
  */
 
 export { colors } from './colors';
+export { mantineTheme } from './mantine-theme';
 export { spacing, containerSizes, headerHeight } from './spacing';
 export { typography } from './typography';
 export { transitions } from './transitions';

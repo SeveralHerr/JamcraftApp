@@ -1,127 +1,67 @@
 import "@mantine/core/styles.css";
-import { AppShell, MantineProvider, Group, Burger, Image } from "@mantine/core";
-import "./App.css";
-import { CommunityHubPage } from "./community-hub/CommunityHubPage";
-import { AboutPage } from "./portfolio/AboutPage";
-import { ProjectsPage } from "./portfolio-projects/ProjectsPage";
-import { TestimonialsPage } from "./testimonials/TestimonialsPage";
-import { NotFound } from "./components/NotFound";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link as RouterLink,
-} from "react-router-dom";
+import { AppShell, MantineProvider } from "@mantine/core";
+import { useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { ROUTES } from "./config/routes";
-import { NavButton } from "./components/NavButton";
+import "./App.css";
+import { mantineTheme } from "./theme";
+import { SECTIONS, resolveLegacyPath } from "./config/sections";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { Header } from "./components/layout/Header";
+import { NavAnchor } from "./components/layout/NavAnchor";
+import { Footer } from "./components/layout/Footer";
+import { HeroSection } from "./portfolio/HeroSection";
+import { ProjectsSection } from "./portfolio-projects/ProjectsSection";
+import { PodcastsSection } from "./podcasts/PodcastsSection";
+
+/** Redirect legacy multi-page URLs (e.g. /projects) to their section anchors. */
+function useLegacyPathRedirect() {
+  useEffect(() => {
+    const target = resolveLegacyPath(window.location.pathname);
+    if (target) {
+      window.history.replaceState(null, "", `/#${target}`);
+      document.getElementById(target)?.scrollIntoView();
+    }
+  }, []);
+}
 
 function App() {
-  const [opened, { toggle }] = useDisclosure();
+  const [navOpened, { toggle, close }] = useDisclosure();
+  useLegacyPathRedirect();
 
   return (
     <ErrorBoundary>
-      <BrowserRouter>
-        <MantineProvider
-          defaultColorScheme="dark"
-          theme={{
-            fontFamily:
-              'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-            headings: {
-              fontFamily:
-                'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-            },
-          }}
-        >
+      <MantineProvider defaultColorScheme="dark" theme={mantineTheme}>
         <AppShell
           header={{ height: 60 }}
           navbar={{
             width: 300,
             breakpoint: "sm",
-            collapsed: { desktop: true, mobile: !opened },
+            collapsed: { desktop: true, mobile: !navOpened },
           }}
-          padding="md"
           withBorder={false}
         >
-          <AppShell.Header
-            style={{
-              backdropFilter: 'blur(10px)',
-              backgroundColor: 'rgba(8, 27, 41, 0.8)',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-            }}
-          >
-            <Group h="100%" px="lg">
-              <Burger
-                opened={opened}
-                onClick={toggle}
-                hiddenFrom="sm"
-                h={45}
-                aria-label="Toggle navigation"
-                className="focus-ring"
-              />
-              <Group justify="space-between" style={{ flex: 1 }}>
-                <RouterLink
-                  to={ROUTES.home}
-                  aria-label="Go to homepage"
-                  className="focus-ring"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    transition: 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                  }}
-                >
-                  <Image
-                    src="/assets/logo_server_icon_small_transparent_no_bkg.png"
-                    alt="Jamcraft Logo"
-                    h={48}
-                    w="auto"
-                    fit="contain"
-                  />
-                </RouterLink>
-                <Group ml="xl" gap={0} visibleFrom="sm">
-                  <NavButton to={ROUTES.home}>Home</NavButton>
-                  <NavButton to={ROUTES.projects}>Projects</NavButton>
-                  <NavButton to={ROUTES.testimonials}>Testimonials</NavButton>
-                  <NavButton to={ROUTES.about}>About</NavButton>
-                </Group>
-              </Group>
-            </Group>
-          </AppShell.Header>
+          <Header navOpened={navOpened} onToggleNav={toggle} />
 
           <AppShell.Navbar py="md" px={4}>
-            <NavButton to={ROUTES.home} onClose={toggle}>
-              Home
-            </NavButton>
-            <NavButton to={ROUTES.projects} onClose={toggle}>
-              Projects
-            </NavButton>
-            <NavButton to={ROUTES.testimonials} onClose={toggle}>
-              Testimonials
-            </NavButton>
-            <NavButton to={ROUTES.about} onClose={toggle}>
-              About
-            </NavButton>
+            {SECTIONS.map((section) => (
+              <NavAnchor
+                key={section.id}
+                href={`#${section.id}`}
+                onClick={close}
+              >
+                {section.label}
+              </NavAnchor>
+            ))}
           </AppShell.Navbar>
 
-          <AppShell.Main>
-            <Routes>
-              <Route path="/" element={<CommunityHubPage />} />
-              <Route path="/projects" element={<ProjectsPage />} />
-              <Route path="/testimonials" element={<TestimonialsPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+          <AppShell.Main style={{ padding: 0, paddingTop: 60 }}>
+            <HeroSection />
+            <ProjectsSection />
+            <PodcastsSection />
+            <Footer />
           </AppShell.Main>
         </AppShell>
-        </MantineProvider>
-      </BrowserRouter>
+      </MantineProvider>
     </ErrorBoundary>
   );
 }

@@ -2,16 +2,13 @@
 import { ReactElement } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { MantineProvider } from '@mantine/core';
-import { BrowserRouter } from 'react-router-dom';
 
 // Wrapper for all providers
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
   return (
-    <BrowserRouter>
-      <MantineProvider defaultColorScheme="dark">
-        {children}
-      </MantineProvider>
-    </BrowserRouter>
+    <MantineProvider defaultColorScheme="dark">
+      {children}
+    </MantineProvider>
   );
 };
 

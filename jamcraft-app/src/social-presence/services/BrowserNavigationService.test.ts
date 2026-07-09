@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import { BrowserNavigationService } from './BrowserNavigationService';
 
 describe('BrowserNavigationService', () => {
@@ -30,14 +30,14 @@ describe('BrowserNavigationService', () => {
   it('should use noopener to prevent window.opener access', () => {
     service.openInNewTab('https://example.com');
 
-    const callArgs = (window.open as any).mock.calls[0];
+    const callArgs = (window.open as Mock).mock.calls[0];
     expect(callArgs[2]).toContain('noopener');
   });
 
   it('should use noreferrer to prevent referrer leaking', () => {
     service.openInNewTab('https://example.com');
 
-    const callArgs = (window.open as any).mock.calls[0];
+    const callArgs = (window.open as Mock).mock.calls[0];
     expect(callArgs[2]).toContain('noreferrer');
   });
 });
