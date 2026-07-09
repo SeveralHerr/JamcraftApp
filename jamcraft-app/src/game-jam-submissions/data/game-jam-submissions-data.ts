@@ -2,6 +2,15 @@ import { GameJamSubmission } from '../entities/GameJamSubmission';
 
 export const GAME_JAM_SUBMISSIONS_DATA: GameJamSubmission[] = [
   {
+    id: 'troll-pong',
+    name: 'Troll Pong',
+    description:
+      "A breakout-style showdown where you control a rotating paddle to smash the enemy's bricks before they destroy yours. Click to slam, use Q/E to spin, and aim your shots — but watch out, the game has a few tricks up its sleeve.",
+    coverImageUrl: 'https://img.itch.zone/aW1nLzI3Mjg3MDY2LnBuZw==/347x500/roiLGj.png',
+    gameUrl: 'https://severalherr.itch.io/troll-pong',
+    jamName: "South Dakota's Southeast Technical Institute Game Jam",
+  },
+  {
     id: 'candy-catcher',
     name: 'Candy Catcher',
     description:
