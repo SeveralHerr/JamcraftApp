@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Jamcraft is a modern single-page portfolio website for James Herr (MrSeveral), a full-stack engineer and game developer. The site is one scrolling page that showcases his profile, projects (including game jam submissions), podcast guest appearances, and workshops, with social links in the hero and footer.
+Jamcraft is a modern single-page portfolio website for James Herr (MrSeveral), a full-stack engineer and game developer. The site is one scrolling page that showcases his profile, projects (including game jam submissions), podcast guest appearances, workshops, and speaking engagements, with social links in the hero and footer.
 
 ## Claude Instructions
 
@@ -22,7 +22,7 @@ Jamcraft is a modern single-page portfolio website for James Herr (MrSeveral), a
 - **Hosting/CI/CD:** AWS Amplify (`amplify.yml`: npm ci → test → build → deploy `build/`)
 - **Legacy Infrastructure:** Terraform configs for S3/CloudFront/Route53/ACM exist in `terraform/` but Amplify is the live pipeline
 
-There is no client-side router — navigation is in-page hash anchors (`#home`, `#projects`, `#podcasts`, `#workshops`, `#contact`) with smooth scrolling and a scroll-spy header.
+There is no client-side router — navigation is in-page hash anchors (`#home`, `#projects`, `#podcasts`, `#workshops`, `#speaking`, `#contact`) with smooth scrolling and a scroll-spy header.
 
 ## Quick Development Guide
 
@@ -58,7 +58,7 @@ npm run test:coverage    # Generate coverage report
 - **Minimalist Cards:** Compact cards (72px thumbnail + title + one line via `components/ui/CompactCard.tsx`) laid out in responsive 2-column grids (1 column on mobile)
 - **Accessibility:** Reduced motion support, ARIA labels, focus management
 - **Security:** URL validation, XSS prevention (blocks javascript: protocol), noopener/noreferrer on external links
-- **Testing:** Comprehensive test coverage (76 tests, 14 test files)
+- **Testing:** Comprehensive test coverage (86 tests, 16 test files)
 - **CI/CD:** Automated testing and deployment via AWS Amplify
 
 ## Page Sections
@@ -69,7 +69,8 @@ The app is a single page composed of sections (registered in `src/config/section
 2. **Projects** (`#projects`) — Portfolio projects (with NSFW blur/reveal) + game jam submissions sub-group (owned by `portfolio-projects/`)
 3. **Podcasts** (`#podcasts`) — Podcast guest appearances as cards linking out (owned by `podcasts/`)
 4. **Workshops** (`#workshops`) — Workshops run/co-run by James as cards linking out (owned by `workshops/`)
-5. **Contact** (`#contact`) — Footer with social links (in `components/layout/Footer.tsx`)
+5. **Speaking** (`#speaking`) — Conference talks and panel appearances as cards linking out (owned by `speaking/`)
+6. **Contact** (`#contact`) — Footer with social links (in `components/layout/Footer.tsx`)
 
 Legacy multi-page URLs (`/projects`, `/about`, `/testimonials`) are redirected on load to section anchors by `resolveLegacyPath` in `src/config/sections.ts`.
 
@@ -119,6 +120,14 @@ JamcraftApp/
     │   │   ├── ui/components/WorkshopCard.tsx (+ test)
     │   │   ├── ui/hooks/useWorkshops.ts
     │   │   └── WorkshopsSection.tsx        # #workshops section
+    │   │
+    │   ├── speaking/            # DOMAIN: Conference talks & panel appearances
+    │   │   ├── entities/SpeakingEngagement.ts
+    │   │   ├── use-cases/GetSpeakingEngagements.ts (+ test)
+    │   │   ├── data/speaking-engagements-data.ts
+    │   │   ├── ui/components/SpeakingEngagementCard.tsx (+ test)
+    │   │   ├── ui/hooks/useSpeakingEngagements.ts
+    │   │   └── SpeakingSection.tsx          # #speaking section
     │   │
     │   ├── social-presence/    # DOMAIN: Social media integration
     │   │   ├── entities/SocialLink.ts
@@ -205,7 +214,7 @@ Hooks           ↓       Pure TS
 
 ### Current Test Suite
 
-**76 tests across 14 files:**
+**86 tests across 16 files:**
 
 1. **sections.test.ts** (9 tests) — Section registry + legacy path redirects
 2. **useActiveSection.test.ts** (7 tests) — Scroll-spy (reading line + page-bottom edge cases)
@@ -221,6 +230,8 @@ Hooks           ↓       Pure TS
 12. **PortfolioProjectCard.test.tsx** (4 tests) — Rendering + NSFW blur/reveal/click-through
 13. **GetWorkshops.test.ts** (7 tests) — Workshop use-case + seed data integrity
 14. **WorkshopCard.test.tsx** (4 tests) — Rendering + external link security
+15. **GetSpeakingEngagements.test.ts** (7 tests) — Speaking use-case + seed data integrity
+16. **SpeakingEngagementCard.test.tsx** (3 tests) — Rendering + external link security
 
 ### Running Tests
 
@@ -297,6 +308,10 @@ Append an object to `src/podcasts/data/podcast-episodes-data.ts` (id, showName, 
 ### Adding a Workshop
 
 Append an object to `src/workshops/data/workshops-data.ts` (id, title, description, eventUrl, date, year, optional collaborators/format).
+
+### Adding a Speaking Engagement
+
+Append an object to `src/speaking/data/speaking-engagements-data.ts` (id, title, description, eventName, location, eventUrl, date, year, format, optional collaborators).
 
 ### Adding a New Domain
 

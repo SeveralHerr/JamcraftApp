@@ -17,4 +17,27 @@ export const WORKSHOPS_DATA: Workshop[] = [
     collaborators: ['Woody Zuill'],
     format: 'Free online workshop',
   },
+  {
+    id: 'software-teaming-and-ai-montreal',
+    title: 'Software Teaming and AI: Thinking Together with AI',
+    description:
+      'Co-run with Woody Zuill for AI Agents Montreal — how software teaming (mob/ensemble programming) and AI complement each other, and where AI helps versus where it disrupts shared understanding.',
+    eventUrl: 'https://www.meetup.com/ai-agent-montreal/events/314937910/',
+    date: 'May 2026',
+    year: 2026,
+    collaborators: ['Woody Zuill'],
+    format: 'Free online workshop',
+  },
+  {
+    id: 'mobbing-and-ai-thinking-together',
+    title: 'Mobbing and AI - Thinking Together with AI',
+    description:
+      'Co-run with Woody Zuill — an earlier run of the same conversation on where AI fits inside ensemble/mob programming, and where it helps versus disrupts shared understanding.',
+    eventUrl:
+      'https://www.eventbrite.com/e/mobbing-and-ai-thinking-together-with-ai-tickets-1968659211697',
+    date: 'November 2025',
+    year: 2025,
+    collaborators: ['Woody Zuill'],
+    format: 'Free online workshop',
+  },
 ];

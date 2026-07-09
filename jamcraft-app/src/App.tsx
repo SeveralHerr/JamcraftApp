@@ -13,6 +13,7 @@ import { HeroSection } from "./portfolio/HeroSection";
 import { ProjectsSection } from "./portfolio-projects/ProjectsSection";
 import { PodcastsSection } from "./podcasts/PodcastsSection";
 import { WorkshopsSection } from "./workshops/WorkshopsSection";
+import { SpeakingSection } from "./speaking/SpeakingSection";
 
 /** Redirect legacy multi-page URLs (e.g. /projects) to their section anchors. */
 function useLegacyPathRedirect() {
@@ -60,6 +61,7 @@ function App() {
             <ProjectsSection />
             <PodcastsSection />
             <WorkshopsSection />
+            <SpeakingSection />
             <Footer />
           </AppShell.Main>
         </AppShell>
