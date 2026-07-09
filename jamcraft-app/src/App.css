@@ -7,7 +7,7 @@
 }
 
 :root[data-mantine-color-scheme="dark"] {
-  --mantine-color-body: #081b29 !important;
+  --mantine-color-body: #0a0d10 !important;
 }
 
 /* Smooth scroll behavior */
@@ -31,7 +31,7 @@ html {
   content: '';
   position: absolute;
   inset: -3px;
-  border: 2px solid #f6924b;
+  border: 2px solid #8aa9c7;
   border-radius: 8px;
   opacity: 0;
   transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -45,7 +45,7 @@ html {
 /* Mantine Nav Link Overrides */
 .mantine-NavLink-root[data-active] {
   background-color: transparent !important;
-  color: #f6924b !important;
+  color: #8aa9c7 !important;
 }
 
 .mantine-NavLink-root:hover {

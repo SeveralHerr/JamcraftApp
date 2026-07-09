@@ -1,4 +1,4 @@
-import { Stack, Divider, Title, Center } from '@mantine/core';
+import { Stack, SimpleGrid, Divider, Title, Center } from '@mantine/core';
 import { usePortfolioProjects } from './ui/hooks/usePortfolioProjects';
 import { PortfolioProjectCard } from './ui/components/PortfolioProjectCard';
 import { useGameJamSubmissions } from '../game-jam-submissions/ui/hooks/useGameJamSubmissions';
@@ -23,7 +23,7 @@ export function ProjectsSection() {
         </Center>
       ) : (
         <Stack gap="xl">
-          <Stack gap="lg">
+          <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" verticalSpacing="md">
             {projects.map((project, index) => (
               <div
                 key={project.id}
@@ -34,7 +34,7 @@ export function ProjectsSection() {
                 <PortfolioProjectCard project={project} />
               </div>
             ))}
-          </Stack>
+          </SimpleGrid>
 
           <Divider color={colors.border.divider} my="xl" />
 
@@ -53,16 +53,18 @@ export function ProjectsSection() {
               Game Jam Submissions
             </Title>
 
-            {submissions.map((submission, index) => (
-              <div
-                key={submission.id}
-                style={{
-                  animation: `fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${0.1 + index * 0.1}s both`,
-                }}
-              >
-                <GameJamCard submission={submission} />
-              </div>
-            ))}
+            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" verticalSpacing="md">
+              {submissions.map((submission, index) => (
+                <div
+                  key={submission.id}
+                  style={{
+                    animation: `fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${0.1 + index * 0.1}s both`,
+                  }}
+                >
+                  <GameJamCard submission={submission} />
+                </div>
+              ))}
+            </SimpleGrid>
           </Stack>
         </Stack>
       )}

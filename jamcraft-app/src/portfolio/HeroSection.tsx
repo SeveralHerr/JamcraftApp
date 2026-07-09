@@ -79,6 +79,7 @@ export function HeroSection() {
                       to: colors.brand.primaryPressed,
                       deg: 135,
                     }}
+                    c={colors.background.primary}
                   >
                     View Projects
                   </Button>

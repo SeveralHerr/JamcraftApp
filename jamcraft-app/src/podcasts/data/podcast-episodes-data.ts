@@ -6,6 +6,16 @@ import { PodcastEpisode } from '../entities/PodcastEpisode';
  */
 export const PODCAST_EPISODES_DATA: PodcastEpisode[] = [
   {
+    id: 'tlc-more-minds-better-code',
+    showName: 'The Learning Curve',
+    episodeTitle: 'More Minds, Better Code: Teamwork in the Age of AI',
+    description:
+      'With Arthur Morrow of Flexion, on ensembling and AI-native development — how navigator and driver roles evolve with AI as a third team member, and why putting more minds around the AI produces better code than solo prompting.',
+    artworkUrl: 'https://img.youtube.com/vi/-y5Bg8EzOPQ/hqdefault.jpg',
+    episodeUrl: 'https://www.youtube.com/watch?v=-y5Bg8EzOPQ',
+    publishedYear: 2026,
+  },
+  {
     id: 'mms-ai-and-the-ensemble',
     showName: 'The Mob Mentality Show',
     episodeTitle:

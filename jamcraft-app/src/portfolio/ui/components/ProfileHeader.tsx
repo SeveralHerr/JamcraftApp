@@ -1,5 +1,6 @@
 import { Title, Text } from '@mantine/core';
 import { Profile } from '../../entities/Profile';
+import { colors } from '../../../theme';
 
 interface ProfileHeaderProps {
   profile: Profile;
@@ -13,12 +14,11 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
       </Text>
       <Title
         order={1}
-        c="#ededed"
+        c={colors.text.primary}
         ta="left"
         style={{
           fontSize: '3.0rem',
           fontWeight: 'bold',
-          color: '#ededed',
           textTransform: 'uppercase',
         }}
       >

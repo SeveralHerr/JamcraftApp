@@ -1,17 +1,17 @@
 import { SimpleGrid, Center } from '@mantine/core';
 import { Section } from '../components/ui/Section';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
-import { usePodcastEpisodes } from './ui/hooks/usePodcastEpisodes';
-import { PodcastEpisodeCard } from './ui/components/PodcastEpisodeCard';
+import { useWorkshops } from './ui/hooks/useWorkshops';
+import { WorkshopCard } from './ui/components/WorkshopCard';
 
-export function PodcastsSection() {
-  const { episodes, loading } = usePodcastEpisodes();
+export function WorkshopsSection() {
+  const { workshops, loading } = useWorkshops();
 
   return (
     <Section
-      id="podcasts"
-      title="Podcasts"
-      subtitle="Episodes I've been featured on, talking software teaming, AI, and game development"
+      id="workshops"
+      title="Workshops"
+      subtitle="Hands-on workshops I've run on AI, software teaming, and collaborative development"
     >
       {loading ? (
         <Center py="xl">
@@ -19,14 +19,14 @@ export function PodcastsSection() {
         </Center>
       ) : (
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" verticalSpacing="md">
-          {episodes.map((episode, index) => (
+          {workshops.map((workshop, index) => (
             <div
-              key={episode.id}
+              key={workshop.id}
               style={{
                 animation: `fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${0.1 + index * 0.1}s both`,
               }}
             >
-              <PodcastEpisodeCard episode={episode} />
+              <WorkshopCard workshop={workshop} />
             </div>
           ))}
         </SimpleGrid>

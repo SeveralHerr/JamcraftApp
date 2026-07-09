@@ -14,18 +14,23 @@ describe('PodcastEpisodeCard', () => {
     publishedYear: 2026,
   };
 
-  it('should render show name, episode title, and description', () => {
+  it('should render episode title, show name, and published year', () => {
     render(<PodcastEpisodeCard episode={episode} />);
 
-    expect(screen.getByText(/The Test Show/)).toBeInTheDocument();
     expect(screen.getByText('A Great Episode')).toBeInTheDocument();
-    expect(screen.getByText('An episode about testing.')).toBeInTheDocument();
+    expect(screen.getByText('The Test Show · 2026')).toBeInTheDocument();
   });
 
-  it('should link out to the episode URL', () => {
+  it('should render only the show name when no published year is set', () => {
+    render(<PodcastEpisodeCard episode={{ ...episode, publishedYear: undefined }} />);
+
+    expect(screen.getByText('The Test Show')).toBeInTheDocument();
+  });
+
+  it('should link the whole card to the episode URL', () => {
     render(<PodcastEpisodeCard episode={episode} />);
 
-    const link = screen.getByRole('link', { name: /listen \/ watch/i });
+    const link = screen.getByRole('link', { name: 'A Great Episode' });
     expect(link).toHaveAttribute('href', 'https://example.com/episode');
     expect(link).toHaveAttribute('target', '_blank');
   });
@@ -33,14 +38,9 @@ describe('PodcastEpisodeCard', () => {
   it('should use noopener and noreferrer on the external link', () => {
     render(<PodcastEpisodeCard episode={episode} />);
 
-    const link = screen.getByRole('link', { name: /listen \/ watch/i });
+    const link = screen.getByRole('link', { name: 'A Great Episode' });
     expect(link.getAttribute('rel')).toContain('noopener');
     expect(link.getAttribute('rel')).toContain('noreferrer');
-  });
-
-  it('should show the published year when provided', () => {
-    render(<PodcastEpisodeCard episode={episode} />);
-    expect(screen.getByText('2026')).toBeInTheDocument();
   });
 
   it('should render artwork with a descriptive alt text', () => {

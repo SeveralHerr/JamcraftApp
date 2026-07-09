@@ -21,7 +21,7 @@ export function Header({ navOpened, onToggleNav }: HeaderProps) {
     <AppShell.Header
       style={{
         backdropFilter: 'blur(10px)',
-        backgroundColor: 'rgba(8, 27, 41, 0.8)',
+        backgroundColor: colors.background.header,
         borderBottom: `1px solid ${colors.border.primary}`,
       }}
     >
