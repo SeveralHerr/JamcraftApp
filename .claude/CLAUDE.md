@@ -17,9 +17,9 @@ Jamcraft is a modern single-page portfolio website for James Herr (MrSeveral), a
 - **Build Tool:** Vite 6.4.1
 - **UI Library:** Mantine 7.16.3 (`@mantine/core` + `@mantine/hooks`)
 - **Icons:** Tabler Icons 3.30.0
-- **Testing:** Vitest 4.0.7 + React Testing Library 16.3.0
+- **Testing:** Vitest 4.0.7 + React Testing Library 16.3.0 (unit) + Playwright (E2E, `jamcraft-app/e2e/`)
 - **Styling:** CSS Modules + Mantine CSS + PostCSS
-- **Hosting/CI/CD:** AWS Amplify (`amplify.yml`: npm ci → test → build → deploy `build/`)
+- **Hosting/CI/CD:** AWS Amplify (`amplify.yml`: npm ci → test → build → deploy `build/`) + GitHub Actions (`.github/workflows/deploy.yml`: unit tests + build, plus a separate E2E job)
 - **Legacy Infrastructure:** Terraform configs for S3/CloudFront/Route53/ACM exist in `terraform/` but Amplify is the live pipeline
 
 There is no client-side router — navigation is in-page hash anchors (`#home`, `#projects`, `#podcasts`, `#contact`) with smooth scrolling and a scroll-spy header.
@@ -45,9 +45,11 @@ npm run dev              # Start dev server (Vite with hot-reload)
 npm run build            # Production build (TypeScript + Vite)
 npm run preview          # Preview production build
 npm run lint             # Run ESLint
-npm test                 # Run tests in watch mode
+npm test                 # Run unit tests in watch mode
 npm run test:ui          # Open Vitest UI in browser
 npm run test:coverage    # Generate coverage report
+npm run test:e2e         # Run Playwright E2E tests (builds/serves first)
+npm run test:e2e:ui      # Open Playwright's UI test runner
 ```
 
 ## Key Features
@@ -57,8 +59,8 @@ npm run test:coverage    # Generate coverage report
 - **Dark Theme:** Default dark mode; Mantine theme wired to design tokens (`src/theme/mantine-theme.ts`)
 - **Accessibility:** Reduced motion support, ARIA labels, focus management
 - **Security:** URL validation, XSS prevention (blocks javascript: protocol), noopener/noreferrer on external links
-- **Testing:** Comprehensive test coverage (54 tests, 10 test files)
-- **CI/CD:** Automated testing and deployment via AWS Amplify
+- **Testing:** Comprehensive test coverage (55 unit tests across 10 files, plus a Playwright E2E smoke suite)
+- **CI/CD:** Automated testing and deployment via AWS Amplify, with GitHub Actions running unit + E2E tests on every push/PR
 
 ## Page Sections
 
@@ -76,11 +78,16 @@ Legacy multi-page URLs (`/projects`, `/about`, `/testimonials`) are redirected o
 ```
 JamcraftApp/
 ├── amplify.yml                 # CI/CD: test → build → deploy (AWS Amplify)
+├── .github/workflows/deploy.yml # GitHub Actions: unit tests + build, + separate E2E job
 ├── .claude/
-│   └── CLAUDE.md               # This file
+│   ├── CLAUDE.md                # This file
+│   ├── settings.json             # Checked-in permission guardrails + SessionStart hook registration
+│   └── hooks/session-start.sh    # Installs deps (and Playwright browser path) on Claude Code web sessions
 ├── terraform/                  # Legacy IaC (not the live pipeline)
 └── jamcraft-app/               # Application source
     ├── public/assets/          # Static assets (images, logos, podcast artwork)
+    ├── e2e/                    # Playwright E2E specs (navigation.spec.ts)
+    ├── playwright.config.ts    # E2E config (builds + serves the app, then drives Chromium)
     ├── src/
     │   ├── portfolio/          # DOMAIN: Profile & hero
     │   │   ├── entities/Profile.ts
@@ -224,6 +231,17 @@ npm run test:coverage      # Generate HTML coverage report
 - **Helpers:** Shared utilities in `src/test/helpers/`
 - **Setup:** Global mocks in `src/test/setup.ts`
 
+### E2E Tests (Playwright)
+
+`jamcraft-app/e2e/navigation.spec.ts` is a smoke suite covering the single-page nav: anchor scrolling, the legacy `/projects` redirect, and `noopener,noreferrer` on external links. `playwright.config.ts` builds the app and serves it via `npm run preview` before running.
+
+```powershell
+npm run test:e2e         # Run once (headless)
+npm run test:e2e:ui      # Interactive UI runner
+```
+
+In this repo's remote sandbox, the pre-installed Chromium may not match the pinned `@playwright/test` version. The `SessionStart` hook (`.claude/hooks/session-start.sh`) detects this and exports `PLAYWRIGHT_CHROMIUM_PATH`, which `playwright.config.ts` picks up to launch the sandbox's browser directly instead of downloading one. On a normal machine/CI, run `npx playwright install --with-deps chromium` once instead.
+
 ## Build & Deployment
 
 ### Production Build
@@ -251,7 +269,21 @@ Process:
 
 Amplify builds and deploys automatically on push to `main`.
 
+### CI Pipeline (GitHub Actions)
+
+**Workflow:** `.github/workflows/deploy.yml` — runs on every push/PR to `main`, two jobs:
+
+1. `test` — `npm ci` → `npm test -- --run` → `npm run build`
+2. `e2e` — `npm ci` → `npx playwright install --with-deps chromium` → `npm run build` → `npm run test:e2e` (uploads the HTML report as an artifact on failure)
+
+This is validation only; it doesn't deploy — Amplify remains the deploy pipeline.
+
 The `terraform/` directory contains an earlier S3/CloudFront/Route53 setup that is not the live pipeline.
+
+## Claude Code Scaffolding
+
+- **`.claude/settings.json`** — checked-in, team-shared permission guardrails: allow-lists common read-only/dev commands (`npm test`, `npm run lint/build/dev`, `git status/diff/log`, etc.) and denies destructive ones (`git push --force`, `git reset --hard`, `rm -rf`, reading `.env` files). Personal/local overrides go in the gitignored `.claude/settings.local.json` instead.
+- **`.claude/hooks/session-start.sh`** — registered as a `SessionStart` hook in `settings.json`. On Claude Code web sessions it runs `npm install` in `jamcraft-app/` so lint/test/build work immediately, and exports `PLAYWRIGHT_CHROMIUM_PATH` when the sandbox's pre-installed Chromium is present (see E2E Tests above).
 
 ## Security Features
 
@@ -296,6 +328,7 @@ Append an object to `src/podcasts/data/podcast-episodes-data.ts` (id, showName, 
 - **tsconfig.node.json** — Node tooling
 - **vite.config.ts** — Vite bundler
 - **vitest.config.ts** — Test runner (happy-dom environment)
+- **playwright.config.ts** — E2E test runner
 - **eslint.config.js** — Linting rules
 
 ## Accessibility
@@ -329,7 +362,6 @@ npm run lint
 
 ## Future Enhancements
 
-- [ ] Add E2E tests with Playwright
 - [ ] Pull podcast episodes from an RSS feed instead of static data
 - [ ] Visual regression testing (Percy/Chromatic)
 - [ ] Performance monitoring (Lighthouse CI)
