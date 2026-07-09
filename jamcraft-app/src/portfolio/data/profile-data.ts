@@ -8,5 +8,5 @@ export const PROFILE_DATA: Profile = {
   quote:
     '"Dude, suckin\' at something is the first step to being sorta good at something."',
   quoteAuthor: "Jake, the Dog",
-  profileImagePath: "/assets/linkdin_profile.jpg",
+  profileImagePath: "/assets/james-herr-portrait.png",
 };

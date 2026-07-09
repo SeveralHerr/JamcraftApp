@@ -27,6 +27,7 @@ export function HeroSection() {
           radial-gradient(ellipse 80% 60% at 70% 20%, ${colors.brand.primarySubtle}, transparent),
           linear-gradient(180deg, ${colors.background.primary} 0%, ${colors.background.secondary} 100%)
         `,
+        borderBottom: `2px solid ${colors.border.divider}`,
       }}
     >
       <Section id="home">
@@ -36,12 +37,9 @@ export function HeroSection() {
           </Center>
         ) : (
           <Grid gutter="xl">
-            <Grid.Col span={{ base: 12, sm: 6 }}>
-              <ProfileImage profile={profile} />
-            </Grid.Col>
-
             <Grid.Col
               span={{ base: 12, sm: 6 }}
+              order={{ base: 2, sm: 1 }}
               style={{ display: 'flex', alignItems: 'center' }}
             >
               <Stack gap="lg" style={{ width: '100%' }}>
@@ -85,6 +83,10 @@ export function HeroSection() {
                   </Button>
                 </Group>
               </Stack>
+            </Grid.Col>
+
+            <Grid.Col span={{ base: 12, sm: 6 }} order={{ base: 1, sm: 2 }}>
+              <ProfileImage profile={profile} />
             </Grid.Col>
           </Grid>
         )}
