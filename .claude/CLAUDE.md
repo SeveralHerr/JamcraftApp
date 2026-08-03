@@ -58,7 +58,7 @@ npm run test:coverage    # Generate coverage report
 - **Minimalist Cards:** Compact cards (72px thumbnail + title + one line via `components/ui/CompactCard.tsx`) laid out in responsive 2-column grids (1 column on mobile)
 - **Accessibility:** Reduced motion support, ARIA labels, focus management
 - **Security:** URL validation, XSS prevention (blocks javascript: protocol), noopener/noreferrer on external links
-- **Testing:** Comprehensive test coverage (89 tests, 17 test files)
+- **Testing:** Comprehensive test coverage (96 tests, 18 test files)
 - **CI/CD:** Automated testing and deployment via AWS Amplify
 
 ## Page Sections
@@ -94,7 +94,7 @@ JamcraftApp/
     │   │
     │   ├── portfolio-projects/ # DOMAIN: Project showcase
     │   │   ├── entities/PortfolioProject.ts
-    │   │   ├── use-cases/GetPortfolioProjects.ts
+    │   │   ├── use-cases/GetPortfolioProjects.ts (+ test)
     │   │   ├── data/portfolio-projects-data.ts
     │   │   ├── ui/...          # PortfolioProjectCard (NSFW blur/reveal)
     │   │   └── ProjectsSection.tsx         # #projects section
@@ -214,7 +214,7 @@ Hooks           ↓       Pure TS
 
 ### Current Test Suite
 
-**89 tests across 17 files:**
+**96 tests across 18 files:**
 
 1. **sections.test.ts** (9 tests) — Section registry + legacy path redirects
 2. **useActiveSection.test.ts** (7 tests) — Scroll-spy (reading line + page-bottom edge cases)
@@ -233,6 +233,7 @@ Hooks           ↓       Pure TS
 15. **GetSpeakingEngagements.test.ts** (7 tests) — Speaking use-case + seed data integrity
 16. **SpeakingEngagementCard.test.tsx** (3 tests) — Rendering + external link security
 17. **JamcraftInvite.test.tsx** (3 tests) — Rendering + external link security
+18. **GetPortfolioProjects.test.ts** (7 tests) — Project use-case + seed data integrity (unique ids, safe URLs)
 
 ### Running Tests
 
