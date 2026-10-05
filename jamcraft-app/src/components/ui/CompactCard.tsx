@@ -2,7 +2,7 @@ import { Group, Image, Stack, Text } from '@mantine/core';
 import type { CSSProperties, ReactNode } from 'react';
 import { Card as UnifiedCard } from './Card';
 import { colors, typography } from '../../theme';
-import { isSafeExternalUrl } from '../../social-presence/use-cases/NavigateToExternalLink';
+import { isSafeExternalUrl } from '../../social-presence/use-cases/isSafeExternalUrl';
 
 export const THUMBNAIL_SIZE = 72;
 

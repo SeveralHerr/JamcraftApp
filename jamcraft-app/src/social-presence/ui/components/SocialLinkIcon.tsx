@@ -1,7 +1,6 @@
 import { Image } from '@mantine/core';
 import { SocialLink } from '../../entities/SocialLink';
-import { NavigateToExternalLink } from '../../use-cases/NavigateToExternalLink';
-import { BrowserNavigationService } from '../../services/BrowserNavigationService';
+import { isSafeExternalUrl } from '../../use-cases/isSafeExternalUrl';
 import { transitions } from '../../../theme';
 
 interface SocialLinkIconProps {
@@ -10,14 +9,10 @@ interface SocialLinkIconProps {
   imageLoading?: 'eager' | 'lazy';
 }
 
-// Singleton service instance
-const navigationService = new BrowserNavigationService();
-
 export function SocialLinkIcon({ socialLink, imageLoading = 'eager' }: SocialLinkIconProps) {
-  const handleClick = () => {
-    const useCase = new NavigateToExternalLink(navigationService);
-    useCase.execute(socialLink.url);
-  };
+  if (!isSafeExternalUrl(socialLink.url)) {
+    return null;
+  }
 
   return (
     <a
@@ -27,10 +22,6 @@ export function SocialLinkIcon({ socialLink, imageLoading = 'eager' }: SocialLin
       aria-label={socialLink.ariaLabel}
       title={socialLink.displayName}
       className="focus-ring"
-      onClick={(e) => {
-        e.preventDefault();
-        handleClick();
-      }}
       style={{
         display: 'inline-block',
         transition: transitions.fast,

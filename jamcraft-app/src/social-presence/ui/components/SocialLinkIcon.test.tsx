@@ -33,13 +33,20 @@ describe('SocialLinkIcon', () => {
   describe('interaction', () => {
     afterEach(() => vi.restoreAllMocks());
 
-    it('should open the profile through the secure navigation service on click', () => {
-      const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    it('should let the browser follow the link natively (no click hijacking)', () => {
+      const open = vi.spyOn(window, 'open');
       render(<SocialLinkIcon socialLink={link} />);
 
-      fireEvent.click(screen.getByRole('link', { name: link.ariaLabel }));
+      const notPrevented = fireEvent.click(screen.getByRole('link', { name: link.ariaLabel }));
 
-      expect(open).toHaveBeenCalledWith(link.url, '_blank', expect.stringContaining('noopener'));
+      expect(notPrevented).toBe(true);
+      expect(open).not.toHaveBeenCalled();
+    });
+
+    it('should not render a link for an unsafe URL', () => {
+      render(<SocialLinkIcon socialLink={{ ...link, url: 'javascript:alert(1)' }} />);
+
+      expect(screen.queryByRole('link')).not.toBeInTheDocument();
     });
 
     it('should tilt the icon on hover and reset on leave', () => {
