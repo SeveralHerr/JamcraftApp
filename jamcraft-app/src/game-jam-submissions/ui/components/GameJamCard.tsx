@@ -3,6 +3,7 @@ import { GameJamSubmission } from '../../entities/GameJamSubmission';
 import { NavigateToExternalLink } from '../../../social-presence/use-cases/NavigateToExternalLink';
 import { BrowserNavigationService } from '../../../social-presence/services/BrowserNavigationService';
 import { CompactCard } from '../../../components/ui/CompactCard';
+import { formatJamLabel } from '../../use-cases/formatJamLabel';
 
 interface GameJamCardProps {
   submission: GameJamSubmission;
@@ -25,7 +26,7 @@ export function GameJamCard({ submission }: GameJamCardProps) {
       imageAlt={submission.name}
       meta={
         <Badge color="grape" variant="light" size="xs" w="fit-content">
-          {submission.jamName}
+          {formatJamLabel(submission)}
         </Badge>
       }
       onClick={handleClick}
