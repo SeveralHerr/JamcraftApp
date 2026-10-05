@@ -79,5 +79,39 @@ describe('GetSpeakingEngagements', () => {
         expect(engagement.eventUrl).toMatch(/^https?:\/\//);
       });
     });
+
+    it('should include the fall 2026 engagements exactly once each', () => {
+      const ids = SPEAKING_ENGAGEMENTS_DATA.map((engagement) => engagement.id);
+      [
+        'agile-new-england-2026-software-teaming-and-ai',
+        'siouxpercon-2026-siouxper-hot',
+        'exploreddd-2026-software-teaming-and-ai',
+      ].forEach((id) => {
+        expect(ids.filter((existing) => existing === id)).toHaveLength(1);
+      });
+    });
+
+    it('should use a "Month YYYY" date that agrees with the numeric year', () => {
+      SPEAKING_ENGAGEMENTS_DATA.forEach((engagement) => {
+        expect(engagement.date).toMatch(/^[A-Z][a-z]+ \d{4}$/);
+        expect(engagement.date.endsWith(String(engagement.year))).toBe(true);
+        expect(Number.isNaN(Date.parse(`1 ${engagement.date}`))).toBe(false);
+      });
+    });
+
+    it('should list engagements newest first', () => {
+      const timestamps = SPEAKING_ENGAGEMENTS_DATA.map((engagement) =>
+        Date.parse(`1 ${engagement.date}`),
+      );
+      const sortedDescending = [...timestamps].sort((a, b) => b - a);
+      expect(timestamps).toEqual(sortedDescending);
+    });
+
+    it('should keep seed order when sorted by year', () => {
+      const sorted = new GetSpeakingEngagements(SPEAKING_ENGAGEMENTS_DATA).executeSortedByYear();
+      expect(sorted.map((engagement) => engagement.id)).toEqual(
+        SPEAKING_ENGAGEMENTS_DATA.map((engagement) => engagement.id),
+      );
+    });
   });
 });

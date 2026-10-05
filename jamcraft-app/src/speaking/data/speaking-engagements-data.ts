@@ -6,6 +6,31 @@ import { SpeakingEngagement } from '../entities/SpeakingEngagement';
  */
 export const SPEAKING_ENGAGEMENTS_DATA: SpeakingEngagement[] = [
   {
+    id: 'agile-new-england-2026-software-teaming-and-ai',
+    title: 'Software Teaming and AI, Thinking Together with AI',
+    description:
+      'A virtual keynote with Woody Zuill on how Software Teaming and AI complement each other to amplify learning, improve outcomes, and strengthen team alignment.',
+    eventName: 'Agile New England',
+    location: 'Virtual',
+    eventUrl: 'https://agilenewengland.org/software-teaming-and-ai',
+    date: 'October 2026',
+    year: 2026,
+    format: 'Keynote',
+    collaborators: ['Woody Zuill'],
+  },
+  {
+    id: 'siouxpercon-2026-siouxper-hot',
+    title: 'Siouxper Hot: Creating The Unofficial Siouxpercon Game While Eating Hot Sauce',
+    description:
+      'A live Hot Sauce Ensemble on stage: building an unofficial SiouxperCon game together while eating increasingly unreasonable amounts of hot sauce.',
+    eventName: 'SiouxperCon 2026',
+    location: 'Sioux Falls, SD',
+    eventUrl: 'https://www.siouxpercon.com/',
+    date: 'September 2026',
+    year: 2026,
+    format: 'Live Game Dev Challenge',
+  },
+  {
     id: 'exploreddd-2026-software-teaming-and-ai',
     title: 'Advanced Software Teaming and AI: Thinking Together in the Age of Intelligent Tools',
     description:
