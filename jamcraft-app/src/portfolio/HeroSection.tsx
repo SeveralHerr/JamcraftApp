@@ -1,4 +1,4 @@
-import { Stack, Divider, Group, Button, Center } from '@mantine/core';
+import { Stack, Divider, Group, Button } from '@mantine/core';
 import { IconArrowDown } from '@tabler/icons-react';
 import { useProfile } from './ui/hooks/useProfile';
 import { useSocialLinks } from '../social-presence/ui/hooks/useSocialLinks';
@@ -8,7 +8,6 @@ import { ProfileBio } from './ui/components/ProfileBio';
 import { JamcraftInvite } from './ui/components/JamcraftInvite';
 import { SocialLinkIcon } from '../social-presence/ui/components/SocialLinkIcon';
 import { Section } from '../components/ui/Section';
-import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { colors, headerHeight } from '../theme';
 import styles from './HeroSection.module.css';
 
@@ -16,8 +15,8 @@ import styles from './HeroSection.module.css';
  * Full-height hero / about section — the landing view of the single page.
  */
 export function HeroSection() {
-  const { profile, loading: profileLoading } = useProfile();
-  const { socialLinks, loading: socialLinksLoading } = useSocialLinks();
+  const { profile } = useProfile();
+  const { socialLinks } = useSocialLinks();
 
   return (
     <div
@@ -31,62 +30,56 @@ export function HeroSection() {
     >
       <div style={{ width: '100%' }}>
         <Section id="home">
-        {profileLoading || socialLinksLoading || !profile ? (
-          <Center py="xl">
-            <LoadingSpinner />
-          </Center>
-        ) : (
-          <div className={styles.heroLayout}>
-            <ProfileImage profile={profile} />
+        <div className={styles.heroLayout}>
+          <ProfileImage profile={profile} />
 
-            <div className={styles.heroText}>
-              <Stack gap="lg" style={{ width: '100%' }}>
-                <div>
-                  <ProfileHeader profile={profile} />
-                  <ProfileBio profile={profile} />
+          <div className={styles.heroText}>
+            <Stack gap="lg" style={{ width: '100%' }}>
+              <div>
+                <ProfileHeader profile={profile} />
+                <ProfileBio profile={profile} />
+              </div>
+
+              <div>
+                <Divider color={colors.border.divider} />
+                <div style={{ marginTop: 'var(--mantine-spacing-md)' }}>
+                  <JamcraftInvite />
                 </div>
-
-                <div>
-                  <Divider color={colors.border.divider} />
-                  <div style={{ marginTop: 'var(--mantine-spacing-md)' }}>
-                    <JamcraftInvite />
-                  </div>
-                  <Group gap="md" mt="md">
-                    {socialLinks.map((link, index) => (
-                      <div
-                        key={link.id}
-                        style={{
-                          animation: `fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.05}s both`,
-                        }}
-                      >
-                        <SocialLinkIcon socialLink={link} />
-                      </div>
-                    ))}
-                  </Group>
-                </div>
-
-                <Group mt="md">
-                  <Button
-                    component="a"
-                    href="#projects"
-                    size="md"
-                    className="focus-ring"
-                    rightSection={<IconArrowDown size={18} />}
-                    variant="gradient"
-                    gradient={{
-                      from: colors.brand.primary,
-                      to: colors.brand.primaryPressed,
-                      deg: 135,
-                    }}
-                    c={colors.background.primary}
-                  >
-                    View Projects
-                  </Button>
+                <Group gap="md" mt="md">
+                  {socialLinks.map((link, index) => (
+                    <div
+                      key={link.id}
+                      style={{
+                        animation: `fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.05}s both`,
+                      }}
+                    >
+                      <SocialLinkIcon socialLink={link} />
+                    </div>
+                  ))}
                 </Group>
-              </Stack>
-            </div>
+              </div>
+
+              <Group mt="md">
+                <Button
+                  component="a"
+                  href="#projects"
+                  size="md"
+                  className="focus-ring"
+                  rightSection={<IconArrowDown size={18} />}
+                  variant="gradient"
+                  gradient={{
+                    from: colors.brand.primary,
+                    to: colors.brand.primaryPressed,
+                    deg: 135,
+                  }}
+                  c={colors.background.primary}
+                >
+                  View Projects
+                </Button>
+              </Group>
+            </Stack>
           </div>
-        )}
+        </div>
         </Section>
       </div>
     </div>

@@ -1,17 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Profile } from '../../entities/Profile';
+import { useState } from 'react';
 import { GetProfile } from '../../use-cases/GetProfile';
 
+/** Static data, so it is computed once on the first render — no loading state. */
 export function useProfile() {
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [profile] = useState(() => new GetProfile().execute());
 
-  useEffect(() => {
-    const useCase = new GetProfile();
-    const result = useCase.execute();
-    setProfile(result);
-    setLoading(false);
-  }, []);
-
-  return { profile, loading };
+  return { profile };
 }

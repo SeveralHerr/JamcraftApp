@@ -1,17 +1,9 @@
-import { useState, useEffect } from 'react';
-import { PortfolioProject } from '../../entities/PortfolioProject';
+import { useState } from 'react';
 import { GetPortfolioProjects } from '../../use-cases/GetPortfolioProjects';
 
+/** Static data, so it is computed once on the first render — no loading state. */
 export function usePortfolioProjects() {
-  const [projects, setProjects] = useState<PortfolioProject[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [projects] = useState(() => new GetPortfolioProjects().execute());
 
-  useEffect(() => {
-    const useCase = new GetPortfolioProjects();
-    const result = useCase.execute();
-    setProjects(result);
-    setLoading(false);
-  }, []);
-
-  return { projects, loading };
+  return { projects };
 }

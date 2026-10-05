@@ -1,25 +1,10 @@
-import { useState, useEffect } from 'react';
-import { Workshop } from '../../entities/Workshop';
+import { useState } from 'react';
 import { GetWorkshops } from '../../use-cases/GetWorkshops';
 import { WORKSHOPS_DATA } from '../../data/workshops-data';
 
+/** Static data, so it is computed once on the first render — no loading state. */
 export function useWorkshops() {
-  const [workshops, setWorkshops] = useState<Workshop[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [workshops] = useState(() => new GetWorkshops(WORKSHOPS_DATA).executeSortedByYear());
 
-  useEffect(() => {
-    const fetchWorkshops = async () => {
-      setLoading(true);
-      try {
-        const useCase = new GetWorkshops(WORKSHOPS_DATA);
-        setWorkshops(useCase.executeSortedByYear());
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchWorkshops();
-  }, []);
-
-  return { workshops, loading };
+  return { workshops };
 }

@@ -1,17 +1,9 @@
-import { useState, useEffect } from 'react';
-import { SocialLink } from '../../entities/SocialLink';
+import { useState } from 'react';
 import { GetSocialLinks } from '../../use-cases/GetSocialLinks';
 
+/** Static data, so it is computed once on the first render — no loading state. */
 export function useSocialLinks() {
-  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [socialLinks] = useState(() => new GetSocialLinks().execute());
 
-  useEffect(() => {
-    const useCase = new GetSocialLinks();
-    const result = useCase.execute();
-    setSocialLinks(result);
-    setLoading(false);
-  }, []);
-
-  return { socialLinks, loading };
+  return { socialLinks };
 }

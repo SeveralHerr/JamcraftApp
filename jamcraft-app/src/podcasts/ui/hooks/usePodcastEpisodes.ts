@@ -1,25 +1,10 @@
-import { useState, useEffect } from 'react';
-import { PodcastEpisode } from '../../entities/PodcastEpisode';
+import { useState } from 'react';
 import { GetPodcastEpisodes } from '../../use-cases/GetPodcastEpisodes';
 import { PODCAST_EPISODES_DATA } from '../../data/podcast-episodes-data';
 
+/** Static data, so it is computed once on the first render — no loading state. */
 export function usePodcastEpisodes() {
-  const [episodes, setEpisodes] = useState<PodcastEpisode[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [episodes] = useState(() => new GetPodcastEpisodes(PODCAST_EPISODES_DATA).executeSortedByYear());
 
-  useEffect(() => {
-    const fetchEpisodes = async () => {
-      setLoading(true);
-      try {
-        const useCase = new GetPodcastEpisodes(PODCAST_EPISODES_DATA);
-        setEpisodes(useCase.executeSortedByYear());
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEpisodes();
-  }, []);
-
-  return { episodes, loading };
+  return { episodes };
 }
