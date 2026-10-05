@@ -148,7 +148,8 @@ async function screenshotViewport(rawArgs) {
       await cdp.call('Runtime.evaluate', {
         expression: `window.scrollTo({ top: ${scrollY}, behavior: 'instant' })`,
       });
-      await sleep(400);
+      // Let scroll-triggered entrance animations (~1s on jamcraft.io) finish.
+      await sleep(1500);
     }
     const { data } = await cdp.call('Page.captureScreenshot', { format: 'png' });
     const outPath = join(tmpdir(), `viewport-${width}x${height}-y${scrollY}-${Date.now()}.png`);
