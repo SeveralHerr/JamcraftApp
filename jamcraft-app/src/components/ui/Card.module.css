@@ -1,0 +1,15 @@
+/* Hover and keyboard focus share one look, so the cards respond to both. */
+.card[data-hover='true']:hover,
+a:focus-visible > .card[data-hover='true'] {
+  border-color: rgba(138, 169, 199, 0.45) !important;
+  background: rgba(138, 169, 199, 0.06) !important;
+  box-shadow: 0 10px 28px rgba(138, 169, 199, 0.12);
+  transform: translateY(-3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card[data-hover='true']:hover,
+  a:focus-visible > .card[data-hover='true'] {
+    transform: none;
+  }
+}
