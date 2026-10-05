@@ -1,5 +1,7 @@
 .heroLayout {
   display: grid;
+  /* minmax(0, …) stops the portrait's intrinsic width from widening the track on phones */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--mantine-spacing-xl);
 }
 
