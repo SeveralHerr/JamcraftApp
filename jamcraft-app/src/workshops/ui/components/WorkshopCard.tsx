@@ -1,7 +1,7 @@
 import { IconUsers } from '@tabler/icons-react';
 import { Workshop } from '../../entities/Workshop';
 import { CompactCard } from '../../../components/ui/CompactCard';
-import { colors } from '../../../theme';
+import { IconTile } from '../../../components/ui/IconTile';
 
 interface WorkshopCardProps {
   workshop: Workshop;
@@ -14,23 +14,7 @@ export function WorkshopCard({ workshop }: WorkshopCardProps) {
     <CompactCard
       title={workshop.title}
       line={line}
-      thumbnail={
-        <div
-          style={{
-            width: 72,
-            height: 72,
-            minWidth: 72,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: colors.brand.primarySubtle,
-            borderRadius: 'var(--mantine-radius-md)',
-          }}
-          aria-hidden="true"
-        >
-          <IconUsers size={32} color={colors.brand.primary} />
-        </div>
-      }
+      thumbnail={<IconTile icon={IconUsers} />}
       href={workshop.eventUrl}
       ariaLabel={workshop.title}
       variant="glass"

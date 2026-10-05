@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import { Card as UnifiedCard } from './Card';
 import { colors, typography } from '../../theme';
 
-const THUMBNAIL_SIZE = 72;
+export const THUMBNAIL_SIZE = 72;
 
 interface CompactCardProps {
   title: string;

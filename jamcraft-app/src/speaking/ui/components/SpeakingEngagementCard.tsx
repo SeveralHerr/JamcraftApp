@@ -1,7 +1,7 @@
 import { IconMicrophone2 } from '@tabler/icons-react';
 import { SpeakingEngagement } from '../../entities/SpeakingEngagement';
 import { CompactCard } from '../../../components/ui/CompactCard';
-import { colors } from '../../../theme';
+import { IconTile } from '../../../components/ui/IconTile';
 
 interface SpeakingEngagementCardProps {
   engagement: SpeakingEngagement;
@@ -14,23 +14,7 @@ export function SpeakingEngagementCard({ engagement }: SpeakingEngagementCardPro
     <CompactCard
       title={engagement.title}
       line={line}
-      thumbnail={
-        <div
-          style={{
-            width: 72,
-            height: 72,
-            minWidth: 72,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: colors.brand.primarySubtle,
-            borderRadius: 'var(--mantine-radius-md)',
-          }}
-          aria-hidden="true"
-        >
-          <IconMicrophone2 size={32} color={colors.brand.primary} />
-        </div>
-      }
+      thumbnail={<IconTile icon={IconMicrophone2} />}
       href={engagement.eventUrl}
       ariaLabel={engagement.title}
       variant="glass"
