@@ -11,7 +11,8 @@ interface ProfileImageProps {
 
 export function ProfileImage({ profile }: ProfileImageProps) {
   return (
-    <Box style={{ maxWidth: 560, margin: '0 auto' }}>
+    // Smaller on phones so the name and bio start above the fold.
+    <Box maw={{ base: 280, sm: 420, md: 560 }} mx="auto">
       <Image
         src={profile.profileImagePath}
         width={PORTRAIT_WIDTH}
