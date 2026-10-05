@@ -24,6 +24,7 @@ export function ProfileImage({ profile }: ProfileImageProps) {
         h="auto"
         fit="contain"
         alt={`${profile.fullName} Profile`}
+        fetchPriority="high"
         style={{ aspectRatio: `${PORTRAIT_WIDTH} / ${PORTRAIT_HEIGHT}`, maskImage: PORTRAIT_EDGE_FADE }}
       />
     </Box>

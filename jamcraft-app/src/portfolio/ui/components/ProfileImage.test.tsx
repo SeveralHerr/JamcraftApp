@@ -22,4 +22,10 @@ describe('ProfileImage', () => {
   it('should serve the compressed WebP portrait', () => {
     expect(PROFILE_DATA.profileImagePath).toMatch(/\.webp$/);
   });
+
+  it('should fetch the portrait (the LCP image) at high priority', () => {
+    render(<ProfileImage profile={PROFILE_DATA} />);
+
+    expect(screen.getByRole('img', { name: 'James Herr Profile' })).toHaveAttribute('fetchpriority', 'high');
+  });
 });

@@ -34,4 +34,13 @@ describe('index.html metadata', () => {
 
     scriptSrcs.forEach((src) => expect(src).toMatch(/^\//));
   });
+
+  it('should preload the hero portrait and declare a square favicon + touch icon', () => {
+    expect(html).toMatch(/<link rel="preload" as="image" href="\/assets\/james-herr-portrait\.webp"/);
+    for (const [rel, file] of [['icon', 'favicon-32.png'], ['apple-touch-icon', 'apple-touch-icon.png']]) {
+      expect(html).toContain(`rel="${rel}"`);
+      expect(html).toContain(`/assets/${file}`);
+      expect(existsSync(resolve(appRoot, 'public/assets', file))).toBe(true);
+    }
+  });
 });
