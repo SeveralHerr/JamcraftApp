@@ -5,9 +5,11 @@ import { colors, typography } from '../../../theme';
 interface JamcraftInviteProps {
   /** Horizontal alignment of the logo and caption. */
   align?: 'flex-start' | 'center';
+  /** Pass 'lazy' when the invite renders below the fold (e.g. the footer). */
+  imageLoading?: 'eager' | 'lazy';
 }
 
-export function JamcraftInvite({ align = 'flex-start' }: JamcraftInviteProps) {
+export function JamcraftInvite({ align = 'flex-start', imageLoading = 'eager' }: JamcraftInviteProps) {
   return (
     <a
       href={EXTERNAL_LINKS.discord}
@@ -21,6 +23,7 @@ export function JamcraftInvite({ align = 'flex-start' }: JamcraftInviteProps) {
         <Image
           src="/assets/jamcraft-logo-full.png"
           alt="Jamcraft logo"
+          loading={imageLoading}
           w={240}
           maw="100%"
           h="auto"

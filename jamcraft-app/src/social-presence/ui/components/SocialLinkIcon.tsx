@@ -6,12 +6,14 @@ import { transitions } from '../../../theme';
 
 interface SocialLinkIconProps {
   socialLink: SocialLink;
+  /** Pass 'lazy' when the icon renders below the fold (e.g. the footer). */
+  imageLoading?: 'eager' | 'lazy';
 }
 
 // Singleton service instance
 const navigationService = new BrowserNavigationService();
 
-export function SocialLinkIcon({ socialLink }: SocialLinkIconProps) {
+export function SocialLinkIcon({ socialLink, imageLoading = 'eager' }: SocialLinkIconProps) {
   const handleClick = () => {
     const useCase = new NavigateToExternalLink(navigationService);
     useCase.execute(socialLink.url);
@@ -51,6 +53,7 @@ export function SocialLinkIcon({ socialLink }: SocialLinkIconProps) {
         h={40}
         w={40}
         alt={socialLink.displayName}
+        loading={imageLoading}
         style={{
           filter: 'brightness(0) invert(1)',
           cursor: 'pointer',

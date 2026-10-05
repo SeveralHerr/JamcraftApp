@@ -32,4 +32,12 @@ describe('Footer', () => {
 
     expect(screen.getByText(/© \d{4} James Herr · Jamcraft LLC/)).toBeInTheDocument();
   });
+
+  it('should lazy-load its images (the footer is always below the fold)', () => {
+    const { container } = render(<Footer />);
+
+    const images = [...container.querySelectorAll('img')];
+    expect(images.length).toBeGreaterThan(0);
+    images.forEach((img) => expect(img).toHaveAttribute('loading', 'lazy'));
+  });
 });

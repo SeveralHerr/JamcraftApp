@@ -39,10 +39,10 @@ export function Footer() {
           </Text>
           <Group gap="md" justify="center">
             {socialLinks.map((link) => (
-              <SocialLinkIcon key={link.id} socialLink={link} />
+              <SocialLinkIcon key={link.id} socialLink={link} imageLoading="lazy" />
             ))}
           </Group>
-          <JamcraftInvite align="center" />
+          <JamcraftInvite align="center" imageLoading="lazy" />
           <Text c={colors.text.muted} size="sm">
             © {new Date().getFullYear()} James Herr · Jamcraft LLC
           </Text>
