@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "viewport-screenshot": {
+      "command": "node",
+      "args": [".claude/mcp/viewport-screenshot/server.mjs"]
+    }
+  }
+}
