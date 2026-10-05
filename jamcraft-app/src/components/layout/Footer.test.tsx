@@ -40,4 +40,13 @@ describe('Footer', () => {
     expect(images.length).toBeGreaterThan(0);
     images.forEach((img) => expect(img).toHaveAttribute('loading', 'lazy'));
   });
+
+  it('should make "LinkedIn" in the contact copy a direct link', () => {
+    render(<Footer />);
+
+    const linkedIn = SOCIAL_LINKS_DATA.find((link) => link.id === 'linkedin')!;
+    const inline = screen.getByRole('link', { name: 'LinkedIn' });
+    expect(inline).toHaveAttribute('href', linkedIn.url);
+    expect(inline.getAttribute('rel')).toContain('noopener');
+  });
 });

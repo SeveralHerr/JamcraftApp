@@ -1,4 +1,4 @@
-import { Container, Group, Stack, Text, Title } from '@mantine/core';
+import { Anchor, Container, Group, Stack, Text, Title } from '@mantine/core';
 import { useSocialLinks } from '../../social-presence/ui/hooks/useSocialLinks';
 import { SocialLinkIcon } from '../../social-presence/ui/components/SocialLinkIcon';
 import { JamcraftInvite } from '../../portfolio/ui/components/JamcraftInvite';
@@ -9,6 +9,7 @@ import { colors, spacing, typography, headerHeight, containerSizes } from '../..
  */
 export function Footer() {
   const { socialLinks } = useSocialLinks();
+  const linkedIn = socialLinks.find((link) => link.id === 'linkedin');
 
   return (
     <footer
@@ -34,8 +35,13 @@ export function Footer() {
             Get in touch
           </Title>
           <Text c={colors.text.dimmed} ta="center" maw={480}>
-            The best place to reach me is LinkedIn — or find me on any of
-            these platforms.
+            The best place to reach me is{' '}
+            {linkedIn && (
+              <Anchor href={linkedIn.url} target="_blank" rel="noopener noreferrer" c={colors.brand.primary}>
+                LinkedIn
+              </Anchor>
+            )}{' '}
+            — or find me on any of these platforms.
           </Text>
           <Group gap="md" justify="center">
             {socialLinks.map((link) => (
