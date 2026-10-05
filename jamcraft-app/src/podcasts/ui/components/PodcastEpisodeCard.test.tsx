@@ -51,4 +51,14 @@ describe('PodcastEpisodeCard', () => {
     });
     expect(image).toHaveAttribute('src', '/assets/test-artwork.jpg');
   });
+
+  it('should badge YouTube episodes as Watch and audio episodes as Listen', () => {
+    const { rerender } = render(
+      <PodcastEpisodeCard episode={{ ...episode, episodeUrl: 'https://www.youtube.com/watch?v=x' }} />,
+    );
+    expect(screen.getByText('Watch')).toBeInTheDocument();
+
+    rerender(<PodcastEpisodeCard episode={episode} />);
+    expect(screen.getByText('Listen')).toBeInTheDocument();
+  });
 });
