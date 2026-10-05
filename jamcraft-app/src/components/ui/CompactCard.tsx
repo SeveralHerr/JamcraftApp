@@ -65,7 +65,7 @@ export function CompactCard({
             c={colors.text.primary}
             size="sm"
             fw={typography.fontWeight.semibold}
-            lineClamp={2}
+            lineClamp={3}
             style={{ letterSpacing: typography.letterSpacing.tight }}
           >
             {title}

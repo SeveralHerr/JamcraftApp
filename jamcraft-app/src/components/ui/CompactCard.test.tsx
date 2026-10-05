@@ -73,4 +73,10 @@ describe('CompactCard', () => {
     const line = screen.getByText('A longer description of the thing');
     expect(line.style.getPropertyValue('--text-line-clamp')).toBe('2');
   });
+
+  it('should allow long titles three lines before truncating (talk titles on phones)', () => {
+    render(<CompactCard title="A Very Long Talk Title" />);
+
+    expect(screen.getByText('A Very Long Talk Title').style.getPropertyValue('--text-line-clamp')).toBe('3');
+  });
 });
