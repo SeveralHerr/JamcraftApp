@@ -34,3 +34,13 @@ export function resolveLegacyPath(pathname: string): SectionId | null {
       return 'home';
   }
 }
+
+/**
+ * Maps a location hash (e.g. "#projects") to a registered section id.
+ * Unknown or empty hashes return null, so arbitrary hash text is never
+ * used as a DOM selector.
+ */
+export function resolveSectionFromHash(hash: string): SectionId | null {
+  const id = hash.replace(/^#/, '');
+  return SECTIONS.find((section) => section.id === id)?.id ?? null;
+}

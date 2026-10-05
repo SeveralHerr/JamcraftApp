@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import "./App.css";
 import { mantineTheme } from "./theme";
-import { SECTIONS, resolveLegacyPath } from "./config/sections";
+import { SECTIONS, resolveLegacyPath, resolveSectionFromHash } from "./config/sections";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Header } from "./components/layout/Header";
 import { NavAnchor } from "./components/layout/NavAnchor";
@@ -15,20 +15,32 @@ import { PodcastsSection } from "./podcasts/PodcastsSection";
 import { WorkshopsSection } from "./workshops/WorkshopsSection";
 import { SpeakingSection } from "./speaking/SpeakingSection";
 
-/** Redirect legacy multi-page URLs (e.g. /projects) to their section anchors. */
-function useLegacyPathRedirect() {
+/**
+ * Land on the right section on first load: legacy multi-page URLs
+ * (e.g. /projects) redirect to their anchor, and deep links (/#podcasts)
+ * scroll to their section once it has rendered.
+ */
+function useInitialSectionScroll() {
   useEffect(() => {
-    const target = resolveLegacyPath(window.location.pathname);
-    if (target) {
-      window.history.replaceState(null, "", `/#${target}`);
-      document.getElementById(target)?.scrollIntoView();
+    const legacyTarget = resolveLegacyPath(window.location.pathname);
+    if (legacyTarget) {
+      window.history.replaceState(null, "", `/#${legacyTarget}`);
     }
+    const target = legacyTarget ?? resolveSectionFromHash(window.location.hash);
+    if (!target) return;
+
+    // Section data renders on the first commit and images reserve their space,
+    // so one frame later the target's offset is final.
+    const frame = requestAnimationFrame(() =>
+      document.getElementById(target)?.scrollIntoView({ behavior: "instant" }),
+    );
+    return () => cancelAnimationFrame(frame);
   }, []);
 }
 
 function App() {
   const [navOpened, { toggle, close }] = useDisclosure();
-  useLegacyPathRedirect();
+  useInitialSectionScroll();
 
   return (
     <ErrorBoundary>

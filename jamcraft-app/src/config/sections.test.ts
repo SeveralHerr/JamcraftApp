@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { SECTIONS, resolveLegacyPath } from './sections';
+import { SECTIONS, resolveLegacyPath, resolveSectionFromHash } from './sections';
 
 describe('SECTIONS', () => {
   it('should define unique section ids', () => {
@@ -33,6 +33,25 @@ describe('resolveLegacyPath', () => {
       if (result !== null) {
         expect(ids).toContain(result);
       }
+    });
+  });
+});
+
+describe('resolveSectionFromHash', () => {
+  it.each([
+    ['#projects', 'projects'],
+    ['#contact', 'contact'],
+    ['', null],
+    ['#', null],
+    ['#not-a-section', null],
+    ['#<img src=x onerror=alert(1)>', null],
+  ] as const)('maps %s to %s', (hash, expected) => {
+    expect(resolveSectionFromHash(hash)).toBe(expected);
+  });
+
+  it('should resolve every registered section id', () => {
+    SECTIONS.forEach((section) => {
+      expect(resolveSectionFromHash(`#${section.id}`)).toBe(section.id);
     });
   });
 });
