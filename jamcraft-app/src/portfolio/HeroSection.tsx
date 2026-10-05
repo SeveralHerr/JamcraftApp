@@ -30,56 +30,55 @@ export function HeroSection() {
     >
       <div style={{ width: '100%' }}>
         <Section id="home">
-        <div className={styles.heroLayout}>
-          <ProfileImage profile={profile} />
+          <div className={styles.heroLayout}>
+            <ProfileImage profile={profile} />
 
-          <div className={styles.heroText}>
-            <Stack gap="lg" style={{ width: '100%' }}>
-              <div>
-                <ProfileHeader profile={profile} />
-                <ProfileBio profile={profile} />
-              </div>
-
-              <div>
-                <Divider color={colors.border.divider} />
-                <div style={{ marginTop: 'var(--mantine-spacing-md)' }}>
-                  <JamcraftInvite />
+            <div className={styles.heroText}>
+              <Stack gap="lg" style={{ width: '100%' }}>
+                <div>
+                  <ProfileHeader profile={profile} />
+                  <ProfileBio profile={profile} />
                 </div>
-                <Group gap="md" mt="md">
-                  {socialLinks.map((link, index) => (
-                    <div
-                      key={link.id}
-                      style={{
-                        animation: `fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.05}s both`,
-                      }}
-                    >
-                      <SocialLinkIcon socialLink={link} />
-                    </div>
-                  ))}
-                </Group>
-              </div>
 
-              <Group mt="md">
-                <Button
-                  component="a"
-                  href="#projects"
-                  size="md"
-                  className="focus-ring"
-                  rightSection={<IconArrowDown size={18} />}
-                  variant="gradient"
-                  gradient={{
-                    from: colors.brand.primary,
-                    to: colors.brand.primaryPressed,
-                    deg: 135,
-                  }}
-                  c={colors.background.primary}
-                >
-                  View Projects
-                </Button>
-              </Group>
-            </Stack>
+                <div>
+                  <Divider color={colors.border.divider} />
+                  <div style={{ marginTop: 'var(--mantine-spacing-md)' }}>
+                    <JamcraftInvite />
+                  </div>
+                  <Group justify="space-between" align="center" gap="md" mt="md">
+                    <Group gap="md">
+                      {socialLinks.map((link, index) => (
+                        <div
+                          key={link.id}
+                          style={{
+                            animation: `fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.05}s both`,
+                          }}
+                        >
+                          <SocialLinkIcon socialLink={link} />
+                        </div>
+                      ))}
+                    </Group>
+                    <Button
+                      component="a"
+                      href="#projects"
+                      size="md"
+                      className="focus-ring"
+                      rightSection={<IconArrowDown size={18} />}
+                      variant="gradient"
+                      gradient={{
+                        from: colors.brand.primary,
+                        to: colors.brand.primaryPressed,
+                        deg: 135,
+                      }}
+                      c={colors.background.primary}
+                    >
+                      View Projects
+                    </Button>
+                  </Group>
+                </div>
+              </Stack>
+            </div>
           </div>
-        </div>
         </Section>
       </div>
     </div>
