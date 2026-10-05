@@ -16,6 +16,12 @@ html {
   color-scheme: dark;
 }
 
+/* Entrance animations wait until their section scrolls into view (Section + useRevealOnScroll) */
+section[data-revealed="false"],
+section[data-revealed="false"] * {
+  animation-play-state: paused !important;
+}
+
 /* Skip link: hidden until focused by keyboard users */
 .skip-link {
   position: absolute;
