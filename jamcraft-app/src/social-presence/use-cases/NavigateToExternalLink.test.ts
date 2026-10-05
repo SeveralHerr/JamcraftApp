@@ -35,7 +35,6 @@ describe('NavigateToExternalLink', () => {
   it('should handle various valid URL formats', () => {
     const validUrls = [
       'https://example.com',
-      'http://example.com',
       'https://example.com/path',
       'https://example.com?query=param',
       'https://subdomain.example.com',
@@ -56,6 +55,10 @@ describe('NavigateToExternalLink', () => {
       ' ',
       'not a url',
       'javascript:alert(1)',
+      'http://example.com',
+      'data:text/html,<script>alert(1)</script>',
+      'file:///etc/passwd',
+      'vbscript:msgbox(1)',
     ];
 
     invalidUrls.forEach(url => {
@@ -64,6 +67,16 @@ describe('NavigateToExternalLink', () => {
       useCase.execute(url);
       expect(mockNavigationService.openInNewTab).not.toHaveBeenCalled();
     });
+
+    consoleSpy.mockRestore();
+  });
+
+  it('should reject plaintext http links so navigation is never downgraded', () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    useCase.execute('http://example.com');
+
+    expect(mockNavigationService.openInNewTab).not.toHaveBeenCalled();
 
     consoleSpy.mockRestore();
   });
