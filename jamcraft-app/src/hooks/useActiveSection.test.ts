@@ -71,6 +71,19 @@ describe('useActiveSection', () => {
     });
   });
 
+  it('should activate a section whose heading is in the upper third of the viewport', async () => {
+    const { result } = renderHook(() => useActiveSection(SECTION_IDS));
+
+    setSectionTop('home', -1200);
+    setSectionTop('projects', 200); // innerHeight 900 -> reading line at 30% = 270
+    setSectionTop('podcasts', 1500);
+    fireScroll();
+
+    await waitFor(() => {
+      expect(result.current).toBe('projects');
+    });
+  });
+
   it('should not activate a section that has not reached the reading line', async () => {
     const { result } = renderHook(() => useActiveSection(SECTION_IDS));
 

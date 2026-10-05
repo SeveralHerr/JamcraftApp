@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 
 const HEADER_OFFSET_PX = 60;
+/** The reading line sits 30% down the viewport, so a section lights up once its heading is in view. */
+const READING_LINE_RATIO = 0.3;
 
 /**
  * Scroll-spy hook: reports which page section is currently in view.
  * A section is active once its top has scrolled up to the reading line
- * (just below the sticky header); the last such section in page order wins.
+ * (30% down the viewport, never above the sticky header); the last such
+ * section in page order wins.
  * At the very bottom of the page the final section is forced active, since
  * a short footer may never reach the reading line on its own.
  */
@@ -16,7 +19,7 @@ export function useActiveSection(sectionIds: readonly string[]): string | null {
 
   useEffect(() => {
     const computeActiveSection = () => {
-      const readingLine = HEADER_OFFSET_PX + 1;
+      const readingLine = Math.max(HEADER_OFFSET_PX + 1, window.innerHeight * READING_LINE_RATIO);
       let current: string | null = sectionIds[0] ?? null;
 
       sectionIds.forEach((id) => {
