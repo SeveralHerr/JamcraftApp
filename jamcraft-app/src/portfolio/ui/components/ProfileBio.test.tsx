@@ -7,7 +7,7 @@ const profile: Profile = {
   id: 'test',
   fullName: 'Test Person',
   title: 'Engineer',
-  bio: 'I build things.',
+  bio: ['I build things.', 'I also run a community.'],
   quote: '"Keep going."',
   quoteAuthor: 'Someone',
   profileImagePath: '/assets/test.png',
@@ -18,6 +18,14 @@ describe('ProfileBio', () => {
     render(<ProfileBio profile={profile} />);
 
     expect(screen.getByText('I build things.')).toBeInTheDocument();
+  });
+
+  it('should render each bio paragraph in order', () => {
+    render(<ProfileBio profile={profile} />);
+
+    const first = screen.getByText('I build things.');
+    const second = screen.getByText('I also run a community.');
+    expect(first.compareDocumentPosition(second) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it('should render the quote with its author', () => {

@@ -2,7 +2,8 @@ export interface Profile {
   id: string;
   fullName: string;
   title: string;
-  bio: string;
+  /** Bio paragraphs, rendered in order. */
+  bio: string[];
   quote: string;
   quoteAuthor: string;
   profileImagePath: string;

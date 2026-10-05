@@ -9,9 +9,11 @@ interface ProfileBioProps {
 export function ProfileBio({ profile }: ProfileBioProps) {
   return (
     <>
-      <Text c="gray.5" ta="left">
-        {profile.bio}
-      </Text>
+      {profile.bio.map((paragraph, index) => (
+        <Text key={index} c="gray.5" ta="left" mt={index > 0 ? 'sm' : undefined}>
+          {paragraph}
+        </Text>
+      ))}
       <Text
         c={colors.brand.primary}
         fs="italic"

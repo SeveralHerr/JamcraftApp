@@ -3,8 +3,11 @@ import { Profile } from "../entities/Profile";
 export const PROFILE_DATA: Profile = {
   id: "james-herr",
   fullName: "James Herr",
-  title: "Full Stack Engineer & Owner, Jamcraft LLC",
-  bio: "I’m a Full Stack Engineer who builds scalable, resilient systems with a focus on collaboration and continuous improvement. At Flexion Inc., I’ve helped modernize CDC and state agency applications and co-lead a mob programming squad that boosts team ownership and effectiveness. I explore AI as a creative collaborator to enhance software practices, drawing on a toolkit that includes Go, C#, React, Azure, Terraform, and CI/CD automation. I'm also the owner of Jamcraft LLC, where I run a community of game jammers and developers exploring procedural generation and AI-assisted game design in Godot 4—fueling the same curiosity and creativity that drive my professional craft.",
+  title: "Software Engineer & Founder, Jamcraft LLC",
+  bio: [
+    "I’m a software engineer passionate about AI, Claude Code, and collaborative ways of working. I advocate for Ensemble/Mob Programming and love experimenting with how AI can help teams build, learn, and think together. Outside of work, I’m a game developer and game jam organizer who uses game development as a playground for new ideas.",
+    "I’m also the founder of Jamcraft LLC — join the Discord and share whatever you’re working on and passionate about!",
+  ],
   quote:
     '"Dude, suckin\' at something is the first step to being sorta good at something."',
   quoteAuthor: "Jake, the Dog",
