@@ -71,7 +71,7 @@ export function CompactCard({
             {title}
           </Text>
           {line && (
-            <Text size="xs" c={colors.text.subtle} lineClamp={1}>
+            <Text size="xs" c={colors.text.subtle} lineClamp={2}>
               {line}
             </Text>
           )}

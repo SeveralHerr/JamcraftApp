@@ -66,4 +66,11 @@ describe('CompactCard', () => {
     await user.click(screen.getByText('My Card'));
     expect(onClick).toHaveBeenCalledTimes(1);
   });
+
+  it('should allow the description two lines before truncating', () => {
+    render(<CompactCard title="My Card" line="A longer description of the thing" />);
+
+    const line = screen.getByText('A longer description of the thing');
+    expect(line.style.getPropertyValue('--text-line-clamp')).toBe('2');
+  });
 });
