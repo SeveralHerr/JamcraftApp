@@ -39,44 +39,33 @@ describe('PortfolioProjectCard', () => {
     expect(screen.getByText('GitHub')).toBeInTheDocument();
   });
 
-  it('should open the project URL when clicked', async () => {
-    const user = userEvent.setup();
+  it('should be a keyboard-focusable secure link to the project', () => {
     render(<PortfolioProjectCard project={project} />);
 
-    await user.click(screen.getByText('Test Project'));
-
-    expect(openSpy).toHaveBeenCalledWith(
-      'https://example.com/project',
-      '_blank',
-      'noopener,noreferrer'
-    );
+    const link = screen.getByRole('link', { name: 'Test Project' });
+    expect(link).toHaveAttribute('href', 'https://example.com/project');
+    expect(link).toHaveAttribute('target', '_blank');
+    expect(link.getAttribute('rel')).toContain('noopener');
   });
 
-  it('should show a reveal button and block navigation for NSFW projects', async () => {
-    const user = userEvent.setup();
+  it('should hide the link behind a reveal button for NSFW projects', () => {
     render(<PortfolioProjectCard project={{ ...project, isNSFW: true }} />);
 
     expect(screen.getByRole('button', { name: /nsfw — reveal/i })).toBeInTheDocument();
-
-    await user.click(screen.getByText('Test Project'));
-    expect(openSpy).not.toHaveBeenCalled();
+    expect(screen.queryByRole('link', { name: 'Test Project' })).not.toBeInTheDocument();
   });
 
-  it('should allow navigation after revealing NSFW content', async () => {
+  it('should become a link after revealing NSFW content', async () => {
     const user = userEvent.setup();
     render(<PortfolioProjectCard project={{ ...project, isNSFW: true }} />);
 
     await user.click(screen.getByRole('button', { name: /nsfw — reveal/i }));
 
     await waitFor(() => {
-      expect(screen.queryByRole('button', { name: /nsfw — reveal/i })).not.toBeInTheDocument();
+      expect(screen.getByRole('link', { name: 'Test Project' })).toHaveAttribute(
+        'href',
+        'https://example.com/project',
+      );
     });
-
-    await user.click(screen.getByText('Test Project'));
-    expect(openSpy).toHaveBeenCalledWith(
-      'https://example.com/project',
-      '_blank',
-      'noopener,noreferrer'
-    );
   });
 });

@@ -2,8 +2,6 @@ import { Badge } from '@mantine/core';
 import { useState } from 'react';
 import { IconBrandGithub, IconBrandItch, IconBrandSteam, IconEye } from '@tabler/icons-react';
 import { PortfolioProject } from '../../entities/PortfolioProject';
-import { NavigateToExternalLink } from '../../../social-presence/use-cases/NavigateToExternalLink';
-import { BrowserNavigationService } from '../../../social-presence/services/BrowserNavigationService';
 import { CompactCard } from '../../../components/ui/CompactCard';
 import { IconTile } from '../../../components/ui/IconTile';
 import { colors, transitions, typography } from '../../../theme';
@@ -30,20 +28,11 @@ const PLATFORM_ICONS = {
   itch: IconBrandItch,
 } as const;
 
-// Singleton service instance
-const navigationService = new BrowserNavigationService();
-
 export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
   const [showNSFW, setShowNSFW] = useState(false);
   const [isRevealing, setIsRevealing] = useState(false);
 
-  const handleClick = () => {
-    if (project.isNSFW && !showNSFW) {
-      return;
-    }
-    const useCase = new NavigateToExternalLink(navigationService);
-    useCase.execute(project.projectUrl);
-  };
+  const hidden = project.isNSFW && !showNSFW;
 
   const handleRevealNSFW = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -64,22 +53,22 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
             <IconTile icon={PLATFORM_ICONS[project.platform]} data-testid="platform-icon-tile" />
           ) : undefined
         }
-        imageAlt={project.name}
+        imageAlt=""
         meta={
           <Badge color={PLATFORM_COLORS[project.platform]} variant="light" size="xs" w="fit-content">
             {PLATFORM_LABELS[project.platform]}
           </Badge>
         }
-        onClick={handleClick}
-        hover={!project.isNSFW || showNSFW}
+        href={hidden ? undefined : project.projectUrl}
+        ariaLabel={project.name}
+        hover={!hidden}
         style={{
-          cursor: project.isNSFW && !showNSFW ? 'default' : 'pointer',
-          filter: project.isNSFW && !showNSFW ? 'blur(8px)' : 'none',
+          filter: hidden ? 'blur(8px)' : 'none',
           transition: transitions.default,
         }}
       />
 
-      {project.isNSFW && !showNSFW && (
+      {hidden && (
         <div
           style={{
             position: 'absolute',
