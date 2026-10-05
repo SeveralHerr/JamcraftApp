@@ -39,8 +39,8 @@ export const PORTFOLIO_PROJECTS_DATA: PortfolioProject[] = [
     id: 'jamcraft-app',
     name: 'Jamcraft',
     description:
-      'Personal portfolio and community hub for James Herr - Full Stack Engineer & Game Developer',
-    screenshotUrl: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png',
+      'Personal portfolio and community hub for James Herr — software engineer & game developer.',
+    screenshotUrl: '/assets/logo_server_icon.png',
     projectUrl: 'https://github.com/SeveralHerr/JamcraftApp',
     platform: 'github',
   },
