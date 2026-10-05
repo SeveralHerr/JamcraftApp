@@ -21,16 +21,28 @@ export function PageHeader({ title, subtitle, align = 'left' }: PageHeaderProps)
         order={2}
         c={colors.text.primary}
         style={{
-          fontSize: typography.fontSize['5xl'],
+          fontSize: typography.fontSize['4xl'],
           fontWeight: typography.fontWeight.bold,
           textTransform: 'uppercase',
           letterSpacing: typography.letterSpacing.tighter,
           lineHeight: typography.lineHeight.tight,
-          marginBottom: subtitle ? '1rem' : '0',
+          marginBottom: '0.75rem',
         }}
       >
         {title}
       </Title>
+      <div
+        data-testid="page-header-accent"
+        aria-hidden="true"
+        style={{
+          width: 48,
+          height: 3,
+          borderRadius: 2,
+          background: colors.brand.primary,
+          margin: align === 'center' ? '0 auto' : undefined,
+          marginBottom: subtitle ? '1rem' : 0,
+        }}
+      />
       {subtitle && (
         <Text
           c={colors.text.dimmed}

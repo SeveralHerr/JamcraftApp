@@ -14,4 +14,10 @@ describe('PageHeader', () => {
 
     expect(screen.getByText('Things I built')).toBeInTheDocument();
   });
+
+  it('should render a decorative accent bar under the title', () => {
+    render(<PageHeader title="Projects" />);
+
+    expect(screen.getByTestId('page-header-accent')).toHaveAttribute('aria-hidden', 'true');
+  });
 });

@@ -24,7 +24,7 @@ export function Section({ id, title, subtitle, children }: SectionProps) {
       id={id}
       style={{
         scrollMarginTop: headerHeight.desktop,
-        padding: `${spacing['3xl']} 0`,
+        padding: `${spacing['2xl']} 0`,
         animation: reducedMotion
           ? 'none'
           : 'fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both',
@@ -32,7 +32,7 @@ export function Section({ id, title, subtitle, children }: SectionProps) {
     >
       <Container size={containerSizes.lg} px="lg">
         {title && (
-          <div style={{ marginBottom: spacing['2xl'] }}>
+          <div style={{ marginBottom: spacing.xl }}>
             <PageHeader title={title} subtitle={subtitle} />
           </div>
         )}
