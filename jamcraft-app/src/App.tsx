@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import "./App.css";
 import { mantineTheme } from "./theme";
-import { SECTIONS, resolveLegacyPath, resolveSectionFromHash } from "./config/sections";
+import { resolveLegacyPath, resolveSectionFromHash } from "./config/sections";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Header, MAIN_CONTENT_ID, MOBILE_NAV_ID } from "./components/layout/Header";
-import { NavAnchor } from "./components/layout/NavAnchor";
+import { MobileNav } from "./components/layout/MobileNav";
 import { Footer } from "./components/layout/Footer";
 import { HeroSection } from "./portfolio/HeroSection";
 import { ProjectsSection } from "./portfolio-projects/ProjectsSection";
@@ -56,16 +56,8 @@ function App() {
         >
           <Header navOpened={navOpened} onToggleNav={toggle} />
 
-          <AppShell.Navbar id={MOBILE_NAV_ID} aria-label="Sections" py="md" px={4}>
-            {SECTIONS.map((section) => (
-              <NavAnchor
-                key={section.id}
-                href={`#${section.id}`}
-                onClick={close}
-              >
-                {section.label}
-              </NavAnchor>
-            ))}
+          <AppShell.Navbar id={MOBILE_NAV_ID} aria-label="Sections" py="md" px="sm">
+            <MobileNav onNavigate={close} />
           </AppShell.Navbar>
 
           <AppShell.Main id={MAIN_CONTENT_ID} tabIndex={-1} style={{ padding: 0, paddingTop: 60, outline: "none" }}>
