@@ -33,6 +33,16 @@ describe('CompactCard', () => {
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
   });
 
+  it.each(['javascript:alert(1)', 'http://example.com', 'data:text/html,hi'])(
+    'should refuse to render an unsafe href (%s) as a link',
+    (href) => {
+      render(<CompactCard title="My Card" href={href} />);
+
+      expect(screen.queryByRole('link')).not.toBeInTheDocument();
+      expect(screen.getByText('My Card')).toBeInTheDocument();
+    },
+  );
+
   it('should render as a secure external link when href is set', () => {
     render(<CompactCard title="My Card" href="https://example.com/thing" />);
 

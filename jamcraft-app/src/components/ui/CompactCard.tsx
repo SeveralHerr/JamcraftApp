@@ -2,6 +2,7 @@ import { Group, Image, Stack, Text } from '@mantine/core';
 import type { CSSProperties, ReactNode } from 'react';
 import { Card as UnifiedCard } from './Card';
 import { colors, typography } from '../../theme';
+import { isSafeExternalUrl } from '../../social-presence/use-cases/NavigateToExternalLink';
 
 export const THUMBNAIL_SIZE = 72;
 
@@ -14,7 +15,7 @@ interface CompactCardProps {
   thumbnail?: ReactNode;
   /** Small trailing element such as a single badge. */
   meta?: ReactNode;
-  /** When set, the whole card becomes a secure external link. */
+  /** When set (and https), the whole card becomes a secure external link. */
   href?: string;
   ariaLabel?: string;
   onClick?: () => void;
@@ -80,7 +81,7 @@ export function CompactCard({
     </UnifiedCard>
   );
 
-  if (href) {
+  if (href && isSafeExternalUrl(href)) {
     return (
       <a
         href={href}
