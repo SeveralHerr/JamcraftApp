@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { fireEvent } from '@testing-library/react';
 import { render, screen } from '../../../test/helpers/test-utils';
 import { SocialLinkIcon } from './SocialLinkIcon';
 import { SocialLink } from '../../entities/SocialLink';
@@ -27,5 +28,30 @@ describe('SocialLinkIcon', () => {
     render(<SocialLinkIcon socialLink={link} />);
 
     expect(screen.getByRole('link', { name: link.ariaLabel })).toHaveAttribute('title', 'GitHub');
+  });
+
+  describe('interaction', () => {
+    afterEach(() => vi.restoreAllMocks());
+
+    it('should open the profile through the secure navigation service on click', () => {
+      const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+      render(<SocialLinkIcon socialLink={link} />);
+
+      fireEvent.click(screen.getByRole('link', { name: link.ariaLabel }));
+
+      expect(open).toHaveBeenCalledWith(link.url, '_blank', expect.stringContaining('noopener'));
+    });
+
+    it('should tilt the icon on hover and reset on leave', () => {
+      render(<SocialLinkIcon socialLink={link} />);
+      const anchor = screen.getByRole('link', { name: link.ariaLabel });
+      const icon = anchor.querySelector('img')!;
+
+      fireEvent.mouseEnter(anchor);
+      expect(icon.style.transform).toContain('scale(1.1)');
+
+      fireEvent.mouseLeave(anchor);
+      expect(icon.style.transform).toContain('scale(1)');
+    });
   });
 });
