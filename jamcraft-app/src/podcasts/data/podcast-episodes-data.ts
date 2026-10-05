@@ -6,6 +6,16 @@ import { PodcastEpisode } from '../entities/PodcastEpisode';
  */
 export const PODCAST_EPISODES_DATA: PodcastEpisode[] = [
   {
+    id: 'loosely-coupled-btg-ensemble-programming',
+    showName: 'Loosely Coupled (BridgingTheGap)',
+    episodeTitle: 'BTG Goes Ensemble Programming! Live Coding Session',
+    description:
+      'A live-streamed episode with Arthur Morrow where, instead of just talking about ways of working, the hosts and guests solve a prepared problem together as an ensemble.',
+    artworkUrl: '/assets/loosely-coupled-btg.jpg',
+    episodeUrl: 'https://www.youtube.com/watch?v=bCw7zvpcCwI',
+    publishedYear: 2026,
+  },
+  {
     id: 'tlc-more-minds-better-code',
     showName: 'The Learning Curve',
     episodeTitle: 'More Minds, Better Code: Teamwork in the Age of AI',

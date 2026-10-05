@@ -60,6 +60,13 @@ describe('GetPodcastEpisodes', () => {
       expect(PODCAST_EPISODES_DATA.length).toBeGreaterThan(0);
     });
 
+    it('should list the Loosely Coupled ensemble live-coding stream first', () => {
+      const [newest] = PODCAST_EPISODES_DATA;
+
+      expect(newest.id).toBe('loosely-coupled-btg-ensemble-programming');
+      expect(newest.episodeUrl).toBe('https://www.youtube.com/watch?v=bCw7zvpcCwI');
+    });
+
     it('should have unique ids', () => {
       const ids = PODCAST_EPISODES_DATA.map((episode) => episode.id);
       expect(new Set(ids).size).toBe(ids.length);
