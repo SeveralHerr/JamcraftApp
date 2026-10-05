@@ -20,7 +20,6 @@ Jamcraft is a modern single-page portfolio website for James Herr (MrSeveral), a
 - **Testing:** Vitest 4.0.7 + React Testing Library 16.3.0
 - **Styling:** CSS Modules + Mantine CSS + PostCSS
 - **Hosting/CI/CD:** AWS Amplify (`amplify.yml`: npm ci → test → build → deploy `build/`)
-- **Legacy Infrastructure:** Terraform configs for S3/CloudFront/Route53/ACM exist in `terraform/` but Amplify is the live pipeline
 
 There is no client-side router — navigation is in-page hash anchors (`#home`, `#projects`, `#podcasts`, `#workshops`, `#speaking`, `#contact`) with smooth scrolling and a scroll-spy header.
 
@@ -56,9 +55,11 @@ npm run test:coverage    # Generate coverage report
 - **Responsive Design:** Mobile-first with Mantine components
 - **Dark Theme:** Pure black (`#000000`) background with a muted steel-blue (`#8aa9c7`) accent; Mantine theme wired to design tokens (`src/theme/mantine-theme.ts`, `autoContrast` enabled)
 - **Minimalist Cards:** Compact cards (72px thumbnail + title + one line via `components/ui/CompactCard.tsx`) laid out in responsive 2-column grids (1 column on mobile)
-- **Accessibility:** Reduced motion support, ARIA labels, focus management
-- **Security:** URL validation, XSS prevention (blocks javascript: protocol), noopener/noreferrer on external links
-- **Testing:** Comprehensive test coverage (96 tests, 18 test files)
+- **Accessibility:** Reduced motion support, ARIA labels, focus management, skip-to-content link, one `<h1>` per page
+- **Security:** https-only URL validation, XSS prevention, noopener/noreferrer on external links, CSP + security headers (`customHttp.yml`)
+- **Testing:** 156 tests across 28 files, ~98% line coverage (`npm run test:coverage`)
+- **Deep Links:** `/#section` and legacy paths scroll to their section on first load (`resolveSectionFromHash` / `resolveLegacyPath`)
+- **Static Data, No Spinners:** Section data hooks compute data on first render (`useState(() => useCase...)`) — no loading state, no layout shift
 - **CI/CD:** Automated testing and deployment via AWS Amplify
 
 ## Page Sections
@@ -66,7 +67,7 @@ npm run test:coverage    # Generate coverage report
 The app is a single page composed of sections (registered in `src/config/sections.ts`):
 
 1. **Home / Hero** (`#home`) — Full-height hero with profile, bio, social links, CTA (owned by `portfolio/`)
-2. **Projects** (`#projects`) — Portfolio projects (with NSFW blur/reveal) + game jam submissions sub-group (owned by `portfolio-projects/`)
+2. **Projects** (`#projects`) — Portfolio projects (NSFW blur/reveal supported via `isNSFW`) + game jam submissions sub-group (sorted newest `jamYear` first — every entry needs `jamYear`) (owned by `portfolio-projects/`)
 3. **Podcasts** (`#podcasts`) — Podcast guest appearances as cards linking out (owned by `podcasts/`)
 4. **Workshops** (`#workshops`) — Workshops run/co-run by James as cards linking out (owned by `workshops/`)
 5. **Speaking** (`#speaking`) — Conference talks and panel appearances as cards linking out (owned by `speaking/`)
@@ -79,9 +80,12 @@ Legacy multi-page URLs (`/projects`, `/about`, `/testimonials`) are redirected o
 ```
 JamcraftApp/
 ├── amplify.yml                 # CI/CD: test → build → deploy (AWS Amplify)
+├── customHttp.yml              # Amplify response security headers (CSP, HSTS, ...)
 ├── .claude/
-│   └── CLAUDE.md               # This file
-├── terraform/                  # Legacy IaC (not the live pipeline)
+│   ├── CLAUDE.md               # This file
+│   ├── skills/validate-jamcraft-site/  # Validation-loop recipe + audit.js + header-faithful preview
+│   └── mcp/viewport-screenshot/        # Zero-dep MCP: exact-viewport screenshots via headless Chrome CDP (Node 22+)
+├── .mcp.json                   # Enables the viewport-screenshot MCP server for this project
 └── jamcraft-app/               # Application source
     ├── public/assets/          # Static assets (images, logos, podcast artwork)
     ├── src/
@@ -89,7 +93,7 @@ JamcraftApp/
     │   │   ├── entities/Profile.ts
     │   │   ├── use-cases/GetProfile.ts
     │   │   ├── data/profile-data.ts
-    │   │   ├── ui/...          # ProfileImage, ProfileHeader, ProfileBio
+    │   │   ├── ui/...          # ProfileImage (WebP, reserved size, feathered edges), ProfileHeader, ProfileBio (bio: string[] paragraphs), JamcraftInvite (full logo + Discord)
     │   │   └── HeroSection.tsx             # #home section
     │   │
     │   ├── portfolio-projects/ # DOMAIN: Project showcase
@@ -137,8 +141,8 @@ JamcraftApp/
     │   │   └── ui/...          # SocialLinkIcon
     │   │
     │   ├── components/         # Shared UI infrastructure
-    │   │   ├── layout/         # Header (scroll-spy nav), NavAnchor, Footer
-    │   │   ├── ui/             # Card, CompactCard (+ test), PageHeader, Section, LoadingSpinner, FocusRing
+    │   │   ├── layout/         # Header (scroll-spy nav, skip link, aria-expanded burger), NavAnchor, Footer (contact + Discord invite)
+    │   │   ├── ui/             # Card, CompactCard (+ test, lazy thumbnails), PageHeader (h2 + test), Section, FocusRing
     │   │   └── ErrorBoundary.tsx (+ test)
     │   │
     │   ├── hooks/              # Shared custom hooks
@@ -146,13 +150,14 @@ JamcraftApp/
     │   │   └── useActiveSection.ts (+ test)   # scroll-position scroll-spy
     │   │
     │   ├── theme/              # Design tokens + mantine-theme.ts (Mantine theme object)
-    │   ├── config/             # sections.ts (section registry + legacy redirects), routes.ts (EXTERNAL_LINKS)
+    │   ├── config/             # sections.ts (section registry, legacy redirects, hash resolver), routes.ts (EXTERNAL_LINKS)
+    │   │                       # + cross-cutting tests: data-hooks, data-urls, index-html, security-headers
     │   │
     │   ├── test/               # Test infrastructure
     │   │   ├── setup.ts        # Vitest setup (mocks, global config)
     │   │   └── helpers/test-utils.tsx  # Custom render with MantineProvider
     │   │
-    │   ├── App.tsx             # Root: providers, AppShell, section composition, legacy redirect
+    │   ├── App.tsx             # Root: providers, AppShell, section composition, initial section scroll
     │   ├── App.css             # Global styles, keyframes, reduced-motion overrides
     │   └── main.tsx            # Entry point
     │
@@ -214,26 +219,20 @@ Hooks           ↓       Pure TS
 
 ### Current Test Suite
 
-**96 tests across 18 files:**
+**156 tests across 28 files** (regenerate counts with `npx vitest run --reporter=json`):
 
-1. **sections.test.ts** (9 tests) — Section registry + legacy path redirects
-2. **useActiveSection.test.ts** (7 tests) — Scroll-spy (reading line + page-bottom edge cases)
-3. **GetPodcastEpisodes.test.ts** (7 tests) — Podcast use-case + seed data integrity
-4. **PodcastEpisodeCard.test.tsx** (5 tests) — Rendering + external link security
-5. **Header.test.tsx** (3 tests) — Anchor nav, logo, burger accessibility
-6. **NavigateToExternalLink.test.ts** (5 tests) — URL validation, XSS prevention
-7. **BrowserNavigationService.test.ts** (4 tests) — Security (noopener, noreferrer)
-8. **GetGameJamSubmissions.test.ts** (5 tests) — Business logic filtering/sorting
-9. **ErrorBoundary.test.tsx** (5 tests) — Error catching and recovery
-10. **useReducedMotion.test.ts** (5 tests) — Accessibility (media queries)
-11. **CompactCard.test.tsx** (6 tests) — Shared compact card: layout slots + link security
-12. **PortfolioProjectCard.test.tsx** (4 tests) — Rendering + NSFW blur/reveal/click-through
-13. **GetWorkshops.test.ts** (7 tests) — Workshop use-case + seed data integrity
-14. **WorkshopCard.test.tsx** (4 tests) — Rendering + external link security
-15. **GetSpeakingEngagements.test.ts** (7 tests) — Speaking use-case + seed data integrity
-16. **SpeakingEngagementCard.test.tsx** (3 tests) — Rendering + external link security
-17. **JamcraftInvite.test.tsx** (3 tests) — Rendering + external link security
-18. **GetPortfolioProjects.test.ts** (7 tests) — Project use-case + seed data integrity (unique ids, safe URLs)
+| Area | Files (tests) |
+|---|---|
+| config (cross-cutting) | sections (16), data-hooks (7), security-headers (5), index-html (4), data-urls (2) |
+| layout / shared UI | Header (6), Footer (4), CompactCard (7), PageHeader (2), ErrorBoundary (5) |
+| hooks | useActiveSection (7), useReducedMotion (5) |
+| portfolio | HeroSection (4), JamcraftInvite (4), ProfileBio (3), ProfileImage (3) |
+| portfolio-projects | GetPortfolioProjects (10), PortfolioProjectCard (4) |
+| game-jam-submissions | GetGameJamSubmissions (7) |
+| podcasts | GetPodcastEpisodes (7), PodcastEpisodeCard (5) |
+| workshops | GetWorkshops (7), WorkshopCard (4) |
+| speaking | GetSpeakingEngagements (11), SpeakingEngagementCard (3) |
+| social-presence | NavigateToExternalLink (6), BrowserNavigationService (4), SocialLinkIcon (4) |
 
 ### Running Tests
 
@@ -261,6 +260,7 @@ npm run build
 Output: `jamcraft-app/build/`
 
 Process:
+
 1. TypeScript type-checking (`tsc -b`)
 2. Vite bundling (tree-shaking, minification, code-splitting)
 
@@ -277,14 +277,17 @@ Process:
 
 Amplify builds and deploys automatically on push to `main`.
 
-The `terraform/` directory contains an earlier S3/CloudFront/Route53 setup that is not the live pipeline.
 
 ## Security Features
 
-1. **URL Validation:** Only `http:` and `https:` protocols allowed
-   - Blocks `javascript:`, `data:`, `file:` for XSS prevention
+1. **URL Validation:** `NavigateToExternalLink` only allows `https:`
+   - Blocks `http:`, `javascript:`, `data:`, `file:` (XSS + downgrade prevention)
+   - `src/config/data-urls.test.ts` sweeps every seed data file: links/images must be `https://` or `/assets/`
 2. **Secure External Links:** All links use `noopener,noreferrer`
-3. **No Exposed Secrets:** Deployment via Amplify's managed pipeline
+3. **HTTP Security Headers:** `customHttp.yml` (repo root, Amplify monorepo format) sets HSTS, nosniff, `X-Frame-Options: DENY`, Referrer-Policy, Permissions-Policy and a CSP. Asserted by `src/config/security-headers.test.ts`.
+   - CSP: `script-src 'self'` (no inline/third-party scripts), `style-src 'unsafe-inline'` (Mantine), `img-src 'self' data: https:`
+   - Adding a third-party script, font, iframe or API call requires updating the CSP in `customHttp.yml`
+4. **No Exposed Secrets:** Deployment via Amplify's managed pipeline; no source maps in production builds
 
 ## Code Guidelines
 
@@ -306,6 +309,10 @@ The `terraform/` directory contains an earlier S3/CloudFront/Route53 setup that 
 ### Adding a Podcast Episode
 
 Append an object to `src/podcasts/data/podcast-episodes-data.ts` (id, showName, episodeTitle, description, artworkUrl, episodeUrl, publishedYear). Artwork can be a YouTube thumbnail (`https://img.youtube.com/vi/<id>/hqdefault.jpg`) or a local file in `public/assets/`.
+
+### Adding an itch.io Game
+
+Non-jam games → `src/portfolio-projects/data/portfolio-projects-data.ts` (`platform: 'itch'`, cover from the itch page's `img.itch.zone` 315x250 crop). Jam games (page links to `itch.io/jam/...`) → `src/game-jam-submissions/data/game-jam-submissions-data.ts` with `jamYear`.
 
 ### Adding a Workshop
 
@@ -338,7 +345,9 @@ Append an object to `src/speaking/data/speaking-engagements-data.ts` (id, title,
 - **ARIA Labels:** All interactive elements labeled; active nav anchor uses `aria-current`
 - **Focus Management:** Visible focus rings on all interactive elements
 - **Keyboard Navigation:** Full keyboard support
-- **Semantic HTML:** `<section>`/`<footer>` landmarks, proper heading hierarchy
+- **Semantic HTML:** `<main id="main-content">`/`<section>`/`<footer>` landmarks; hero name is the only `<h1>`, section titles `<h2>`, sub-groups `<h3>`
+- **Skip Link:** first focusable element jumps to `#main-content`
+- **Mobile Nav:** burger exposes `aria-expanded` + `aria-controls="mobile-nav"`
 
 ## Troubleshooting
 
@@ -376,3 +385,90 @@ npm run lint
 - **Live Site:** https://jamcraft.io
 
 For questions, see the main README.md or open an issue.
+
+# Agent Instructions
+
+Always read @CLAUDE.md
+
+Always reply to me in information dense bullets.
+Favor YAGNI.
+Favor LEAN and Elimination of LEAN deadly wastes.
+Always create the below checklist for every prompt:
+
+## Checklist Manifesto
+
+Always use your checklist or todo list tool to track items. Do not leave it to chance that you will remember later.
+Immediately before implementing any prompts set up the following tasks as a checklist.
+
+- Preparatory Unit Test Coverage
+- Make it easy to change (which may be hard) (refactoring)
+- Make the easy change
+- Security Review
+- Scout Rule
+- Single Loop Learning
+- Double Loop Learning
+- Validation Loop
+- Canary
+
+## Preparatory Unit Test Coverage
+
+Ensure the area that will be changed has approrpriate characterization tests making it safe to refactor.
+Ensure characterization tests pass before starting any refactoring.
+Prove a new bug test can fail: `git stash push <fixed file>`, run with `--filter`, `git stash pop`.
+
+## Make it easy to change (which may be hard)
+
+Refactor to common computer science grounded design patterns.
+The resulting code should be easy to read, limited in file length, appropriately decoupled, and cohesive.
+
+## Make the easy change
+
+Complete the prompt considering YAGNI and DRY concepts in software development.
+
+## Security Review
+
+Evaluate for common OWASP pitfalls.
+Run automated audits like pip audit, npm audit and correct package issues.
+Evaluate for harder to detect problems with the system such as IDOR vulnerabilities.
+Check `git ls-files` for committed build output / secrets (`jamcraft-app/build/` was tracked until 2026-10).
+Any new external host (script, font, iframe, API) must be added to the CSP in `customHttp.yml`; validate with the `validate-jamcraft-site` skill's header-faithful preview.
+
+## Scout Rule
+
+Always leave the code better than you found it. Perform one of the following in priority order each time a prompt leads you to this area of the code.
+
+- Evaluate Code Coverage and add more complete tests
+- File length gate, reduce the file length of the files when over 500 lines by refactoring
+- Mutation testing, use a analysis tool to perform mutant hunting on the modified files. For example Cosmic Ray in Python or Striker in Angular.
+
+## Single Loop Learning
+
+Learn from the tasks you complete:
+Always end all of our chats with a list of skills that you used.
+Always create new skills in this repo's skills folder that you wish you had before starting the prompt. Actually write the file now.
+Always end all of our chats with a list of MCP servers that you used.
+Always create new MCP servers that you wish you had before starting the prompt. Actually write the server now. Enable it when complete.
+
+## Double Loop Learning
+
+Learn from the process improvement opportunities:
+Always evaluate the the process used here using a lens of Lean Software Development, Agile, Systems Thinking, Safety, Security, and Continuous Improvement.
+Always make the changes to the CLAUDE.md with these changes. Update this very list you are reading now.
+
+## Validation Loop
+
+When doing an iteration or feature, take a screenshot and look for 3 things to improve. Do this 10 times.
+Use the `validate-jamcraft-site` skill (`.claude/skills/`) and the `viewport-screenshot` MCP (`.mcp.json`) for desktop + 390px mobile shots.
+Headless Chrome clamps windows to ~500px wide — a 390px headless shot that looks overflowed is an artifact; confirm with the iframe/MCP method.
+Each fix: failing test first → fix → `npm test -- --run` + lint + build → commit.
+
+## Fan-out (subagents)
+
+Give each subagent exclusive file/folder ownership and forbid git commands; the orchestrator commits each concern separately.
+Research agents must cite a source per fact and list anything unverified (e.g. a title only seen in search snippets) instead of guessing.
+Prefer the Edit tool over regex/slice scripts when moving JSX blocks; a section-level render test (e.g. `HeroSection.test.tsx`) catches dropped elements.
+`mcp__racn__commit` fails when a deletion is already staged — fall back to `git commit` with the same RACN prefix (`^ F`, `. t`, ...).
+
+## Canary
+
+Always end all of our chats with "# 🪁" Emoji. It should render as a markdown header so the Emoji will be large.
