@@ -1,0 +1,23 @@
+# AWS Amplify Hosting custom response headers.
+# Lives at the repo root in the monorepo format (appRoot matches amplify.yml).
+# Amplify applies it on the next deploy; it overrides headers set in the console.
+# CSP notes: Mantine injects <style> tags and inline style attributes, so
+# style-src needs 'unsafe-inline'. Images come from /assets plus https CDNs
+# (itch.io, YouTube, GitHub). There are no third-party scripts or web fonts.
+applications:
+  - appRoot: jamcraft-app
+    customHeaders:
+      - pattern: '**'
+        headers:
+          - key: 'Strict-Transport-Security'
+            value: 'max-age=31536000; includeSubDomains'
+          - key: 'X-Content-Type-Options'
+            value: 'nosniff'
+          - key: 'X-Frame-Options'
+            value: 'DENY'
+          - key: 'Referrer-Policy'
+            value: 'strict-origin-when-cross-origin'
+          - key: 'Permissions-Policy'
+            value: 'accelerometer=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), serial=(), usb=()'
+          - key: 'Content-Security-Policy'
+            value: "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
