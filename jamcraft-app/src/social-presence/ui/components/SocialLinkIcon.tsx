@@ -23,6 +23,7 @@ export function SocialLinkIcon({ socialLink }: SocialLinkIconProps) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={socialLink.ariaLabel}
+      title={socialLink.displayName}
       className="focus-ring"
       onClick={(e) => {
         e.preventDefault();
