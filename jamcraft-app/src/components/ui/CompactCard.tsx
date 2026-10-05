@@ -50,6 +50,8 @@ export function CompactCard({
             <Image
               src={imageUrl}
               alt={imageAlt ?? ''}
+              loading="lazy"
+              decoding="async"
               w={THUMBNAIL_SIZE}
               h={THUMBNAIL_SIZE}
               miw={THUMBNAIL_SIZE}

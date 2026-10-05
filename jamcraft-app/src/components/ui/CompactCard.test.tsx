@@ -18,6 +18,14 @@ describe('CompactCard', () => {
     expect(image).toHaveAttribute('src', '/assets/thumb.jpg');
   });
 
+  it('should lazy-load and async-decode thumbnails (most cards sit below the fold)', () => {
+    render(<CompactCard title="My Card" imageUrl="/assets/thumb.jpg" imageAlt="Thumb alt" />);
+
+    const image = screen.getByRole('img', { name: /thumb alt/i });
+    expect(image).toHaveAttribute('loading', 'lazy');
+    expect(image).toHaveAttribute('decoding', 'async');
+  });
+
   it('should render a custom thumbnail node instead of an image', () => {
     render(<CompactCard title="My Card" thumbnail={<div data-testid="custom-thumb" />} />);
 
