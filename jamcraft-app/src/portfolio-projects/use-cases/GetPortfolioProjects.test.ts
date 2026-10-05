@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { GetPortfolioProjects } from './GetPortfolioProjects';
+import { GAME_JAM_SUBMISSIONS_DATA } from '../../game-jam-submissions/data/game-jam-submissions-data';
 
 describe('GetPortfolioProjects', () => {
   it('should return projects with required properties', () => {
@@ -48,6 +49,26 @@ describe('GetPortfolioProjects', () => {
     expect(gather).toBeDefined();
     expect(gather?.platform).toBe('itch');
     expect(gather?.projectUrl).toBe('https://severalherr.itch.io/gather');
+  });
+
+  it.each([
+    ['a-maze', 'https://severalherr.itch.io/a-maze'],
+    ['metropolis', 'https://severalherr.itch.io/metropolis'],
+  ])('should include the %s itch.io game with an itch.zone cover', (id, url) => {
+    const useCase = new GetPortfolioProjects();
+    const game = useCase.execute().find(project => project.id === id);
+
+    expect(game).toBeDefined();
+    expect(game?.platform).toBe('itch');
+    expect(game?.projectUrl).toBe(url);
+    expect(game?.screenshotUrl).toMatch(/^https:\/\/img\.itch\.zone\//);
+  });
+
+  it('should not list A-Maze or Metropolis as game jam submissions', () => {
+    const jamIds = GAME_JAM_SUBMISSIONS_DATA.map(submission => submission.id);
+
+    expect(jamIds).not.toContain('a-maze');
+    expect(jamIds).not.toContain('metropolis');
   });
 
   it('should include the Godot self-test harness repository', () => {
