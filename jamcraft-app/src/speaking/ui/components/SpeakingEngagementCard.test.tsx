@@ -39,4 +39,10 @@ describe('SpeakingEngagementCard', () => {
     expect(link.getAttribute('rel')).toContain('noopener');
     expect(link.getAttribute('rel')).toContain('noreferrer');
   });
+
+  it('should badge the engagement format', () => {
+    render(<SpeakingEngagementCard engagement={engagement} />);
+
+    expect(screen.getByText('Hands-On Session')).toBeInTheDocument();
+  });
 });
