@@ -24,6 +24,13 @@ describe('PortfolioProjectCard', () => {
     openSpy.mockRestore();
   });
 
+  it('should show a platform icon tile instead of an image when there is no screenshot', () => {
+    render(<PortfolioProjectCard project={{ ...project, screenshotUrl: null }} />);
+
+    expect(screen.queryByRole('img', { name: 'Test Project' })).not.toBeInTheDocument();
+    expect(screen.getByTestId('platform-icon-tile')).toBeInTheDocument();
+  });
+
   it('should render name, description, and platform badge', () => {
     render(<PortfolioProjectCard project={project} />);
 

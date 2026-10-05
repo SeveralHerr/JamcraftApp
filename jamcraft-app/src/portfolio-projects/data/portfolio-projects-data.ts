@@ -31,7 +31,7 @@ export const PORTFOLIO_PROJECTS_DATA: PortfolioProject[] = [
     id: 'godot-selftest-harness',
     name: 'Godot Self-Test Harness',
     description: 'Drive, inspect, and validate a running Godot 4.x game from the command line.',
-    screenshotUrl: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png',
+    screenshotUrl: null,
     projectUrl: 'https://github.com/SeveralHerr/godot-selftest-harness',
     platform: 'github',
   },
@@ -40,7 +40,7 @@ export const PORTFOLIO_PROJECTS_DATA: PortfolioProject[] = [
     name: 'Jamcraft',
     description:
       'Personal portfolio and community hub for James Herr — software engineer & game developer.',
-    screenshotUrl: '/assets/logo_server_icon.png',
+    screenshotUrl: '/assets/jamcraft-thumb.png',
     projectUrl: 'https://github.com/SeveralHerr/JamcraftApp',
     platform: 'github',
   },

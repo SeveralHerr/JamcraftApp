@@ -1,10 +1,11 @@
 import { Badge } from '@mantine/core';
 import { useState } from 'react';
-import { IconEye } from '@tabler/icons-react';
+import { IconBrandGithub, IconBrandItch, IconBrandSteam, IconEye } from '@tabler/icons-react';
 import { PortfolioProject } from '../../entities/PortfolioProject';
 import { NavigateToExternalLink } from '../../../social-presence/use-cases/NavigateToExternalLink';
 import { BrowserNavigationService } from '../../../social-presence/services/BrowserNavigationService';
 import { CompactCard } from '../../../components/ui/CompactCard';
+import { IconTile } from '../../../components/ui/IconTile';
 import { colors, transitions, typography } from '../../../theme';
 
 interface PortfolioProjectCardProps {
@@ -21,6 +22,12 @@ const PLATFORM_LABELS = {
   github: 'GitHub',
   steam: 'Steam',
   itch: 'itch.io',
+} as const;
+
+const PLATFORM_ICONS = {
+  github: IconBrandGithub,
+  steam: IconBrandSteam,
+  itch: IconBrandItch,
 } as const;
 
 // Singleton service instance
@@ -52,6 +59,11 @@ export function PortfolioProjectCard({ project }: PortfolioProjectCardProps) {
         title={project.name}
         line={project.description}
         imageUrl={project.screenshotUrl ?? undefined}
+        thumbnail={
+          project.screenshotUrl === null ? (
+            <IconTile icon={PLATFORM_ICONS[project.platform]} data-testid="platform-icon-tile" />
+          ) : undefined
+        }
         imageAlt={project.name}
         meta={
           <Badge color={PLATFORM_COLORS[project.platform]} variant="light" size="xs" w="fit-content">
