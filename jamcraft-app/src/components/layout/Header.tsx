@@ -6,6 +6,9 @@ import { colors } from '../../theme';
 
 const SECTION_IDS = SECTIONS.map((section) => section.id);
 
+/** Id of the page's main landmark — the skip link's target. */
+export const MAIN_CONTENT_ID = 'main-content';
+
 interface HeaderProps {
   navOpened: boolean;
   onToggleNav: () => void;
@@ -25,6 +28,9 @@ export function Header({ navOpened, onToggleNav }: HeaderProps) {
         borderBottom: `1px solid ${colors.border.primary}`,
       }}
     >
+      <a href={`#${MAIN_CONTENT_ID}`} className="skip-link">
+        Skip to content
+      </a>
       <Group h="100%" px="lg">
         <Burger
           opened={navOpened}

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { AppShell } from '@mantine/core';
 import { render, screen } from '../../test/helpers/test-utils';
-import { Header } from './Header';
+import { Header, MAIN_CONTENT_ID } from './Header';
 import { SECTIONS } from '../../config/sections';
 
 // Header renders an AppShell.Header, which needs an AppShell ancestor
@@ -21,6 +21,14 @@ describe('Header', () => {
       const link = screen.getByRole('link', { name: section.label });
       expect(link).toHaveAttribute('href', `#${section.id}`);
     });
+  });
+
+  it('should start with a skip link to the main content for keyboard users', () => {
+    renderHeader({ navOpened: false, onToggleNav: vi.fn() });
+
+    const [firstLink] = screen.getAllByRole('link');
+    expect(firstLink).toHaveTextContent('Skip to content');
+    expect(firstLink).toHaveAttribute('href', `#${MAIN_CONTENT_ID}`);
   });
 
   it('should render the logo linking back to the top', () => {

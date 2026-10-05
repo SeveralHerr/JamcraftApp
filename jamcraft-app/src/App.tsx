@@ -6,7 +6,7 @@ import "./App.css";
 import { mantineTheme } from "./theme";
 import { SECTIONS, resolveLegacyPath, resolveSectionFromHash } from "./config/sections";
 import { ErrorBoundary } from "./components/ErrorBoundary";
-import { Header } from "./components/layout/Header";
+import { Header, MAIN_CONTENT_ID } from "./components/layout/Header";
 import { NavAnchor } from "./components/layout/NavAnchor";
 import { Footer } from "./components/layout/Footer";
 import { HeroSection } from "./portfolio/HeroSection";
@@ -68,7 +68,7 @@ function App() {
             ))}
           </AppShell.Navbar>
 
-          <AppShell.Main style={{ padding: 0, paddingTop: 60 }}>
+          <AppShell.Main id={MAIN_CONTENT_ID} tabIndex={-1} style={{ padding: 0, paddingTop: 60, outline: "none" }}>
             <HeroSection />
             <ProjectsSection />
             <PodcastsSection />

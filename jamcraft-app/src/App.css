@@ -10,9 +10,28 @@
   --mantine-color-body: #000000 !important;
 }
 
-/* Smooth scroll behavior */
+/* Smooth scroll behavior; dark native UI (scrollbars, form controls) */
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+/* Skip link: hidden until focused by keyboard users */
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -3rem;
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  background: #8aa9c7;
+  color: #000000;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
