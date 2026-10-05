@@ -1,4 +1,4 @@
-import { Group, Image, Text } from '@mantine/core';
+import { Image, Stack, Text } from '@mantine/core';
 import { EXTERNAL_LINKS } from '../../../config/routes';
 import { colors, typography } from '../../../theme';
 
@@ -12,12 +12,13 @@ export function JamcraftInvite() {
       className="focus-ring"
       style={{ display: 'inline-flex', textDecoration: 'none', width: 'fit-content' }}
     >
-      <Group gap="sm" align="center">
+      <Stack gap={6} align="flex-start">
         <Image
-          src="/assets/logo_server_icon_small_transparent_no_bkg.png"
+          src="/assets/jamcraft-logo-full.png"
           alt="Jamcraft logo"
-          h={40}
-          w={40}
+          w={240}
+          maw="100%"
+          h="auto"
           fit="contain"
         />
         <Text
@@ -27,7 +28,7 @@ export function JamcraftInvite() {
         >
           Join the Jamcraft Discord
         </Text>
-      </Group>
+      </Stack>
     </a>
   );
 }

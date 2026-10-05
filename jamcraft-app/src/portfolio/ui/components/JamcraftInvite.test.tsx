@@ -11,6 +11,15 @@ describe('JamcraftInvite', () => {
     expect(screen.getByText('Join the Jamcraft Discord')).toBeInTheDocument();
   });
 
+  it('should show the full Jamcraft wordmark logo', () => {
+    render(<JamcraftInvite />);
+
+    expect(screen.getByRole('img', { name: /jamcraft logo/i })).toHaveAttribute(
+      'src',
+      '/assets/jamcraft-logo-full.png',
+    );
+  });
+
   it('should link to the Discord invite URL', () => {
     render(<JamcraftInvite />);
 
