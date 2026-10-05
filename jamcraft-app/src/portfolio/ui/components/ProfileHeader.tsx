@@ -9,7 +9,7 @@ interface ProfileHeaderProps {
 export function ProfileHeader({ profile }: ProfileHeaderProps) {
   return (
     <div>
-      <Text style={{ lineHeight: 0.5 }} ta="left" c="gray.5">
+      <Text ta="left" c="gray.5" mb={2}>
         Hello, I am
       </Text>
       <Title
@@ -20,10 +20,14 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
           fontSize: '3.0rem',
           fontWeight: 'bold',
           textTransform: 'uppercase',
+          lineHeight: 1.05,
         }}
       >
         {profile.fullName}
       </Title>
+      <Text ta="left" mt={6} mb="md" fw={500} c={colors.brand.primary}>
+        {profile.title}
+      </Text>
     </div>
   );
 }

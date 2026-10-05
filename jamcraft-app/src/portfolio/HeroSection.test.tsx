@@ -33,4 +33,10 @@ describe('HeroSection', () => {
 
     expect(screen.getByRole('link', { name: /view projects/i })).toHaveAttribute('href', '#projects');
   });
+
+  it('should show the role/title line under the name', () => {
+    render(<HeroSection />);
+
+    expect(screen.getByText(PROFILE_DATA.title)).toBeInTheDocument();
+  });
 });
