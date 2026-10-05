@@ -57,7 +57,7 @@ npm run test:coverage    # Generate coverage report
 - **Minimalist Cards:** Compact cards (72px thumbnail + title + one line via `components/ui/CompactCard.tsx`) laid out in responsive 2-column grids (1 column on mobile)
 - **Accessibility:** Reduced motion support, ARIA labels, focus management, skip-to-content link, one `<h1>` per page
 - **Security:** https-only URL validation, XSS prevention, noopener/noreferrer on external links, CSP + security headers (`customHttp.yml`)
-- **Testing:** 156 tests across 28 files, ~98% line coverage (`npm run test:coverage`)
+- **Testing:** 199 tests across 35 files, ~98% line coverage (`npm run test:coverage`)
 - **Deep Links:** `/#section` and legacy paths scroll to their section on first load (`resolveSectionFromHash` / `resolveLegacyPath`)
 - **Static Data, No Spinners:** Section data hooks compute data on first render (`useState(() => useCase...)`) — no loading state, no layout shift
 - **CI/CD:** Automated testing and deployment via AWS Amplify
@@ -135,19 +135,19 @@ JamcraftApp/
     │   │
     │   ├── social-presence/    # DOMAIN: Social media integration
     │   │   ├── entities/SocialLink.ts
-    │   │   ├── use-cases/NavigateToExternalLink.ts (+ test)
-    │   │   ├── services/BrowserNavigationService.ts (+ test)
+    │   │   ├── use-cases/isSafeExternalUrl.ts (+ test)   # https-only guard used by every external link
     │   │   ├── data/social-links-data.ts
     │   │   └── ui/...          # SocialLinkIcon
     │   │
     │   ├── components/         # Shared UI infrastructure
-    │   │   ├── layout/         # Header (scroll-spy nav, skip link, aria-expanded burger), NavAnchor, Footer (contact + Discord invite)
-    │   │   ├── ui/             # Card, CompactCard (+ test, lazy thumbnails), PageHeader (h2 + test), Section, FocusRing
+    │   │   ├── layout/         # Header (scroll-spy nav, skip link, aria-expanded burger), MobileNav (drawer + Discord invite), NavAnchor, Footer (contact, inline LinkedIn, lazy images)
+    │   │   ├── ui/             # Card (CSS hover/focus via Card.module.css), CompactCard (real <a> when href is https; 3-line title, 2-line description, lazy thumbnails), IconTile (icon thumbnail), PageHeader (h2 + accent bar), Section (reveal-on-scroll), FocusRing
     │   │   └── ErrorBoundary.tsx (+ test)
     │   │
     │   ├── hooks/              # Shared custom hooks
     │   │   ├── useReducedMotion.ts (+ test)
-    │   │   └── useActiveSection.ts (+ test)   # scroll-position scroll-spy
+    │   │   ├── useRevealOnScroll.ts (+ test)  # IntersectionObserver reveal, 1s fallback
+    │   │   └── useActiveSection.ts (+ test)   # scroll-spy, reading line 30% down the viewport
     │   │
     │   ├── theme/              # Design tokens + mantine-theme.ts (Mantine theme object)
     │   ├── config/             # sections.ts (section registry, legacy redirects, hash resolver), routes.ts (EXTERNAL_LINKS)
@@ -219,20 +219,20 @@ Hooks           ↓       Pure TS
 
 ### Current Test Suite
 
-**156 tests across 28 files** (regenerate counts with `npx vitest run --reporter=json`):
+**199 tests across 35 files** (regenerate counts with `npx vitest run --reporter=json`):
 
 | Area | Files (tests) |
 |---|---|
-| config (cross-cutting) | sections (16), data-hooks (7), security-headers (5), index-html (4), data-urls (2) |
-| layout / shared UI | Header (6), Footer (4), CompactCard (7), PageHeader (2), ErrorBoundary (5) |
-| hooks | useActiveSection (7), useReducedMotion (5) |
-| portfolio | HeroSection (4), JamcraftInvite (4), ProfileBio (3), ProfileImage (3) |
-| portfolio-projects | GetPortfolioProjects (10), PortfolioProjectCard (4) |
-| game-jam-submissions | GetGameJamSubmissions (7) |
-| podcasts | GetPodcastEpisodes (7), PodcastEpisodeCard (5) |
+| config (cross-cutting) | sections (16), data-hooks (7), security-headers (5), index-html (5), data-urls (2) |
+| layout / shared UI | Header (6), Footer (6), MobileNav (3), Card (4), CompactCard (12), IconTile (1), PageHeader (3), Section (2), ErrorBoundary (5) |
+| hooks | useActiveSection (8), useReducedMotion (5), useRevealOnScroll (3) |
+| portfolio | HeroSection (5), JamcraftInvite (4), ProfileBio (3), ProfileImage (4) |
+| portfolio-projects | GetPortfolioProjects (10), PortfolioProjectCard (5) |
+| game-jam-submissions | GetGameJamSubmissions (7), formatJamLabel (3), GameJamCard (2) |
+| podcasts | GetPodcastEpisodes (8), episodeMediaLabel (5), PodcastEpisodeCard (6) |
 | workshops | GetWorkshops (7), WorkshopCard (4) |
-| speaking | GetSpeakingEngagements (11), SpeakingEngagementCard (3) |
-| social-presence | NavigateToExternalLink (6), BrowserNavigationService (4), SocialLinkIcon (4) |
+| speaking | GetSpeakingEngagements (11), SpeakingEngagementCard (4) |
+| social-presence | isSafeExternalUrl (13), SocialLinkIcon (5) |
 
 ### Running Tests
 
@@ -280,10 +280,10 @@ Amplify builds and deploys automatically on push to `main`.
 
 ## Security Features
 
-1. **URL Validation:** `NavigateToExternalLink` only allows `https:`
+1. **URL Validation:** `isSafeExternalUrl` only allows `https:`; `CompactCard` and `SocialLinkIcon` render no link for anything else
    - Blocks `http:`, `javascript:`, `data:`, `file:` (XSS + downgrade prevention)
    - `src/config/data-urls.test.ts` sweeps every seed data file: links/images must be `https://` or `/assets/`
-2. **Secure External Links:** All links use `noopener,noreferrer`
+2. **Secure External Links:** All external links are native `<a target="_blank" rel="noopener noreferrer">` (no JS click hijacking)
 3. **HTTP Security Headers:** `customHttp.yml` (repo root, Amplify monorepo format) sets HSTS, nosniff, `X-Frame-Options: DENY`, Referrer-Policy, Permissions-Policy and a CSP. Asserted by `src/config/security-headers.test.ts`.
    - CSP: `script-src 'self'` (no inline/third-party scripts), `style-src 'unsafe-inline'` (Mantine), `img-src 'self' data: https:`
    - Adding a third-party script, font, iframe or API call requires updating the CSP in `customHttp.yml`
@@ -461,6 +461,13 @@ When doing an iteration or feature, take a screenshot and look for 3 things to i
 Use the `validate-jamcraft-site` skill (`.claude/skills/`) and the `viewport-screenshot` MCP (`.mcp.json`) for desktop + 390px mobile shots.
 Headless Chrome clamps windows to ~500px wide — a 390px headless shot that looks overflowed is an artifact; confirm with the iframe/MCP method.
 Each fix: failing test first → fix → `npm test -- --run` + lint + build → commit.
+
+## Presentation / UX conventions
+
+Cards must be real links (keyboard-focusable, middle-click works) — never `onClick` navigation on a `<div>`.
+Hover styling lives in CSS (`:hover` + `a:focus-visible >`) so keyboard users get the same affordance.
+Entrance animations must have a non-JS-dependent fallback (`useRevealOnScroll` reveals after 1s) — IntersectionObserver never fires in background tabs or some crawlers.
+Prefer local, square, dark-friendly thumbnails (e.g. `/assets/loosely-coupled-btg.jpg`) over white title-slide images.
 
 ## Fan-out (subagents)
 
