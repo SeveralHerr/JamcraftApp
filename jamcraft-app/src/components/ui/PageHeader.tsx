@@ -18,7 +18,7 @@ export function PageHeader({ title, subtitle, align = 'left' }: PageHeaderProps)
       }}
     >
       <Title
-        order={1}
+        order={2}
         c={colors.text.primary}
         style={{
           fontSize: typography.fontSize['5xl'],

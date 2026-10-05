@@ -34,7 +34,7 @@ export function ProjectsSection() {
 
         <Stack gap="lg">
           <Title
-            order={2}
+            order={3}
             c={colors.text.primary}
             style={{
               fontSize: typography.fontSize['3xl'],
