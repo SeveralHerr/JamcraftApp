@@ -9,6 +9,7 @@ export const GAME_JAM_SUBMISSIONS_DATA: GameJamSubmission[] = [
     coverImageUrl: 'https://img.itch.zone/aW1nLzI3Mjg3MDY2LnBuZw==/347x500/roiLGj.png',
     gameUrl: 'https://severalherr.itch.io/troll-pong',
     jamName: "South Dakota's Southeast Technical Institute Game Jam",
+    jamYear: 2026,
   },
   {
     id: 'candy-catcher',
@@ -18,6 +19,7 @@ export const GAME_JAM_SUBMISSIONS_DATA: GameJamSubmission[] = [
     coverImageUrl: 'https://img.itch.zone/aW1nLzIzNzk1NjY3LnBuZw==/315x250%23c/pTGLTN.png',
     gameUrl: 'https://severalherr.itch.io/candy-catcher',
     jamName: 'SoloDevelopment 72-hour Jam #9: Halloween',
+    jamYear: 2025,
     theme: 'Black and White',
   },
   {
@@ -28,6 +30,7 @@ export const GAME_JAM_SUBMISSIONS_DATA: GameJamSubmission[] = [
     coverImageUrl: 'https://img.itch.zone/aW1nLzExMjIwNDA0LnBuZw==/315x250%23c/MwbJfY.png',
     gameUrl: 'https://severalherr.itch.io/poke-the-bear',
     jamName: 'Juice Jam II',
+    jamYear: 2023,
   },
   {
     id: 'goobus',

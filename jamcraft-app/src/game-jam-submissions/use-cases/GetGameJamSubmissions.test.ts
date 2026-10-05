@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { GetGameJamSubmissions } from './GetGameJamSubmissions';
+import { GAME_JAM_SUBMISSIONS_DATA } from '../data/game-jam-submissions-data';
 import { GameJamSubmission } from '../entities/GameJamSubmission';
 
 describe('GetGameJamSubmissions', () => {
@@ -72,5 +73,18 @@ describe('GetGameJamSubmissions', () => {
 
     expect(result).toEqual([]);
     expect(result).toHaveLength(0);
+  });
+
+  it('should give every seed submission a jam year so newest-first sorting holds', () => {
+    const missing = GAME_JAM_SUBMISSIONS_DATA.filter(submission => submission.jamYear === undefined);
+
+    expect(missing.map(submission => submission.id)).toEqual([]);
+  });
+
+  it('should list the newest seed submission first', () => {
+    const [newest] = new GetGameJamSubmissions(GAME_JAM_SUBMISSIONS_DATA).executeSortedByYear();
+    const maxYear = Math.max(...GAME_JAM_SUBMISSIONS_DATA.map(submission => submission.jamYear ?? 0));
+
+    expect(newest.jamYear).toBe(maxYear);
   });
 });
