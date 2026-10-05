@@ -1,6 +1,7 @@
 import { Container, Group, Stack, Text, Title } from '@mantine/core';
 import { useSocialLinks } from '../../social-presence/ui/hooks/useSocialLinks';
 import { SocialLinkIcon } from '../../social-presence/ui/components/SocialLinkIcon';
+import { JamcraftInvite } from '../../portfolio/ui/components/JamcraftInvite';
 import { colors, spacing, typography, headerHeight, containerSizes } from '../../theme';
 
 /**
@@ -41,8 +42,9 @@ export function Footer() {
               <SocialLinkIcon key={link.id} socialLink={link} />
             ))}
           </Group>
+          <JamcraftInvite align="center" />
           <Text c={colors.text.muted} size="sm">
-            © {new Date().getFullYear()} James Herr · jamcraft.io
+            © {new Date().getFullYear()} James Herr · Jamcraft LLC
           </Text>
         </Stack>
       </Container>
