@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { AppShell } from '@mantine/core';
 import { render, screen } from '../../test/helpers/test-utils';
-import { Header, MAIN_CONTENT_ID } from './Header';
+import { Header, MAIN_CONTENT_ID, MOBILE_NAV_ID } from './Header';
 import { SECTIONS } from '../../config/sections';
 
 // Header renders an AppShell.Header, which needs an AppShell ancestor
@@ -45,5 +45,14 @@ describe('Header', () => {
     const burger = screen.getByLabelText(/toggle navigation/i);
     burger.click();
     expect(onToggleNav).toHaveBeenCalled();
+  });
+
+  it.each([true, false])('should expose the drawer state (opened=%s) via aria-expanded', (navOpened) => {
+    renderHeader({ navOpened, onToggleNav: vi.fn() });
+
+    // hiddenFrom="sm" hides it from role queries in happy-dom, so query by label.
+    const burger = screen.getByLabelText(/toggle navigation/i);
+    expect(burger).toHaveAttribute('aria-expanded', String(navOpened));
+    expect(burger).toHaveAttribute('aria-controls', MOBILE_NAV_ID);
   });
 });

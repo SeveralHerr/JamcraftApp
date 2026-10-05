@@ -9,6 +9,9 @@ const SECTION_IDS = SECTIONS.map((section) => section.id);
 /** Id of the page's main landmark — the skip link's target. */
 export const MAIN_CONTENT_ID = 'main-content';
 
+/** Id of the mobile navigation drawer the burger controls. */
+export const MOBILE_NAV_ID = 'mobile-nav';
+
 interface HeaderProps {
   navOpened: boolean;
   onToggleNav: () => void;
@@ -38,6 +41,8 @@ export function Header({ navOpened, onToggleNav }: HeaderProps) {
           hiddenFrom="sm"
           h={45}
           aria-label="Toggle navigation"
+          aria-expanded={navOpened}
+          aria-controls={MOBILE_NAV_ID}
           className="focus-ring"
         />
         <Group justify="space-between" style={{ flex: 1 }}>

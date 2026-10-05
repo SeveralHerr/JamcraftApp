@@ -6,7 +6,7 @@ import "./App.css";
 import { mantineTheme } from "./theme";
 import { SECTIONS, resolveLegacyPath, resolveSectionFromHash } from "./config/sections";
 import { ErrorBoundary } from "./components/ErrorBoundary";
-import { Header, MAIN_CONTENT_ID } from "./components/layout/Header";
+import { Header, MAIN_CONTENT_ID, MOBILE_NAV_ID } from "./components/layout/Header";
 import { NavAnchor } from "./components/layout/NavAnchor";
 import { Footer } from "./components/layout/Footer";
 import { HeroSection } from "./portfolio/HeroSection";
@@ -56,7 +56,7 @@ function App() {
         >
           <Header navOpened={navOpened} onToggleNav={toggle} />
 
-          <AppShell.Navbar py="md" px={4}>
+          <AppShell.Navbar id={MOBILE_NAV_ID} aria-label="Sections" py="md" px={4}>
             {SECTIONS.map((section) => (
               <NavAnchor
                 key={section.id}
