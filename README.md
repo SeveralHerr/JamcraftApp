@@ -93,7 +93,7 @@ flowchart LR
     C --> S[*Section.tsx]
   end
   S --> A[App.tsx<br/>AppShell + sections]
-  SH[components/<br/>Header · Footer · CompactCard · Section] --> A
+  SH[shared components/<br/>Header · Footer<br/>CompactCard · Section] --> A
 ```
 
 ```text
