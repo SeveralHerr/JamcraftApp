@@ -57,7 +57,7 @@ npm run test:coverage    # Generate coverage report
 - **Minimalist Cards:** Compact cards (72px thumbnail + title + one line via `components/ui/CompactCard.tsx`) laid out in responsive 2-column grids (1 column on mobile)
 - **Accessibility:** Reduced motion support, ARIA labels, focus management, skip-to-content link, one `<h1>` per page
 - **Security:** https-only URL validation, XSS prevention, noopener/noreferrer on external links, CSP + security headers (`customHttp.yml`)
-- **Testing:** 202 tests across 36 files, ~98% line coverage (`npm run test:coverage`)
+- **Testing:** 204 tests across 36 files, ~98% line coverage (`npm run test:coverage`)
 - **Deep Links:** `/#section` and legacy paths scroll to their section on first load (`resolveSectionFromHash` / `resolveLegacyPath`)
 - **Static Data, No Spinners:** Section data hooks compute data on first render (`useState(() => useCase...)`) — no loading state, no layout shift
 - **CI/CD:** Automated testing and deployment via AWS Amplify
@@ -80,6 +80,8 @@ Legacy multi-page URLs (`/projects`, `/about`, `/testimonials`) are redirected o
 ```
 JamcraftApp/
 ├── amplify.yml                 # CI/CD: test → build → deploy (AWS Amplify)
+├── LICENSE                     # MIT (code); images/logo/content remain © James Herr / Jamcraft LLC
+├── .github/workflows/deploy.yml # GitHub Actions CI: lint, coverage thresholds, npm audit (high), build — drives the README CI badge
 ├── README.md                   # Public README (badges, screenshots in docs/screenshots/, guarded by config/readme.test.ts)
 ├── customHttp.yml              # Amplify response security headers (CSP, HSTS, ...)
 ├── .claude/
@@ -212,6 +214,9 @@ Hooks           ↓       Pure TS
 
 ### Coverage Targets
 
+Enforced by `coverage.thresholds` in `jamcraft-app/vitest.config.ts` (lines/statements/functions 95%, branches 88%) via `npm run test:coverage` in CI. `config/readme.test.ts` fails if the README badge claims more than the enforced line threshold.
+
+
 - **Use Cases:** 100% (pure business logic)
 - **Services:** 100% (security-critical)
 - **Hooks:** 95%+ (React integration)
@@ -220,11 +225,11 @@ Hooks           ↓       Pure TS
 
 ### Current Test Suite
 
-**202 tests across 36 files** (regenerate counts with `npx vitest run --reporter=json`):
+**204 tests across 36 files** (regenerate counts with `npx vitest run --reporter=json`):
 
 | Area | Files (tests) |
 |---|---|
-| config (cross-cutting) | sections (16), data-hooks (7), security-headers (5), index-html (5), readme (3), data-urls (2) |
+| config (cross-cutting) | sections (16), data-hooks (7), security-headers (5), index-html (5), readme (5), data-urls (2) |
 | layout / shared UI | Header (6), Footer (6), MobileNav (3), Card (4), CompactCard (12), IconTile (1), PageHeader (3), Section (2), ErrorBoundary (5) |
 | hooks | useActiveSection (8), useReducedMotion (5), useRevealOnScroll (3) |
 | portfolio | HeroSection (5), JamcraftInvite (4), ProfileBio (3), ProfileImage (4) |
