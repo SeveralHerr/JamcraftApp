@@ -31,9 +31,17 @@ jobs:
         working-directory: jamcraft-app
         run: npm ci
 
-      - name: Run tests
+      - name: Lint
         working-directory: jamcraft-app
-        run: npm test -- --run
+        run: npm run lint
+
+      - name: Run tests with coverage thresholds
+        working-directory: jamcraft-app
+        run: npm run test:coverage
+
+      - name: Audit dependencies (high and critical)
+        working-directory: jamcraft-app
+        run: npm audit --audit-level=high
 
       - name: Build application
         working-directory: jamcraft-app

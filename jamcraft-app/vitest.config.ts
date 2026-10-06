@@ -12,6 +12,13 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
+      // Enforced in CI (npm run test:coverage); the README coverage badge may not claim more.
+      thresholds: {
+        lines: 95,
+        statements: 95,
+        functions: 95,
+        branches: 88,
+      },
       exclude: [
         'node_modules/',
         'src/test/',
