@@ -8,9 +8,9 @@
 
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fjamcraft.io&label=jamcraft.io&up_message=online&style=flat-square)](https://jamcraft.io)
 [![Deploy](https://img.shields.io/badge/deploy-AWS%20Amplify-FF9900?style=flat-square&logo=awsamplify&logoColor=white)](./amplify.yml)
-[![Tests](https://img.shields.io/badge/tests-202%20passing-brightgreen?style=flat-square&logo=vitest&logoColor=white)](./jamcraft-app/src)
-[![Coverage](https://img.shields.io/badge/coverage-~98%25-brightgreen?style=flat-square)](#-testing)
-[![npm audit](https://img.shields.io/badge/npm%20audit-0%20vulnerabilities-brightgreen?style=flat-square&logo=npm)](#-security)
+[![CI](https://github.com/SeveralHerr/JamcraftApp/actions/workflows/deploy.yml/badge.svg)](https://github.com/SeveralHerr/JamcraftApp/actions/workflows/deploy.yml)
+[![Coverage](https://img.shields.io/badge/coverage-%E2%89%A595%25%20enforced-brightgreen?style=flat-square)](#-testing)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](./LICENSE)
 [![Renovate](https://img.shields.io/badge/renovate-enabled-1A1F6C?style=flat-square&logo=renovatebot&logoColor=white)](./renovate.json)
 [![Last commit](https://img.shields.io/github/last-commit/SeveralHerr/JamcraftApp?style=flat-square)](https://github.com/SeveralHerr/JamcraftApp/commits/main)
 
@@ -128,7 +128,7 @@ Tests check every entry: unique ids, `https://` or `/assets/` URLs only, and new
 
 ## 🧪 Testing
 
-**202 tests across 36 files**, about 98% line coverage. Tests sit next to the code they cover (`*.test.ts[x]`).
+Tests sit next to the code they cover (`*.test.ts[x]`). CI fails if line coverage drops below **95%** (thresholds in [`vitest.config.ts`](./jamcraft-app/vitest.config.ts)); it currently sits around 98%.
 
 - **Use cases:** sorting, filtering, label formatting, URL safety
 - **Components:** rendering, link security, accessibility (heading levels, skip link, `aria-expanded`)
@@ -142,7 +142,7 @@ cd jamcraft-app && npm test -- --run && npm run test:coverage
 
 - **HTTP headers** ([`customHttp.yml`](./customHttp.yml)): `Content-Security-Policy` (`script-src 'self'`, `frame-ancestors 'none'`), HSTS, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`.
 - **Links:** external links must be `https:`; anything else renders as plain text.
-- **Supply chain:** `npm audit` is clean, Renovate keeps dependencies current, and production builds ship without source maps.
+- **Supply chain:** CI runs `npm audit --audit-level=high` on every push, Renovate keeps dependencies current, and production builds ship without source maps.
 
 ## 🚢 Deployment
 
@@ -156,7 +156,7 @@ flowchart LR
   T -->|fail| X[Deploy blocked]
 ```
 
-Every push to `main` is tested and deployed automatically. A failing test blocks the release.
+Every push to `main` is tested and deployed by Amplify; a failing test blocks the release. GitHub Actions ([`deploy.yml`](./.github/workflows/deploy.yml)) also runs lint, tests with coverage thresholds, `npm audit` and the build on every push and pull request, which is what the CI badge shows.
 
 ## 🤖 Working with Claude Code
 
@@ -171,5 +171,9 @@ This repo ships its own agent tooling:
 - **LinkedIn:** [James Herr](https://www.linkedin.com/in/james-herr-63b85b1b3/) (the best way to reach me)
 - **Community:** [Jamcraft Discord](https://discord.gg/WVB8EwSNDG)
 - **Games:** [severalherr.itch.io](https://severalherr.itch.io/)
+
+## 📄 License
+
+Code is released under the [MIT License](./LICENSE). Images, the Jamcraft logo and written content remain © James Herr / Jamcraft LLC.
 
 <div align="center"><sub>© 2026 James Herr · Jamcraft LLC</sub></div>

@@ -35,4 +35,19 @@ describe('README.md', () => {
   it('should link the same Discord invite the site uses', () => {
     expect(readme).toContain(EXTERNAL_LINKS.discord);
   });
+
+  it('should not claim more coverage than vitest.config.ts enforces', () => {
+    const claimed = Number(readme.match(/coverage-%E2%89%A5(\d+)%25/)?.[1]);
+    const config = readFileSync(resolve(repoRoot, 'jamcraft-app/vitest.config.ts'), 'utf8');
+    const enforced = Number(config.match(/lines:\s*(\d+)/)?.[1]);
+
+    expect(claimed).toBeGreaterThan(0);
+    expect(enforced).toBeGreaterThanOrEqual(claimed);
+  });
+
+  it('should show the live CI status badge and a license that exists', () => {
+    expect(readme).toContain('actions/workflows/deploy.yml/badge.svg');
+    expect(readme).toMatch(/\]\(\.\/LICENSE\)/);
+  });
 });
+
