@@ -13,9 +13,29 @@ function metaContent(attr: 'name' | 'property', key: string): string | undefined
 }
 
 describe('index.html metadata', () => {
-  it('should describe James as a software engineer, not the old full-stack title', () => {
-    expect(html).toMatch(/<title>[^<]*Software Engineer[^<]*<\/title>/);
+  const title = html.match(/<title>([^<]*)<\/title>/)?.[1] ?? '';
+  const description = metaContent('name', 'description') ?? '';
+
+  it('should lead the search result with Jamcraft LLC and its games, crediting James', () => {
+    expect(title).toMatch(/^Jamcraft LLC/);
+    for (const text of [title, description]) {
+      expect(text).toMatch(/games/i);
+      expect(text).toContain('James Herr');
+    }
+    expect(description).toMatch(/^Jamcraft LLC/);
     expect(html).not.toMatch(/Full[- ]Stack/i);
+  });
+
+  it('should keep the title and description short enough for Google not to truncate', () => {
+    expect(title.replace(/&amp;/g, '&').length).toBeLessThanOrEqual(60);
+    expect(description.length).toBeLessThanOrEqual(160);
+  });
+
+  it('should mirror the title and description in the Open Graph and Twitter cards', () => {
+    expect(metaContent('property', 'og:title')).toBe(title);
+    expect(metaContent('name', 'twitter:title')).toBe(title);
+    expect(metaContent('property', 'og:description')).toBe(description);
+    expect(metaContent('name', 'twitter:description')).toBe(description);
   });
 
   it.each([
