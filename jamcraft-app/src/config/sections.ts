@@ -6,6 +6,7 @@
 export const SECTIONS = [
   { id: 'home', label: 'Home' },
   { id: 'projects', label: 'Projects' },
+  { id: 'commissions', label: 'Commissions' },
   { id: 'podcasts', label: 'Podcasts' },
   { id: 'workshops', label: 'Workshops' },
   { id: 'speaking', label: 'Speaking' },

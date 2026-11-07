@@ -6,6 +6,7 @@ import { GAME_JAM_SUBMISSIONS_DATA } from '../game-jam-submissions/data/game-jam
 import { PODCAST_EPISODES_DATA } from '../podcasts/data/podcast-episodes-data';
 import { WORKSHOPS_DATA } from '../workshops/data/workshops-data';
 import { SPEAKING_ENGAGEMENTS_DATA } from '../speaking/data/speaking-engagements-data';
+import { COMMISSIONS_DATA } from '../commissions/data/commissions-data';
 import { SOCIAL_LINKS_DATA } from '../social-presence/data/social-links-data';
 
 const DATA_SOURCES = {
@@ -16,6 +17,7 @@ const DATA_SOURCES = {
   PODCAST_EPISODES_DATA,
   WORKSHOPS_DATA,
   SPEAKING_ENGAGEMENTS_DATA,
+  COMMISSIONS_DATA,
   SOCIAL_LINKS_DATA,
 };
 

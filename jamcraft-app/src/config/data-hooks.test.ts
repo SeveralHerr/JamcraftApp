@@ -6,6 +6,7 @@ import { usePortfolioProjects } from '../portfolio-projects/ui/hooks/usePortfoli
 import { useGameJamSubmissions } from '../game-jam-submissions/ui/hooks/useGameJamSubmissions';
 import { usePodcastEpisodes } from '../podcasts/ui/hooks/usePodcastEpisodes';
 import { useWorkshops } from '../workshops/ui/hooks/useWorkshops';
+import { useCommissions } from '../commissions/ui/hooks/useCommissions';
 import { useSpeakingEngagements } from '../speaking/ui/hooks/useSpeakingEngagements';
 
 /**
@@ -20,6 +21,7 @@ const DATA_HOOKS: Record<string, () => unknown> = {
   useGameJamSubmissions: () => useGameJamSubmissions().submissions,
   usePodcastEpisodes: () => usePodcastEpisodes().episodes,
   useWorkshops: () => useWorkshops().workshops,
+  useCommissions: () => useCommissions().commissions,
   useSpeakingEngagements: () => useSpeakingEngagements().engagements,
 };
 
