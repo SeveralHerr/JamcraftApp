@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Jamcraft is a modern single-page portfolio website for James Herr (MrSeveral), a full-stack engineer and game developer. The site is one scrolling page that showcases his profile, projects (including game jam submissions), podcast guest appearances, workshops, and speaking engagements, with social links in the hero and footer.
+Jamcraft is a modern single-page portfolio website for James Herr (MrSeveral), a full-stack engineer and game developer. The site is one scrolling page that showcases his profile, projects (including game jam submissions), client commissions, podcast guest appearances, workshops, and speaking engagements, with social links in the hero and footer.
 
 ## Claude Instructions
 
@@ -21,7 +21,7 @@ Jamcraft is a modern single-page portfolio website for James Herr (MrSeveral), a
 - **Styling:** CSS Modules + Mantine CSS + PostCSS
 - **Hosting/CI/CD:** AWS Amplify (`amplify.yml`: npm ci → test → build → deploy `build/`)
 
-There is no client-side router — navigation is in-page hash anchors (`#home`, `#projects`, `#podcasts`, `#workshops`, `#speaking`, `#contact`) with smooth scrolling and a scroll-spy header.
+There is no client-side router — navigation is in-page hash anchors (`#home`, `#projects`, `#commissions`, `#podcasts`, `#workshops`, `#speaking`, `#contact`) with smooth scrolling and a scroll-spy header.
 
 ## Quick Development Guide
 
@@ -57,7 +57,7 @@ npm run test:coverage    # Generate coverage report
 - **Minimalist Cards:** Compact cards (72px thumbnail + title + one line via `components/ui/CompactCard.tsx`) laid out in responsive 2-column grids (1 column on mobile)
 - **Accessibility:** Reduced motion support, ARIA labels, focus management, skip-to-content link, one `<h1>` per page
 - **Security:** https-only URL validation, XSS prevention, noopener/noreferrer on external links, CSP + security headers (`customHttp.yml`)
-- **Testing:** 206 tests across 36 files, ~98% line coverage (`npm run test:coverage`)
+- **Testing:** 216 tests across 39 files, ~98% line coverage (`npm run test:coverage`)
 - **Deep Links:** `/#section` and legacy paths scroll to their section on first load (`resolveSectionFromHash` / `resolveLegacyPath`)
 - **Static Data, No Spinners:** Section data hooks compute data on first render (`useState(() => useCase...)`) — no loading state, no layout shift
 - **CI/CD:** Automated testing and deployment via AWS Amplify
@@ -69,10 +69,11 @@ The app is a single page composed of sections (registered in `src/config/section
 
 1. **Home / Hero** (`#home`) — Full-height hero with profile, bio, social links, CTA (owned by `portfolio/`)
 2. **Projects** (`#projects`) — Portfolio projects (NSFW blur/reveal supported via `isNSFW`) + game jam submissions sub-group (sorted newest `jamYear` first — every entry needs `jamYear`) (owned by `portfolio-projects/`)
-3. **Podcasts** (`#podcasts`) — Podcast guest appearances as cards linking out (owned by `podcasts/`)
-4. **Workshops** (`#workshops`) — Workshops run/co-run by James as cards linking out (owned by `workshops/`)
-5. **Speaking** (`#speaking`) — Conference talks and panel appearances as cards linking out (owned by `speaking/`)
-6. **Contact** (`#contact`) — Footer with social links (in `components/layout/Footer.tsx`)
+3. **Commissions** (`#commissions`) — Client work as case studies: hero photo, write-up, facts, links, and a media row with a self-hosted click-to-play reel (`<video preload="none">`) (owned by `commissions/`)
+4. **Podcasts** (`#podcasts`) — Podcast guest appearances as cards linking out (owned by `podcasts/`)
+5. **Workshops** (`#workshops`) — Workshops run/co-run by James as cards linking out (owned by `workshops/`)
+6. **Speaking** (`#speaking`) — Conference talks and panel appearances as cards linking out (owned by `speaking/`)
+7. **Contact** (`#contact`) — Footer with social links (in `components/layout/Footer.tsx`)
 
 Legacy multi-page URLs (`/projects`, `/about`, `/testimonials`) are redirected on load to section anchors by `resolveLegacyPath` in `src/config/sections.ts`.
 
@@ -112,6 +113,14 @@ JamcraftApp/
     │   │   ├── use-cases/GetGameJamSubmissions.ts (+ test)
     │   │   ├── data/game-jam-submissions-data.ts
     │   │   └── ui/...          # GameJamCard
+    │   │
+    │   ├── commissions/        # DOMAIN: Client commissions (case studies)
+    │   │   ├── entities/Commission.ts
+    │   │   ├── use-cases/GetCommissions.ts (+ test)
+    │   │   ├── data/commissions-data.ts       # media in public/assets/commissions/
+    │   │   ├── ui/components/CommissionShowcase.tsx (+ test, + .module.css)
+    │   │   ├── ui/hooks/useCommissions.ts
+    │   │   └── CommissionsSection.tsx (+ test)  # #commissions section
     │   │
     │   ├── podcasts/           # DOMAIN: Podcast guest appearances
     │   │   ├── entities/PodcastEpisode.ts
@@ -226,7 +235,7 @@ Enforced by `coverage.thresholds` in `jamcraft-app/vitest.config.ts` (lines/stat
 
 ### Current Test Suite
 
-**206 tests across 36 files** (regenerate counts with `npx vitest run --reporter=json`):
+**216 tests across 39 files** (regenerate counts with `npx vitest run --reporter=json`):
 
 | Area | Files (tests) |
 |---|---|
@@ -236,6 +245,7 @@ Enforced by `coverage.thresholds` in `jamcraft-app/vitest.config.ts` (lines/stat
 | portfolio | HeroSection (5), JamcraftInvite (4), ProfileBio (3), ProfileImage (4) |
 | portfolio-projects | GetPortfolioProjects (10), PortfolioProjectCard (5) |
 | game-jam-submissions | GetGameJamSubmissions (7), formatJamLabel (3), GameJamCard (2) |
+| commissions | GetCommissions (3), CommissionShowcase (5), CommissionsSection (1) |
 | podcasts | GetPodcastEpisodes (8), episodeMediaLabel (5), PodcastEpisodeCard (6) |
 | workshops | GetWorkshops (7), WorkshopCard (4) |
 | speaking | GetSpeakingEngagements (11), SpeakingEngagementCard (4) |
@@ -320,6 +330,10 @@ Append an object to `src/podcasts/data/podcast-episodes-data.ts` (id, showName, 
 ### Adding an itch.io Game
 
 Non-jam games → `src/portfolio-projects/data/portfolio-projects-data.ts` (`platform: 'itch'`, cover from the itch page's `img.itch.zone` 315x250 crop). Jam games (page links to `itch.io/jam/...`) → `src/game-jam-submissions/data/game-jam-submissions-data.ts` with `jamYear`.
+
+### Adding a Commission
+
+Append an object to `src/commissions/data/commissions-data.ts`; put media in `public/assets/commissions/` (see the `prepare-commission-media` skill: WebP ≤1200px, H.264 720p `+faststart` with `-map_metadata -1`, poster frame). Give `heroImage` its real `width`/`height`. Video stays click-to-play (`preload="none"`, no autoplay). Self-hosted video needs no CSP change (`default-src 'self'`).
 
 ### Adding a Workshop
 
@@ -475,6 +489,12 @@ Cards must be real links (keyboard-focusable, middle-click works) — never `onC
 Hover styling lives in CSS (`:hover` + `a:focus-visible >`) so keyboard users get the same affordance.
 Entrance animations must have a non-JS-dependent fallback (`useRevealOnScroll` reveals after 1s) — IntersectionObserver never fires in background tabs or some crawlers.
 Prefer local, square, dark-friendly thumbnails (e.g. `/assets/loosely-coupled-btg.jpg`) over white title-slide images.
+
+## Sourcing media / social content
+
+Instagram (and most social sites) redirect this sandbox to a login wall and rate-limit (302 / 429). Don't loop on search: check Gmail for handles/notifications, the itch.io page for links, then ask the user to upload the clip. An uploaded reel self-hosted beats a link-out (plays inline, no third-party script/CSP change).
+Strip location metadata from user media before committing (`-map_metadata -1`; Pillow WebP drops EXIF).
+`data-urls.test.ts` treats any string starting `word:` as a URL — don't start alt text/captions with "Reel:" etc.
 
 ## Fan-out (subagents)
 

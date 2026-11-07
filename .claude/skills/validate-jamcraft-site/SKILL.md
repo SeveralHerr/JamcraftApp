@@ -99,3 +99,8 @@ Repeat per iteration (the project asks for 10):
 6. Re-screenshot to confirm the fix; commit one concern per commit.
 
 Record any new gotcha here so the next run does not rediscover it.
+
+## Gotchas found
+- A header screenshot taken right after load can show no nav (fade-in still running). Measure `getBoundingClientRect` instead of trusting one frame.
+- Playwright works here with no MCP: `require('playwright')`, `page.$('#section').screenshot()`, `page.evaluate(<audit.js>)`.
+- To check self-hosted video under the CSP: `v.muted = true; await v.play()` then `currentTime > 0` and `v.error === null`.
