@@ -6,7 +6,9 @@ describe('Card', () => {
   it('should inherit the cursor so link cards show a pointer', () => {
     render(<Card>Link card</Card>);
 
-    expect(screen.getByText('Link card').closest('[data-hover]')).toHaveStyle({ cursor: 'inherit' });
+    // happy-dom 21 resolves the `inherit` keyword away in computed style, so assert the inline value.
+    const card = screen.getByText('Link card').closest<HTMLElement>('[data-hover]');
+    expect(card?.style.cursor).toBe('inherit');
   });
 
   it('should show a pointer when the card itself is clickable', () => {

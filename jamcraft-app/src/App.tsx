@@ -11,6 +11,7 @@ import { MobileNav } from "./components/layout/MobileNav";
 import { Footer } from "./components/layout/Footer";
 import { HeroSection } from "./portfolio/HeroSection";
 import { ProjectsSection } from "./portfolio-projects/ProjectsSection";
+import { CommissionsSection } from "./commissions/CommissionsSection";
 import { PodcastsSection } from "./podcasts/PodcastsSection";
 import { WorkshopsSection } from "./workshops/WorkshopsSection";
 import { SpeakingSection } from "./speaking/SpeakingSection";
@@ -63,6 +64,7 @@ function App() {
           <AppShell.Main id={MAIN_CONTENT_ID} tabIndex={-1} style={{ padding: 0, paddingTop: 60, outline: "none" }}>
             <HeroSection />
             <ProjectsSection />
+            <CommissionsSection />
             <PodcastsSection />
             <WorkshopsSection />
             <SpeakingSection />

@@ -40,7 +40,8 @@
 
 ## ✨ Features
 
-- **One scrolling page:** Home → Projects → Podcasts → Workshops → Speaking → Contact, with a scroll-spy header and deep links (`/#podcasts`; legacy `/projects` URLs redirect).
+- **One scrolling page:** Home → Projects → Commissions → Podcasts → Workshops → Speaking → Contact, with a scroll-spy header and deep links (`/#podcasts`; legacy `/projects` URLs redirect).
+- **Commission case studies:** client work shown as a hero photo, write-up and a self-hosted, click-to-play reel.
 - **Compact card grids:** projects, game jam submissions, podcast appearances (▶ Watch / 🎧 Listen), workshops and talks, all keyboard-focusable links.
 - **Polished dark theme:** pure black with a steel-blue accent, a portrait that fades into the background, entrance animations that play as each section scrolls into view.
 - **Accessible:** one `<h1>`, a skip link, `aria-expanded` mobile menu, visible focus rings, and reduced-motion support.
@@ -102,6 +103,7 @@ jamcraft-app/src/
 ├── portfolio-projects/    # Projects grid
 ├── game-jam-submissions/  # Jam entries (rendered inside Projects)
 ├── podcasts/              # Podcast appearances
+├── commissions/           # Client commissions (case studies)
 ├── workshops/             # Workshops
 ├── speaking/              # Talks & panels
 ├── social-presence/       # Social links + https-only URL guard
@@ -120,6 +122,7 @@ Content lives in plain TypeScript arrays. Add an object and the section updates 
 | Project (non-jam game, repo) | `src/portfolio-projects/data/portfolio-projects-data.ts` |
 | Game jam entry | `src/game-jam-submissions/data/game-jam-submissions-data.ts` (include `jamYear`) |
 | Podcast appearance | `src/podcasts/data/podcast-episodes-data.ts` |
+| Commission | `src/commissions/data/commissions-data.ts` |
 | Workshop | `src/workshops/data/workshops-data.ts` |
 | Talk / panel | `src/speaking/data/speaking-engagements-data.ts` |
 | Bio | `src/portfolio/data/profile-data.ts` (`bio` is a list of paragraphs) |
