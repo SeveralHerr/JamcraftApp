@@ -57,7 +57,7 @@ npm run test:coverage    # Generate coverage report
 - **Minimalist Cards:** Compact cards (72px thumbnail + title + one line via `components/ui/CompactCard.tsx`) laid out in responsive 2-column grids (1 column on mobile)
 - **Accessibility:** Reduced motion support, ARIA labels, focus management, skip-to-content link, one `<h1>` per page
 - **Security:** https-only URL validation, XSS prevention, noopener/noreferrer on external links, CSP + security headers (`customHttp.yml`)
-- **Testing:** 216 tests across 39 files, ~98% line coverage (`npm run test:coverage`)
+- **Testing:** 217 tests across 39 files, ~98% line coverage (`npm run test:coverage`)
 - **Deep Links:** `/#section` and legacy paths scroll to their section on first load (`resolveSectionFromHash` / `resolveLegacyPath`)
 - **Static Data, No Spinners:** Section data hooks compute data on first render (`useState(() => useCase...)`) — no loading state, no layout shift
 - **CI/CD:** Automated testing and deployment via AWS Amplify
@@ -235,7 +235,7 @@ Enforced by `coverage.thresholds` in `jamcraft-app/vitest.config.ts` (lines/stat
 
 ### Current Test Suite
 
-**216 tests across 39 files** (regenerate counts with `npx vitest run --reporter=json`):
+**217 tests across 39 files** (regenerate counts with `npx vitest run --reporter=json`):
 
 | Area | Files (tests) |
 |---|---|
@@ -243,7 +243,7 @@ Enforced by `coverage.thresholds` in `jamcraft-app/vitest.config.ts` (lines/stat
 | layout / shared UI | Header (6), Footer (6), MobileNav (3), Card (4), CompactCard (12), IconTile (1), PageHeader (3), Section (2), ErrorBoundary (5) |
 | hooks | useActiveSection (8), useReducedMotion (5), useRevealOnScroll (3) |
 | portfolio | HeroSection (5), JamcraftInvite (4), ProfileBio (3), ProfileImage (4) |
-| portfolio-projects | GetPortfolioProjects (10), PortfolioProjectCard (5) |
+| portfolio-projects | GetPortfolioProjects (11), PortfolioProjectCard (5) |
 | game-jam-submissions | GetGameJamSubmissions (7), formatJamLabel (3), GameJamCard (2) |
 | commissions | GetCommissions (3), CommissionShowcase (5), CommissionsSection (1) |
 | podcasts | GetPodcastEpisodes (8), episodeMediaLabel (5), PodcastEpisodeCard (6) |
@@ -330,6 +330,10 @@ Append an object to `src/podcasts/data/podcast-episodes-data.ts` (id, showName, 
 ### Adding an itch.io Game
 
 Non-jam games → `src/portfolio-projects/data/portfolio-projects-data.ts` (`platform: 'itch'`, cover from the itch page's `img.itch.zone` 315x250 crop). Jam games (page links to `itch.io/jam/...`) → `src/game-jam-submissions/data/game-jam-submissions-data.ts` with `jamYear`.
+
+### Adding a Steam Game
+
+Prepend to `src/portfolio-projects/data/portfolio-projects-data.ts` (`platform: 'steam'`, `projectUrl: https://store.steampowered.com/app/<appid>/<Name>/`). Get facts from `store.steampowered.com/api/storesearch/?term=<name>` → `api/appdetails?appids=<id>` (no login wall). Thumbnail: square-crop the `header_image` to a local `/assets/<id>.webp` (~200px) — don't hotlink the `?t=` cache-busted Steam CDN URL. Keep description ≤~100 chars (2 lines) and don't repeat "Steam" (badge shows it).
 
 ### Adding a Commission
 

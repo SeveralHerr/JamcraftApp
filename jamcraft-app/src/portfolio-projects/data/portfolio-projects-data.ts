@@ -2,6 +2,15 @@ import { PortfolioProject } from '../entities/PortfolioProject';
 
 export const PORTFOLIO_PROJECTS_DATA: PortfolioProject[] = [
   {
+    id: 'hot-sauce-survivor',
+    name: 'Hot Sauce Survivor',
+    description:
+      'The world has gone bland and you are the last hot sauce — survive hordes of mayo, ranch, and cheese.',
+    screenshotUrl: '/assets/hot-sauce-survivor.webp',
+    projectUrl: 'https://store.steampowered.com/app/5536220/Hot_Sauce_Survivor/',
+    platform: 'steam',
+  },
+  {
     id: 'a-maze',
     name: 'A-Maze',
     description:

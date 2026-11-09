@@ -80,6 +80,16 @@ describe('GetPortfolioProjects', () => {
     expect(harness?.projectUrl).toBe('https://github.com/SeveralHerr/godot-selftest-harness');
   });
 
+  it('should lead with the Hot Sauce Survivor Steam game', () => {
+    const useCase = new GetPortfolioProjects();
+    const [first] = useCase.execute();
+
+    expect(first.id).toBe('hot-sauce-survivor');
+    expect(first.platform).toBe('steam');
+    expect(first.projectUrl).toBe('https://store.steampowered.com/app/5536220/Hot_Sauce_Survivor/');
+    expect(first.screenshotUrl).toBe('/assets/hot-sauce-survivor.webp');
+  });
+
   it('should return consistent data on multiple calls', () => {
     const useCase = new GetPortfolioProjects();
 
