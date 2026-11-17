@@ -30,7 +30,7 @@ describe('coursesHtml', () => {
     const html = coursesHtml(COURSES, [dish({})], guest);
     expect(html.match(/class="course"/g)).toHaveLength(COURSES.length);
     expect(html.match(/data-act="add"/g)).toHaveLength(COURSES.length);
-    expect(html).toContain('Add another dish to Sides');
+    expect(html).toContain('Add another dish to Sides (1 dish so far)');
     expect(html).toContain('1 dish so far');
     expect(html).toContain('Bring anything');
   });
@@ -64,6 +64,7 @@ describe('guestsHtml', () => {
   it('is empty with no dishes and pluralizes households', () => {
     expect(guestsHtml([])).toBe('');
     expect(guestsHtml([dish({})])).toContain('1 household<');
+    expect(guestsHtml([dish({})])).toMatch(/^<h2 class="guests-h">/);
     expect(guestsHtml([dish({}), dish({ id: '2', name: 'Mo' })])).toContain('2 households');
   });
 });

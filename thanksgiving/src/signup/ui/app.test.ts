@@ -134,4 +134,8 @@ describe('sign-up app', () => {
     expect(page).toContain('<meta name="robots" content="noindex, nofollow">');
     expect(page).toContain('<noscript>');
   });
+
+  it('has a main landmark around the menu', () => {
+    expect(page).toMatch(/<main class="menu card"/);
+  });
 });

@@ -31,8 +31,9 @@ function dishRow(d: Dish, v: ViewState): string {
   return `<li class="item${mine ? ' mine' : ''}" data-iid="${esc(d.id)}"><span class="dish">${esc(d.dish)}</span><span class="sig"><span class="leader" aria-hidden="true"></span><span class="who">${esc(d.name)}</span>${mine ? '<span class="you-pill">You</span>' : ''}${ctl}</span>${d.note ? `<span class="note">${esc(d.note)}</span>` : ''}</li>`;
 }
 
-function signLine(c: Course, more: boolean): string {
-  return `<li class="item open"><button type="button" class="open-btn" data-act="add" data-id="${esc(c.id)}" aria-label="${more ? 'Add another dish to' : 'Sign up for'} ${esc(c.name)}"><span class="open-line" aria-hidden="true">${NIB}<span class="ph">${more ? 'add another dish…' : 'your dish &amp; name…'}</span></span><span class="claim" aria-hidden="true">${more ? 'add yours' : 'sign here'}</span></button></li>`;
+function signLine(c: Course, count: number): string {
+  const more = count > 0;
+  return `<li class="item open"><button type="button" class="open-btn" data-act="add" data-id="${esc(c.id)}" aria-label="${more ? 'Add another dish to' : 'Sign up for'} ${esc(c.name)}${more ? ` (${courseStatus(count)})` : ''}"><span class="open-line" aria-hidden="true">${NIB}<span class="ph">${more ? 'add another dish…' : 'your dish &amp; name…'}</span></span><span class="claim" aria-hidden="true">${more ? 'add yours' : 'sign here'}</span></button></li>`;
 }
 
 export function coursesHtml(courses: Course[], dishes: Dish[], v: ViewState): string {
@@ -43,7 +44,7 @@ export function coursesHtml(courses: Course[], dishes: Dish[], v: ViewState): st
         <span class="cat-pol" aria-hidden="true"><span class="tape"></span><img class="cat-photo" src="${photoUrl(c)}" alt="" width="120" height="120" decoding="async"></span>
         <div class="cat-title"><h3${c.name.length > 22 ? ' class="long"' : ''}>${esc(c.name)}</h3><div class="cat-sub">${courseStatus(list.length)}</div></div>
       </div>
-      <ul class="items">${list.map((d) => dishRow(d, v)).join('')}${signLine(c, list.length > 0)}</ul>
+      <ul class="items">${list.map((d) => dishRow(d, v)).join('')}${signLine(c, list.length)}</ul>
     </section>`;
   }).join('');
 }
@@ -51,7 +52,7 @@ export function coursesHtml(courses: Course[], dishes: Dish[], v: ViewState): st
 export function guestsHtml(dishes: Dish[]): string {
   const guests = guestsAtTable(dishes);
   if (!guests.length) return '';
-  return `<h4 class="guests-h">At the table<span class="gd" aria-hidden="true">·</span>${guests.length} household${guests.length === 1 ? '' : 's'}</h4>`
+  return `<h2 class="guests-h">At the table<span class="gd" aria-hidden="true">·</span>${guests.length} household${guests.length === 1 ? '' : 's'}</h2>`
     + `<ul class="place-cards">${guests.map((n) => `<li class="place-card" style="--tilt:${tiltFor(n)}deg"><span>${esc(n)}</span></li>`).join('')}</ul>`;
 }
 
