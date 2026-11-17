@@ -428,3 +428,6 @@
     .cat-head{gap:12px}
   }
 
+
+  /* long dish names: shrink a little rather than crop in the edit card */
+  .field input#f_dish{text-overflow:ellipsis}

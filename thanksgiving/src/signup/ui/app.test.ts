@@ -45,7 +45,7 @@ describe('sign-up app', () => {
     await signUp(1, 'Green beans', 'Aunt Linda');
     expect($('#scrim').classList.contains('show')).toBe(false);
     expect($('#list').textContent).toContain('Green beans');
-    expect($('#toast').textContent).toContain('Aunt Linda');
+    expect($('#toast').textContent).toContain('Thank you, Aunt Linda!');
     expect(identity.getName()).toBe('Aunt Linda');
     expect(document.querySelector('#cat-sides li.item-flash')?.textContent).toContain('Green beans');
     expect($('#sumText').textContent).toBe('1 dish on the menu so far');
@@ -91,6 +91,15 @@ describe('sign-up app', () => {
     rm.click();
     await tick();
     expect($('#list').textContent).not.toContain('Spinach dip');
+  });
+
+  it('hides the toast when a sheet opens and keeps toast text short', async () => {
+    await boot();
+    await signUp(0, 'A very long dish name that goes on and on for a while', 'Jo');
+    expect($('#toast').textContent!.length).toBeLessThan(60);
+    expect($('#toast').classList.contains('show')).toBe(true);
+    ($('#cat-sides [data-act="add"]') as HTMLButtonElement).click();
+    expect($('#toast').classList.contains('show')).toBe(false);
   });
 
   it('hides controls on other people’s dishes unless in host mode', async () => {

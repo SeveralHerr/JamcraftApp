@@ -62,7 +62,9 @@ export function startApp({ repo, identity, event, courses, host, preview = false
     { key: 'note', label: 'Notes (optional)', value: d?.note ?? '', placeholder: 'serves 10, nut-free…', max: LIMITS.note },
   ];
 
-  const openAdd = (course: Course) => sheet.open({
+  const hideToast = () => { clearTimeout(toastTimer); $('#toast').classList.remove('show'); };
+
+  const openAdd = (course: Course) => { hideToast(); sheet.open({
     title: course.name, kicker: 'Recipe card · sign-up', photo: photoUrl(course), saveLabel: 'Sign the menu',
     subHtml: alreadyComingHtml(dishesForCourse(dishes, course.id)), fields: fields(undefined, course),
     onSave: async (v) => {
@@ -71,11 +73,12 @@ export function startApp({ repo, identity, event, courses, host, preview = false
       const added = await repo.add({ ...clean, courseId: course.id, clientId: identity.clientId });
       flashId = added.id;
       flash(added.id);
-      toast(`Thank you, ${clean.name}! ${clean.dish} is on the menu.`);
+      toast(`Thank you, ${clean.name}! You’re on the menu.`);
     },
-  });
+  }); };
 
   const openEdit = (d: Dish) => {
+    hideToast();
     const course = courses.find((c) => c.id === d.courseId);
     sheet.open({
       title: d.clientId === identity.clientId ? 'Edit your dish' : `Edit ${d.name}’s dish`, kicker: 'Recipe card · edit', photo: course && photoUrl(course), saveLabel: 'Save', fields: fields(d, course),
