@@ -47,6 +47,7 @@ describe('sign-up app', () => {
     expect($('#list').textContent).toContain('Green beans');
     expect($('#toast').textContent).toContain('Aunt Linda');
     expect(identity.getName()).toBe('Aunt Linda');
+    expect(document.querySelector('#cat-sides li.item-flash')?.textContent).toContain('Green beans');
     expect($('#sumText').textContent).toBe('1 dish on the menu so far');
 
     ($('#cat-sides [data-act="add"]') as HTMLButtonElement).click();
@@ -98,6 +99,8 @@ describe('sign-up app', () => {
     expect(document.querySelectorAll('[data-act="rm"]')).toHaveLength(0);
     await boot(true, repo);
     expect(document.querySelectorAll('[data-act="rm"]')).toHaveLength(1);
+    ($('[data-act="edit"]') as HTMLButtonElement).click();
+    expect($('#sheetTitle').textContent).toBe('Edit Mo’s dish');
   });
 
   it('closes on Escape and on the ✕ button, and reveals the name field on change', async () => {
@@ -118,5 +121,11 @@ describe('sign-up app', () => {
     repo.subscribe = (_ok, fail) => { fail(new Error('x')); return () => {}; };
     await boot(false, repo);
     expect($('#notice').textContent).toContain('Couldn’t load');
+  });
+
+  it('has link-preview metadata for texting the link', () => {
+    expect(page).toMatch(/<meta property="og:title" content="[^"]+">/);
+    expect(page).toMatch(/<meta property="og:image" content="https:\/\/[^"]+\.jpg">/);
+    expect(page).toContain('name="twitter:card"');
   });
 });

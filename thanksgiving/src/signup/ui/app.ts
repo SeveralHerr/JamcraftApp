@@ -13,6 +13,7 @@ export function startApp({ repo, identity, event, courses, host, preview = false
   let dishes: Dish[] = [];
   let loaded = false;
   let toastTimer: ReturnType<typeof setTimeout> | undefined;
+  let flashId: string | null = null;
   const sheet = new Sheet((err) => (err instanceof DishValidationError ? err.message : 'Couldn’t save. Check your connection and try again.'));
 
   $('#title').textContent = event.title;
@@ -37,6 +38,16 @@ export function startApp({ repo, identity, event, courses, host, preview = false
     $('#guests').innerHTML = g;
     $('#guestsSide').innerHTML = g && `<span class="tape" aria-hidden="true"></span>${g}`;
     $('#guests').hidden = $('#guestsSide').hidden = !g;
+    if (flashId) flash(flashId);
+  };
+
+  const flash = (id: string) => {
+    const li = [...document.querySelectorAll<HTMLElement>('#list li[data-iid]')].find((el) => el.dataset.iid === id);
+    if (!li) return;
+    flashId = null;
+    li.classList.add('item-flash');
+    li.scrollIntoView?.({ block: 'nearest', behavior: matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    setTimeout(() => li.classList.remove('item-flash'), 1600);
   };
 
   const loadTimer = setTimeout(() => notice('Still setting the table… check your connection.'), 10000);
@@ -57,7 +68,9 @@ export function startApp({ repo, identity, event, courses, host, preview = false
     onSave: async (v) => {
       const clean = cleanDishInput(v);
       identity.setName(clean.name);
-      await repo.add({ ...clean, courseId: course.id, clientId: identity.clientId });
+      const added = await repo.add({ ...clean, courseId: course.id, clientId: identity.clientId });
+      flashId = added.id;
+      flash(added.id);
       toast(`Thank you, ${clean.name}! ${clean.dish} is on the menu.`);
     },
   });
@@ -65,7 +78,7 @@ export function startApp({ repo, identity, event, courses, host, preview = false
   const openEdit = (d: Dish) => {
     const course = courses.find((c) => c.id === d.courseId);
     sheet.open({
-      title: 'Edit your dish', kicker: 'Recipe card · edit', photo: course && photoUrl(course), saveLabel: 'Save', fields: fields(d, course),
+      title: d.clientId === identity.clientId ? 'Edit your dish' : `Edit ${d.name}’s dish`, kicker: 'Recipe card · edit', photo: course && photoUrl(course), saveLabel: 'Save', fields: fields(d, course),
       onSave: async (v) => { const clean = cleanDishInput(v); await repo.update(d.id, clean); toast('Updated.'); },
     });
   };
