@@ -25,7 +25,8 @@ describe('guestsAtTable', () => {
 describe('courseStatus', () => {
   it('invites anything when empty and counts otherwise', () => {
     expect(courseStatus(0)).toBe('Bring anything');
-    expect(courseStatus(3)).toBe('3 so far');
+    expect(courseStatus(1)).toBe('1 dish so far');
+    expect(courseStatus(3)).toBe('3 dishes so far');
   });
 });
 

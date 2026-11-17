@@ -25,7 +25,7 @@ export function guestsAtTable(dishes: Dish[]): string[] {
 }
 
 export function courseStatus(count: number): string {
-  return count ? `${count} so far` : 'Bring anything';
+  return count ? `${count} dish${count === 1 ? '' : 'es'} so far` : 'Bring anything';
 }
 
 export function menuSummary(dishes: Dish[], courses: Course[]): string {

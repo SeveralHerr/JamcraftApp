@@ -127,5 +127,6 @@ describe('sign-up app', () => {
     expect(page).toMatch(/<meta property="og:title" content="[^"]+">/);
     expect(page).toMatch(/<meta property="og:image" content="https:\/\/[^"]+\.jpg">/);
     expect(page).toContain('name="twitter:card"');
+    expect(page).toContain('rel="apple-touch-icon"');
   });
 });

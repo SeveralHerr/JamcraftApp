@@ -258,6 +258,8 @@
     color:var(--cranberry);font:700 6.5px/1 var(--serif);letter-spacing:.12em;text-indent:.12em;
     transform:rotate(12deg);opacity:.7;mix-blend-mode:multiply;pointer-events:none;z-index:1;animation:stamp 1.5s ease-out both}
   @media (max-width:420px){li.item.item-flash>.sig::after{right:-14px}}
+  /* your own row has ✎/✕ at the right edge: stamp over the dotted leader instead */
+  li.item.mine.item-flash>.sig::after{right:auto;left:8px}
   @keyframes stamp{
     0%{opacity:0;transform:rotate(12deg) scale(1.6)}
     14%{opacity:.78;transform:rotate(12deg) scale(.94)}

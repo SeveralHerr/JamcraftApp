@@ -31,7 +31,7 @@ describe('coursesHtml', () => {
     expect(html.match(/class="course"/g)).toHaveLength(COURSES.length);
     expect(html.match(/data-act="add"/g)).toHaveLength(COURSES.length);
     expect(html).toContain('Add another dish to Sides');
-    expect(html).toContain('1 so far');
+    expect(html).toContain('1 dish so far');
     expect(html).toContain('Bring anything');
   });
 
