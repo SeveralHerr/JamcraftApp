@@ -129,4 +129,9 @@ describe('sign-up app', () => {
     expect(page).toContain('name="twitter:card"');
     expect(page).toContain('rel="apple-touch-icon"');
   });
+
+  it('asks search engines not to index the family page and explains itself without JavaScript', () => {
+    expect(page).toContain('<meta name="robots" content="noindex, nofollow">');
+    expect(page).toContain('<noscript>');
+  });
 });
